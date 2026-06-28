@@ -1,0 +1,125 @@
+name: Build & Release
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Version tag (e.g. v2.5.0)'
+        required: true
+        default: 'v2.5.0'
+
+jobs:
+  build:
+    name: Build for ${{ matrix.rid }}
+    runs-on: windows-latest
+    strategy:
+      matrix:
+        include:
+          - rid: win-x64
+            artifact: SystemRestoreTool-standalone-win-x64
+            friendly: Windows x64 (Intel/AMD)
+          - rid: win-x86
+            artifact: SystemRestoreTool-standalone-win-x86
+            friendly: Windows x86 (32-bit)
+          - rid: win-arm64
+            artifact: SystemRestoreTool-standalone-win-arm64
+            friendly: Windows ARM64 (Surface/Qualcomm)
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔧 Setup .NET 6
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '6.0.x'
+
+      - name: 📦 Restore dependencies
+        run: dotnet restore
+
+      - name: 🏗 Build (Release)
+        run: dotnet build -c Release --no-restore
+
+      - name: 📤 Publish self-contained (${{ matrix.rid }})
+        run: |
+          dotnet publish -c Release -r ${{ matrix.rid }} `
+            --self-contained true `
+            -p:PublishSingleFile=true `
+            -p:IncludeNativeLibrariesForSelfExtract=true `
+            -p:EnableCompressionInSingleFile=true `
+            -o ./publish-standalone
+
+      - name: 📤 Publish compact (${{ matrix.rid }})
+        run: |
+          dotnet publish -c Release -r ${{ matrix.rid }} `
+            --self-contained false `
+            -p:PublishSingleFile=true `
+            -o ./publish-compact
+
+      - name: 📦 Zip standalone
+        run: |
+          Compress-Archive -Path ./publish-standalone/SystemRestoreTool.exe `
+                            -DestinationPath ${{ matrix.artifact }}.zip
+
+      - name: 📦 Zip compact
+        run: |
+          Compress-Archive -Path ./publish-compact/SystemRestoreTool.exe `
+                            -DestinationPath ${{ matrix.artifact }}-compact.zip
+
+      - name: 🔐 Generate SHA256
+        shell: pwsh
+        run: |
+          Get-FileHash ${{ matrix.artifact }}.zip -Algorithm SHA256 | Format-List > ${{ matrix.artifact }}.zip.sha256
+          Get-FileHash ${{ matrix.artifact }}-compact.zip -Algorithm SHA256 | Format-List > ${{ matrix.artifact }}-compact.zip.sha256
+
+      - name: 📤 Upload standalone artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}
+          path: |
+            ${{ matrix.artifact }}.zip
+            ${{ matrix.artifact }}.zip.sha256
+
+      - name: 📤 Upload compact artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ${{ matrix.artifact }}-compact
+          path: |
+            ${{ matrix.artifact }}-compact.zip
+            ${{ matrix.artifact }}-compact.zip.sha256
+
+  release:
+    name: 🚀 Create GitHub Release
+    needs: build
+    runs-on: ubuntu-latest
+    if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 📥 Download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: ./artifacts
+
+      - name: 📋 List artifacts
+        run: find ./artifacts -type f | sort
+
+      - name: 🚀 Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.event.inputs.version || github.ref_name }}
+          name: ${{ github.event.inputs.version || github.ref_name }}
+          body_path: CHANGELOG.md
+          files: |
+            ./artifacts/**/*.zip
+            ./artifacts/**/*.sha256
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

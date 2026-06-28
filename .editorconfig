@@ -1,0 +1,37 @@
+# EditorConfig — https://editorconfig.org
+# Сохраняет единый стиль кода во всех редакторах и IDE
+
+root = true
+
+[*]
+charset = utf-8
+end_of_line = lf
+insert_final_newline = true
+trim_trailing_whitespace = true
+indent_style = space
+indent_size = 4
+
+[*.{csproj,xml,config,manifest}]
+indent_size = 2
+
+[*.{json,yml,yaml}]
+indent_size = 2
+
+[*.{md,markdown}]
+trim_trailing_whitespace = false  # Markdown требует trailing spaces для переноса строк
+
+# C#-специфичные правила
+[*.cs]
+# Современные C#-паттерны
+csharp_style_namespace_declarations = file_scoped:warning
+csharp_style_var_for_built_in_types = false:suggestion
+csharp_style_var_when_type_is_apparent = true:suggestion
+csharp_style_expression_bodied_methods = when_on_single_line:suggestion
+
+# Имена
+dotnet_naming_rule.private_fields_underscore.symbols = private_fields
+dotnet_naming_rule.private_fields_underscore.style = camel_case_underscore
+dotnet_naming_rule.private_fields_underscore.severity = none  # без префикса _
+
+# Предпочтения using
+csharp_using_directive_placement = outside_namespace:warning

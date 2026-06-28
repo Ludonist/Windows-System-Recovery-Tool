@@ -1,0 +1,43 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0-windows10.0.19041.0</TargetFramework>
+    <UseWindowsForms>false</UseWindowsForms>
+    <UseWPF>false</UseWPF>
+    <RootNamespace>SystemRestoreTool</RootNamespace>
+    <AssemblyName>SystemRestoreTool</AssemblyName>
+    <Platforms>x64;x86;ARM64</Platforms>
+    <RuntimeIdentifiers>win-x64;win-x86;win-arm64</RuntimeIdentifiers>
+    <SelfContained>false</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <PublishReadyToRun>true</PublishReadyToRun>
+    <LangVersion>latest</LangVersion>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <EnableWindowsTargeting>true</EnableWindowsTargeting>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
+
+    <Version>2.5.0</Version>
+    <Company>Ludonist</Company>
+    <Product>Windows System Recovery Tool</Product>
+    <Description>Прямое восстановление системных файлов Windows 10/11 через Win32 API: DISM, SFC, WinTrust, SetupAPI, PowrProf и др.</Description>
+    <Copyright>MIT License — Copyright (c) 2026 Ludonist</Copyright>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/Ludonist/Windows-System-Recovery-Tool</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/Ludonist/Windows-System-Recovery-Tool</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>windows;recovery;dism;sfc;win32;api;system;restore</PackageTags>
+  </PropertyGroup>
+
+  <!-- Microsoft.Dism NuGet — нативная управляемая обёртка над DISM API -->
+  <ItemGroup>
+    <PackageReference Include="Microsoft.Dism" Version="3.2.0" />
+  </ItemGroup>
+
+  <!-- System.Management для WMI (проверка EFI, дисков и т.д.) -->
+  <ItemGroup>
+    <PackageReference Include="System.Management" Version="6.0.0" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,104 @@
+---
+name: 🐛 Bug Report
+about: Report a bug to help us improve
+title: "[BUG] "
+labels: ["bug", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Спасибо за отчёт об ошибке! Пожалуйста, заполните форму ниже.
+        Thank you for taking the time to report a bug!
+
+  - type: input
+    id: version
+    attributes:
+      label: Версия программы / Program version
+      placeholder: "v2.5.1"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: Язык интерфейса / UI language
+      options:
+        - Русский (RU)
+        - English (EN)
+        - 简体中文 (ZH)
+    validations:
+      required: true
+
+  - type: input
+    id: windows
+    attributes:
+      label: Версия Windows / Windows version
+      placeholder: "Windows 11 23H2 build 22631.3007"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: arch
+    attributes:
+      label: Архитектура / Architecture
+      options:
+        - x64 (Intel/AMD)
+        - x86 (32-bit)
+        - ARM64 (Surface/Qualcomm)
+    validations:
+      required: true
+
+  - type: dropdown
+    id: build
+    attributes:
+      label: Тип сборки / Build type
+      options:
+        - Standalone (includes .NET)
+        - Compact (requires .NET 6 Runtime)
+        - Built from source
+    validations:
+      required: true
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: Что произошло? / What happened?
+      description: Опишите проблему подробно. Describe the issue in detail.
+      placeholder: "При запуске пункта 13 программа..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: Ожидаемое поведение / Expected behavior
+      placeholder: "Программа должна была..."
+
+  - type: textarea
+    id: steps
+    attributes:
+      label: Шаги воспроизведения / Steps to reproduce
+      placeholder: |
+        1. Запустите программу от имени администратора
+        2. Выберите пункт 13
+        3. ...
+
+  - type: textarea
+    id: logs
+    attributes:
+      label: Логи / Logs
+      description: |
+        Приложите содержимое файла `%LOCALAPPDATA%\SystemRestoreTool\srt_*.log`
+        Attach the log file content from `%LOCALAPPDATA%\SystemRestoreTool\srt_*.log`
+      render: shell
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Подтверждения / Confirmations
+      options:
+        - label: Я запускал программу от имени администратора / I ran the program as administrator
+          required: true
+        - label: Я проверил, что такой issue ещё не создавался / I checked that this issue hasn't been reported
+          required: true

@@ -1,0 +1,45 @@
+---
+name: 💡 Feature Request
+about: Suggest an idea for this project
+title: "[FEAT] "
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Какую проблему решает фича? / What problem does this feature solve?
+      placeholder: "Я не могу проверить..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: Предлагаемое решение / Proposed solution
+      placeholder: "Добавить пункт меню..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Альтернативы / Alternatives considered
+      placeholder: "Можно было бы..."
+
+  - type: input
+    id: api
+    attributes:
+      label: Win32 API / DLL (если знаете / if known)
+      placeholder: "advapi32.dll!LogonUser"
+
+  - type: dropdown
+    id: language
+    attributes:
+      label: UI language / Язык интерфейса
+      options:
+        - Любой / Any
+        - Русский (RU)
+        - English (EN)
+        - 简体中文 (ZH)
+    validations:
+      required: true

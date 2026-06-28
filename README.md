@@ -131,21 +131,23 @@
 
 ## 📥 Установка
 
-### Вариант 1: Self-contained (рекомендуется)
+### Вариант 1: Скачать готовый EXE (рекомендуется)
 
-**Не требует установки .NET** — всё уже внутри.
+**Прямые ссылки на бинарники** (свежая сборка, ничего не требует):
 
-1. Скачайте `SystemRestoreTool-standalone-win-x64.zip` с [Releases](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases)
-2. Распакуйте в любую папку
-3. Правый клик на `SystemRestoreTool.exe` → **Запуск от имени администратора**
+| Architecture | Standalone (включает .NET) | Compact (требует .NET 6) |
+|--------------|----------------------------:|--------------------------:|
+| **x64** (Intel/AMD) | [standalone-win-x64.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/raw/releases/v2.5.0/releases/SystemRestoreTool-standalone-win-x64.zip) (~40 MB) | [compact-win-x64.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/latest) (~7 MB) |
+| **x86** (32-bit) | [standalone-win-x86.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/raw/releases/v2.5.0/releases/SystemRestoreTool-standalone-win-x86.zip) (~37 MB) | [compact-win-x86.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/latest) (~7 MB) |
+| **ARM64** (Surface/Qualcomm) | [standalone-win-arm64.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/raw/releases/v2.5.0/releases/SystemRestoreTool-standalone-win-arm64.zip) (~33 MB) | [compact-win-arm64.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/latest) (~6 MB) |
 
-### Вариант 2: Compact (требует .NET 6)
+**Standalone-версия** (рекомендуется) — включает .NET 6 Runtime, ничего не требует.
 
-Если у вас уже установлен .NET 6 Desktop Runtime:
+**Compact-версия** — требует установки [.NET Desktop Runtime 6.0+](https://dotnet.microsoft.com/download/dotnet/6.0).
 
-1. Установите [.NET Desktop Runtime 6.0.x](https://dotnet.microsoft.com/download/dotnet/6.0) (если ещё нет)
-2. Скачайте `SystemRestoreTool-compact-win-x64.zip` с [Releases](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases)
-3. Распакуйте и запустите от имени администратора
+### Вариант 2: GitHub Releases
+
+Все бинарники также на странице [Releases](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases) — там же SHA256 для проверки целостности.
 
 ### Вариант 3: Сборка из исходников
 
@@ -157,6 +159,14 @@
 - **Архитектура**: x64 / x86 / ARM64
 - **Права**: Администратор (манифест уже это указывает)
 - **Для compact-сборки**: .NET Desktop Runtime 6.0+
+
+### Проверка целостности
+
+После скачивания проверьте SHA256:
+```cmd
+certutil -hashfile SystemRestoreTool-standalone-win-x64.zip SHA256
+```
+Сравните с [SHA256SUMS.txt](https://github.com/Ludonist/Windows-System-Recovery-Tool/raw/releases/v2.5.0/releases/SHA256SUMS.txt).
 
 ---
 

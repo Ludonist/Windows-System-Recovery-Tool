@@ -11,22 +11,28 @@ on:
         required: true
         default: 'v2.5.0'
 
+# Права для создания Release и загрузки артефактов
+permissions:
+  contents: write
+  actions: read
+
 jobs:
   build:
     name: Build for ${{ matrix.rid }}
     runs-on: windows-latest
     strategy:
+      fail-fast: false  # не отменять другие сборки при ошибке одной
       matrix:
         include:
           - rid: win-x64
             artifact: SystemRestoreTool-standalone-win-x64
-            friendly: Windows x64 (Intel/AMD)
+            r2r: 'true'
           - rid: win-x86
             artifact: SystemRestoreTool-standalone-win-x86
-            friendly: Windows x86 (32-bit)
+            r2r: 'true'
           - rid: win-arm64
             artifact: SystemRestoreTool-standalone-win-arm64
-            friendly: Windows ARM64 (Surface/Qualcomm)
+            r2r: 'false'  # ARM64 crossgen2 crashes on Linux, disable R2R
 
     steps:
       - name: 📥 Checkout
@@ -43,13 +49,14 @@ jobs:
       - name: 🏗 Build (Release)
         run: dotnet build -c Release --no-restore
 
-      - name: 📤 Publish self-contained (${{ matrix.rid }})
+      - name: 📤 Publish standalone (${{ matrix.rid }})
         run: |
           dotnet publish -c Release -r ${{ matrix.rid }} `
             --self-contained true `
             -p:PublishSingleFile=true `
             -p:IncludeNativeLibrariesForSelfExtract=true `
             -p:EnableCompressionInSingleFile=true `
+            -p:PublishReadyToRun=${{ matrix.r2r }} `
             -o ./publish-standalone
 
       - name: 📤 Publish compact (${{ matrix.rid }})
@@ -57,6 +64,7 @@ jobs:
           dotnet publish -c Release -r ${{ matrix.rid }} `
             --self-contained false `
             -p:PublishSingleFile=true `
+            -p:PublishReadyToRun=${{ matrix.r2r }} `
             -o ./publish-compact
 
       - name: 📦 Zip standalone
@@ -72,8 +80,8 @@ jobs:
       - name: 🔐 Generate SHA256
         shell: pwsh
         run: |
-          Get-FileHash ${{ matrix.artifact }}.zip -Algorithm SHA256 | Format-List > ${{ matrix.artifact }}.zip.sha256
-          Get-FileHash ${{ matrix.artifact }}-compact.zip -Algorithm SHA256 | Format-List > ${{ matrix.artifact }}-compact.zip.sha256
+          (Get-FileHash ${{ matrix.artifact }}.zip -Algorithm SHA256).Hash | Out-File -Encoding ascii ${{ matrix.artifact }}.zip.sha256
+          (Get-FileHash ${{ matrix.artifact }}-compact.zip -Algorithm SHA256).Hash | Out-File -Encoding ascii ${{ matrix.artifact }}-compact.zip.sha256
 
       - name: 📤 Upload standalone artifact
         uses: actions/upload-artifact@v4
@@ -96,6 +104,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     if: startsWith(github.ref, 'refs/tags/v') || github.event_name == 'workflow_dispatch'
+    permissions:
+      contents: write  # обязательно для создания release
 
     steps:
       - name: 📥 Checkout
@@ -109,12 +119,55 @@ jobs:
       - name: 📋 List artifacts
         run: find ./artifacts -type f | sort
 
+      - name: 📝 Prepare release notes
+        shell: bash
+        run: |
+          cat > RELEASE_NOTES.md << 'EOF'
+          # Windows System Recovery Tool v2.5.0
+          
+          ## 🌐 Multilingual UI (RU / EN / 中文)
+          
+          Russian · English · 简体中文
+          
+          ## Downloads
+          
+          | File | Architecture | Type | Size |
+          |------|--------------|------|------|
+          | SystemRestoreTool-standalone-win-x64.zip | x64 (Intel/AMD) | Self-contained | ~40 MB |
+          | SystemRestoreTool-standalone-win-x86.zip | x86 (32-bit) | Self-contained | ~37 MB |
+          | SystemRestoreTool-standalone-win-arm64.zip | ARM64 (Surface/Qualcomm) | Self-contained | ~33 MB |
+          | SystemRestoreTool-compact-win-x64.zip | x64 | Requires .NET 6 | ~7 MB |
+          | SystemRestoreTool-compact-win-x86.zip | x86 | Requires .NET 6 | ~7 MB |
+          | SystemRestoreTool-compact-win-arm64.zip | ARM64 | Requires .NET 6 | ~6 MB |
+          
+          ## Verification
+          
+          Verify SHA256 checksums (files ending in `.sha256`).
+          
+          ## Installation
+          
+          1. Download the ZIP for your architecture
+          2. Extract `SystemRestoreTool.exe`
+          3. Right-click → **Run as administrator**
+          
+          ## Features
+          
+          - 17 native Win32 APIs through P/Invoke (no shell commands)
+          - 67 recovery and diagnostic operations
+          - 14 recovery modules (DISM, SFC, WinTrust, SCM, SetupAPI, etc.)
+          - File tampering detection via WinVerifyTrust
+          - Microsoft.Dism NuGet + COM WUA API integration
+          - Multilingual UI: RU / EN / ZH
+          
+          Full changelog: https://github.com/Ludonist/Windows-System-Recovery-Tool/blob/main/CHANGELOG.md
+          EOF
+
       - name: 🚀 Create Release
         uses: softprops/action-gh-release@v2
         with:
           tag_name: ${{ github.event.inputs.version || github.ref_name }}
           name: ${{ github.event.inputs.version || github.ref_name }}
-          body_path: CHANGELOG.md
+          body_path: RELEASE_NOTES.md
           files: |
             ./artifacts/**/*.zip
             ./artifacts/**/*.sha256

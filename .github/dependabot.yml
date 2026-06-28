@@ -1,15 +1,17 @@
 # Dependabot — автоматическое обновление зависимостей
+# ВНИМАНИЕ: только NuGet-пакеты. GitHub Actions обновляем вручную,
+# чтобы не плодить лишние ветки (Dependabot часто предлагает несуществующие версии).
 version: 2
 updates:
   # NuGet-пакеты
   - package-ecosystem: "nuget"
     directory: "/"
     schedule:
-      interval: "weekly"
+      interval: "monthly"
       day: "monday"
       time: "06:00"
       timezone: "Europe/Moscow"
-    open-pull-requests-limit: 5
+    open-pull-requests-limit: 3
     labels:
       - "dependencies"
       - "nuget"
@@ -19,20 +21,8 @@ updates:
     reviewers:
       - "Ludonist"
 
-  # GitHub Actions
-  - package-ecosystem: "github-actions"
-    directory: "/"
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "06:00"
-      timezone: "Europe/Moscow"
-    open-pull-requests-limit: 5
-    labels:
-      - "dependencies"
-      - "github-actions"
-    commit-message:
-      prefix: "ci"
-      include: "scope"
-    reviewers:
-      - "Ludonist"
+  # GitHub Actions — отключено (обновляем вручную)
+  # - package-ecosystem: "github-actions"
+  #   directory: "/"
+  #   schedule:
+  #     interval: "monthly"

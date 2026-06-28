@@ -11,7 +11,29 @@
 - GUI-версия (WPF) с графикой вместо консоли
 - Поддержка Windows Server 2022/2025 как отдельных профилей
 - Автоматическое распознавание "битых" пакетов через CBS.log
-- Локализация интерфейса (English / 中文 / Deutsch)
+- Локализация интерфейса (Deutsch, Français, Español, 日本語)
+
+## [2.5.1] — 2026-06-28
+
+### Изменено
+- **Версия во всех файлах обновлена до 2.5.1** (README, Program.cs, .csproj, app.manifest, Resources/strings.*.json)
+- **Прямые ссылки на скачивание** в README указывают на GitHub Releases v2.5.1 (вместо ветки releases/v2.5.0)
+- **GitHub Actions workflow** исправлен:
+  - `PublishReadyToRun=false` для ARM64 (раньше крашился crossgen2)
+  - `fail-fast: false` — одна архитектура не отменяет другие
+  - Явные `permissions: contents: write` для создания релиза
+  - Обновлены версии actions: checkout v5, setup-dotnet v5, action-gh-release v3
+
+### Удалено
+- 4 временные ветки Dependabot (cleanup)
+- Dependabot для `github-actions` ecosystem (оставлен только для NuGet) — раньше создавал PR с несуществующими версиями
+
+### Без изменений (относительно v2.5.0)
+- 17 нативных Win32 API
+- 67 операций в меню
+- 14 модулей восстановления
+- 3 языка интерфейса (RU/EN/ZH)
+- 5 скриншотов в `docs/screenshots/`
 
 ## [2.5.0] — 2026-06-28
 
@@ -110,7 +132,8 @@
 - Базовое меню из 15 пунктов
 - Логирование в `%LOCALAPPDATA%\SystemRestoreTool\srt_*.log`
 
-[Unreleased]: https://github.com/Ludonist/Windows-System-Recovery-Tool/compare/v2.5.0...HEAD
+[Unreleased]: https://github.com/Ludonist/Windows-System-Recovery-Tool/compare/v2.5.1...HEAD
+[2.5.1]: https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1
 [2.5.0]: https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.0
 [2.0.0]: https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.0.0
 [1.0.0]: https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v1.0.0

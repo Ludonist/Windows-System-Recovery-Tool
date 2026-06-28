@@ -6,7 +6,7 @@
 ![Architecture](https://img.shields.io/badge/arch-x86%20%7C%20x64%20%7C%20ARM64-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![.NET](https://img.shields.io/badge/.NET-6.0-purple)
-![Version](https://img.shields.io/badge/version-2.5.0-brightgreen)
+![Version](https://img.shields.io/badge/version-2.5.1-brightgreen)
 ![Language](https://img.shields.io/badge/lang-C%23%2010-success)
 ![Languages](https://img.shields.io/badge/UI%20languages-RU%20%7C%20EN%20%7C%20中文-red)
 
@@ -137,9 +137,9 @@
 
 | Architecture | Standalone (включает .NET) | Compact (требует .NET 6) |
 |--------------|----------------------------:|--------------------------:|
-| **x64** (Intel/AMD) | [standalone-win-x64.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/raw/releases/v2.5.0/releases/SystemRestoreTool-standalone-win-x64.zip) (~40 MB) | [compact-win-x64.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/latest) (~7 MB) |
-| **x86** (32-bit) | [standalone-win-x86.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/raw/releases/v2.5.0/releases/SystemRestoreTool-standalone-win-x86.zip) (~37 MB) | [compact-win-x86.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/latest) (~7 MB) |
-| **ARM64** (Surface/Qualcomm) | [standalone-win-arm64.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/raw/releases/v2.5.0/releases/SystemRestoreTool-standalone-win-arm64.zip) (~33 MB) | [compact-win-arm64.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/latest) (~6 MB) |
+| **x64** (Intel/AMD) | [standalone-win-x64.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/download/v2.5.1/SystemRestoreTool-standalone-win-x64.zip) (~40 MB) | [compact-win-x64.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/download/v2.5.1/SystemRestoreTool-standalone-win-x64-compact.zip) (~7 MB) |
+| **x86** (32-bit) | [standalone-win-x86.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/download/v2.5.1/SystemRestoreTool-standalone-win-x86.zip) (~37 MB) | [compact-win-x86.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/download/v2.5.1/SystemRestoreTool-standalone-win-x86-compact.zip) (~7 MB) |
+| **ARM64** (Surface/Qualcomm) | [standalone-win-arm64.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/download/v2.5.1/SystemRestoreTool-standalone-win-arm64.zip) (~33 MB) | [compact-win-arm64.zip](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/download/v2.5.1/SystemRestoreTool-standalone-win-arm64-compact.zip) (~6 MB) |
 
 **Standalone-версия** (рекомендуется) — включает .NET 6 Runtime, ничего не требует.
 
@@ -147,7 +147,7 @@
 
 ### Вариант 2: GitHub Releases
 
-Все бинарники также на странице [Releases](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases) — там же SHA256 для проверки целостности.
+Все бинарники также на странице [Releases v2.5.1](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1) — там же SHA256 для проверки целостности.
 
 ### Вариант 3: Сборка из исходников
 
@@ -166,7 +166,7 @@
 ```cmd
 certutil -hashfile SystemRestoreTool-standalone-win-x64.zip SHA256
 ```
-Сравните с [SHA256SUMS.txt](https://github.com/Ludonist/Windows-System-Recovery-Tool/raw/releases/v2.5.0/releases/SHA256SUMS.txt).
+Сравните с SHA256-файлами (`.sha256`) рядом с каждым архивом на странице [Releases v2.5.1](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1).
 
 ---
 

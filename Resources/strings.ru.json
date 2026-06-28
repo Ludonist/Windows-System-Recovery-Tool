@@ -8,7 +8,7 @@
 
   "banner": {
     "title": "WINDOWS SYSTEM RECOVERY TOOL",
-    "version": "v2.5.0",
+    "version": "v2.5.1",
     "subtitle": "Прямое восстановление системных файлов Windows 10/11",
     "features_api": "17 нативных Win32 API через P/Invoke",
     "features_ops": "66 операций восстановления и диагностики",

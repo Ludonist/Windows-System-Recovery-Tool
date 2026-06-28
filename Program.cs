@@ -53,7 +53,7 @@ namespace SystemRestoreTool
             // Обработка --version
             if (args.Length > 0 && (args[0] == "--version" || args[0] == "-v"))
             {
-                Console.WriteLine("Windows System Recovery Tool v2.5.0");
+                Console.WriteLine("Windows System Recovery Tool v2.5.1");
                 Console.WriteLine("  Built with .NET 6, C# 10");
                 Console.WriteLine("  Repository: https://github.com/Ludonist/Windows-System-Recovery-Tool");
                 Console.WriteLine("  License: MIT");

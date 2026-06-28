@@ -8,10 +8,14 @@
 ![.NET](https://img.shields.io/badge/.NET-6.0-purple)
 ![Version](https://img.shields.io/badge/version-2.5.0-brightgreen)
 ![Language](https://img.shields.io/badge/lang-C%23%2010-success)
+![Languages](https://img.shields.io/badge/UI%20languages-RU%20%7C%20EN%20%7C%20中文-red)
 
 **Профессиональный инструмент восстановления системных файлов Windows 10/11 через прямые вызовы Win32 API**
 
+🌐 **Многоязычный интерфейс**: Русский · English · 简体中文
+
 [Возможности](#-возможности) •
+[Скриншоты](#-скриншоты) •
 [Установка](#-установка) •
 [Использование](#-использование) •
 [Архитектура](#-архитектура) •
@@ -101,6 +105,30 @@
 
 ---
 
+## 📸 Скриншоты
+
+### Главное меню (Русский)
+
+![Main Menu RU](docs/screenshots/01-main-menu-ru.png)
+
+### Main Menu (English)
+
+![Main Menu EN](docs/screenshots/02-main-menu-en.png)
+
+### 主菜单 (简体中文)
+
+![Main Menu ZH](docs/screenshots/03-main-menu-zh.png)
+
+### Проверка целостности системных файлов
+
+![Integrity Check](docs/screenshots/04-integrity-check.png)
+
+### Смена языка интерфейса
+
+![Language Switch](docs/screenshots/05-language-switch.png)
+
+---
+
 ## 📥 Установка
 
 ### Вариант 1: Self-contained (рекомендуется)
@@ -186,6 +214,29 @@ SystemRestoreTool.exe --scan-all
 %LOCALAPPDATA%\SystemRestoreTool\srt_YYYYMMDD_HHMMSS.log
 ```
 
+### 🌐 Многоязычность
+
+Программа поддерживает **3 языка интерфейса**:
+
+| Код | Название | English name |
+|-----|----------|--------------|
+| `ru` | Русский | Russian |
+| `en` | English | English |
+| `zh` | 简体中文 | Chinese (Simplified) |
+
+**Смена языка:**
+1. В главном меню выберите пункт **64** («🌐 Сменить язык интерфейса»)
+2. Выберите нужный язык (1-3)
+3. Выбор **сохраняется в реестре** (`HKCU\SOFTWARE\SystemRestoreTool\Language`) и применяется при следующем запуске
+
+Файлы переводов: `Resources/strings.{ru,en,zh}.json`. Они встроены в EXE как embedded resources, поэтому ничего дополнительно копировать не нужно.
+
+**Чтобы добавить новый язык:**
+1. Скопируйте `Resources/strings.en.json` в `Resources/strings.xx.json` (где `xx` — код языка)
+2. Переведите все значения
+3. Добавьте код в `Localizer.SupportedLanguages` и `LanguageNames`
+4. Добавьте запись в `.csproj` как `<EmbeddedResource>`
+
 ---
 
 ## 🏗 Архитектура
@@ -194,7 +245,7 @@ SystemRestoreTool.exe --scan-all
 Windows-System-Recovery-Tool/
 ├── SystemRestoreTool.csproj      .NET 6.0, x64/x86/ARM64, Microsoft.Dism NuGet
 ├── app.manifest                  requireAdministrator
-├── Program.cs                    Точка входа, меню на 66 пунктов
+├── Program.cs                    Точка входа, меню на 67 пунктов
 │
 ├── Api/                          P/Invoke слой (нативные DLL Windows)
 │   ├── DismNativeApi.cs          dismapi.dll (DISM API)
@@ -215,7 +266,7 @@ Windows-System-Recovery-Tool/
 │   ├── DismManagedWrapper.cs     Через Microsoft.Dism NuGet
 │   ├── SignatureVerifier.cs      Высокоуровневая проверка подписей
 │   ├── IntegrityChecker.cs       Проверка 40+ критических + всех System32
-│   └── Modules/                  Специализированные модули (11 шт.)
+│   └── Modules/                  Специализированные модули (14 шт.)
 │       ├── SystemRestorePointManager.cs
 │       ├── ServicesRepairManager.cs
 │       ├── BootRecoveryManager.cs
@@ -231,24 +282,47 @@ Windows-System-Recovery-Tool/
 │       ├── WerManager.cs
 │       └── WindowsUpdateAgentManager.cs
 │
+├── Resources/                    🌐 Локализация (встроены как embedded resources)
+│   ├── strings.ru.json           Русский (по умолчанию)
+│   ├── strings.en.json           English
+│   └── strings.zh.json           简体中文
+│
 ├── Utils/
 │   ├── ConsoleHelper.cs          UI-помощник (меню, права, ввод)
-│   └── Logger.cs                 Логгер в файл + цветная консоль
+│   ├── Logger.cs                 Логгер в файл + цветная консоль
+│   └── Localizer.cs              Загрузка и переключение языков
+│
+├── docs/
+│   ├── api-reference.md          Подробный справочник по Win32 API
+│   └── screenshots/              Скриншоты программы (PNG)
+│       ├── 01-main-menu-ru.png
+│       ├── 02-main-menu-en.png
+│       ├── 03-main-menu-zh.png
+│       ├── 04-integrity-check.png
+│       └── 05-language-switch.png
+│
+├── .github/
+│   ├── repo-metadata.json        Topics и описание репозитория
+│   └── workflows/
+│       └── build-release.yml     CI: сборка x86/x64/ARM64 + Release
 │
 ├── .gitignore                    Стандартный .NET gitignore
+├── .editorconfig                 Стиль кода
 ├── LICENSE                       MIT
 ├── CHANGELOG.md                  История изменений
 ├── CONTRIBUTING.md               Правила для контрибьюторов
+├── SECURITY.md                   Политика безопасности
 └── README.md                     Этот файл
 ```
 
 ### Статистика кода
 
-- **~6800 строк C#** кода
-- **34 файла** в 5 директориях
+- **~7200 строк C#** кода
+- **37 файлов** в 6 директориях
 - **17 нативных DLL** через P/Invoke
 - **14 модулей** восстановления
-- **66 пунктов** меню
+- **67 пунктов** меню
+- **3 языка** интерфейса (RU/EN/ZH)
 
 ---
 

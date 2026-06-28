@@ -1,0 +1,30 @@
+{
+  "name": "Windows System Recovery Tool",
+  "description": "Professional Windows 10/11 system files recovery tool via native Win32 API. Uses 17 native DLLs (DISM, SFC, WinTrust, SetupAPI, PowrProf, etc.) through P/Invoke without shell commands. 66 operations in interactive menu. Supports x86/x64/ARM64.",
+  "topics": [
+    "windows",
+    "windows-10",
+    "windows-11",
+    "system-restore",
+    "dism",
+    "sfc",
+    "win32-api",
+    "pinvoke",
+    "csharp",
+    "dotnet",
+    "dotnet-6",
+    "system-recovery",
+    "system-files",
+    "winverifytrust",
+    "authenticode",
+    "windows-update",
+    "registry",
+    "boot-recovery",
+    "multilingual",
+    "russian",
+    "english",
+    "chinese"
+  ],
+  "homepage": "https://github.com/Ludonist/Windows-System-Recovery-Tool",
+  "license": "MIT"
+}

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>System Restore Tool — Main Menu (English)</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Consolas', 'Cascadia Code', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 16px 20px;
+    width: 900px;
+  }
+  .banner { color: #00dddd; white-space: pre; margin-bottom: 12px; }
+  .info { color: #00aaaa; }
+  .success { color: #00ff00; }
+  .warn { color: #ffff00; }
+  .menu-header {
+    color: #ff00ff;
+    text-align: center;
+    border: 1px solid #ff00ff;
+    padding: 6px 0;
+    margin: 14px 0 10px;
+  }
+  .menu-item { color: #c0c0c0; padding: 1px 0; }
+  .menu-star { color: #ffff00; }
+  .menu-arrow { color: #00dddd; }
+  .prompt { color: #ffffff; margin-top: 8px; }
+  .prompt-key { color: #00aaaa; }
+  .footer { color: #555; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<div class="banner">╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║   WINDOWS SYSTEM RECOVERY TOOL  v2.5.0                               ║
+║   Direct recovery of Windows 10/11 system files                      ║
+║                                                                      ║
+║   ✦ 17 native Win32 APIs through P/Invoke                            ║
+║   ✦ 66 recovery and diagnostic operations                            ║
+║   ✦ File tampering detection via WinVerifyTrust                      ║
+║   ✦ Microsoft.Dism NuGet + COM WUA API                                ║
+║                                                                      ║
+║   API (https://learn.microsoft.com/windows/win32/apiindex):         ║
+║   • dismapi.dll  • sfc.dll/sfc_os.dll  • wintrust.dll               ║
+║   • crypt32.dll  • srclient.dll       • advapi32.dll (SCM)          ║
+║   • kernel32.dll • wevtapi.dll        • vssapi.dll                  ║
+║   • wer.dll      • setupapi.dll       • powrprof.dll                ║
+║   • winhttp.dll  • wininet.dll        • ws2_32.dll                  ║
+║                                                                      ║
+║   🌐 English      •  github.com/Ludonist/Windows-System-Recovery-Tool   ║
+║   License: MIT                                                       ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝</div>
+
+<div class="success">[+] Administrator privileges: CONFIRMED</div>
+<div class="info">[i] Log file: C:\Users\Admin\AppData\Local\SystemRestoreTool\srt_20260628_193015.log</div>
+
+<div class="menu-header">═══ MAIN MENU — System Restore Tool v2.5 ═══</div>
+
+<div class="menu-star">  [ 1] ★ SUPER-FULL CYCLE: restore point + DISM + SFC + services + WU + caches</div>
+<div class="menu-item">  [ 2]   FULL CYCLE (native API): Check+Scan+Restore+Cleanup+SFC</div>
+<div class="menu-item">  [ 3]   FULL CYCLE (Microsoft.Dism NuGet)</div>
+<div class="menu-item">  [ 4]   DISM /Online /Cleanup-Image /CheckHealth        (native API)</div>
+<div class="menu-item">  [ 5]   DISM /Online /Cleanup-Image /ScanHealth         (native API)</div>
+<div class="menu-item">  [ 6]   DISM /Online /Cleanup-Image /RestoreHealth      (native API)</div>
+<div class="menu-item">  [ 7]   DISM /Online /Cleanup-Image /StartComponentCleanup</div>
+<div class="menu-item">  [ 8]   DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase</div>
+<div class="menu-item">  [ 9]   Sfc /ScanNow                                     (native sfc_os.dll)</div>
+<div class="menu-item">  [10]   Sfc /VerifyOnly                                  (native sfc_os.dll)</div>
+<div class="menu-item">  ...</div>
+<div class="menu-star">  [13] ★ CHECK 40+ CRITICAL FILES (WFP + signature + report)</div>
+<div class="menu-star">  [14] ★ DEEP CHECK System32 + drivers (~5000 files)</div>
+<div class="menu-star">  [52] ★ Check Windows Update servers accessibility (WinHTTP)</div>
+<div class="menu-item">  [63]   Automatic Updates (AU) settings</div>
+<div class="menu-arrow">  [64]   🌐 Switch interface language (RU / EN / 中文)</div>
+<div class="menu-item">  [65]   Open logs folder</div>
+<div class="menu-item">  [66]   Reboot computer (via Win32 API)</div>
+<div class="menu-item">  [67]   Exit</div>
+
+<div class="prompt">Select action <span class="prompt-key">[1-67]</span>: <span style="background:#fff;color:#000;">_</span></div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════════</div>
+
+</body>
+</html>

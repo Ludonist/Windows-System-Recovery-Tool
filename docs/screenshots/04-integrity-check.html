@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>System Restore Tool — Integrity Check</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Consolas', 'Cascadia Code', 'Courier New', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 16px 20px;
+    width: 900px;
+  }
+  .header {
+    color: #ff00ff;
+    text-align: center;
+    border: 1px solid #ff00ff;
+    padding: 6px 0;
+    margin: 0 0 12px;
+  }
+  .info { color: #00aaaa; }
+  .success { color: #00ff00; }
+  .warn { color: #ffff00; }
+  .error { color: #ff0000; }
+  .progress { color: #00dddd; }
+  .progress-bar { color: #00ff00; }
+  .footer { color: #555; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<div class="header">═══ ОТЧЁТ О ЦЕЛОСТНОСТИ СИСТЕМНЫХ ФАЙЛОВ ═══</div>
+
+<div class="info">[i] Проверено файлов:           40</div>
+<div class="info">[i] Под защитой WFP:            38</div>
+<div class="info">[i] Без защиты WFP:             2</div>
+<div class="success">[+] Валидная подпись Microsoft: 37</div>
+<div class="warn">[!] Подписаны третьей стороной: 0</div>
+<div class="warn">[!] Без подписи:                0</div>
+<div class="error">[X] С плохой подписью:          0</div>
+<div class="error">[X] Отсутствуют:                1</div>
+<div class="info">[i] Время проверки:             18.5 сек</div>
+
+<div style="margin-top: 14px;"></div>
+
+<div class="header">═══ ПРИМЕР: DISM RestoreHealth с прогрессом ═══</div>
+
+<div class="info">[i] Это может занять 10–30 минут...</div>
+<div class="progress">   RestoreHealth [████████████████████░░░░░░░░░░░░░░░░]  68% (68/100)   </div>
+<div class="progress-bar">   ████████████████████ 68%</div>
+
+<div style="margin-top: 14px;"></div>
+
+<div class="header">═══ ПРИМЕР: WinVerifyTrust — проверка подписей ═══</div>
+
+<div class="success">[+]   [OK] C:\Windows\System32\kernel32.dll  (Microsoft Windows)</div>
+<div class="success">[+]   [OK] C:\Windows\System32\ntdll.dll  (Microsoft Windows)</div>
+<div class="success">[+]   [OK] C:\Windows\System32\user32.dll  (Microsoft Windows)</div>
+<div class="success">[+]   [OK] C:\Windows\System32\lsass.exe  (Microsoft Windows)</div>
+<div class="success">[+]   [OK] C:\Windows\System32\winlogon.exe  (Microsoft Windows)</div>
+<div class="success">[+]   [OK] C:\Windows\System32\csrss.exe  (Microsoft Windows)</div>
+<div class="success">[+]   [OK] C:\Windows\System32\smss.exe  (Microsoft Windows)</div>
+<div class="success">[+]   [OK] C:\Windows\System32\svchost.exe  (Microsoft Windows)</div>
+<div class="success">[+]   [OK] C:\Windows\System32\dismapi.dll  (Microsoft Windows)</div>
+<div class="success">[+]   [OK] C:\Windows\System32\sfc.dll  (Microsoft Windows)</div>
+<div class="success">[+]   [OK] C:\Windows\System32\sfc_os.dll  (Microsoft Windows)</div>
+<div class="success">[+]   [OK] C:\Windows\System32\wintrust.dll  (Microsoft Windows)</div>
+<div class="success">[+]   [OK] C:\Windows\System32\crypt32.dll  (Microsoft Windows)</div>
+<div class="error">[X]   [3RDPARTY] C:\Windows\System32\nvlddmkm.sys  — подписан: NVIDIA Corporation</div>
+<div class="info">[i] Итого: валидных Microsoft=12, без подписи=0, плохих=0, сторонних=1</div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════════</div>
+
+</body>
+</html>

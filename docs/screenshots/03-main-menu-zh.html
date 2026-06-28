@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>系统恢复工具 — 主菜单</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Consolas', 'Cascadia Code', 'Courier New', 'Microsoft YaHei', 'PingFang SC', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 16px 20px;
+    width: 900px;
+  }
+  .banner { color: #00dddd; white-space: pre; margin-bottom: 12px; }
+  .info { color: #00aaaa; }
+  .success { color: #00ff00; }
+  .warn { color: #ffff00; }
+  .menu-header {
+    color: #ff00ff;
+    text-align: center;
+    border: 1px solid #ff00ff;
+    padding: 6px 0;
+    margin: 14px 0 10px;
+  }
+  .menu-item { color: #c0c0c0; padding: 1px 0; }
+  .menu-star { color: #ffff00; }
+  .menu-arrow { color: #00dddd; }
+  .prompt { color: #ffffff; margin-top: 8px; }
+  .prompt-key { color: #00aaaa; }
+  .footer { color: #555; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<div class="banner">╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║   WINDOWS 系统恢复工具  v2.5.0                                       ║
+║   直接恢复 Windows 10/11 系统文件                                    ║
+║                                                                      ║
+║   ✦ 17 个原生 Win32 API（通过 P/Invoke）                            ║
+║   ✦ 66 项恢复和诊断操作                                             ║
+║   ✦ 通过 WinVerifyTrust 检测文件篡改                                ║
+║   ✦ Microsoft.Dism NuGet + COM WUA API                              ║
+║                                                                      ║
+║   API (https://learn.microsoft.com/windows/win32/apiindex):         ║
+║   • dismapi.dll  • sfc.dll/sfc_os.dll  • wintrust.dll               ║
+║   • crypt32.dll  • srclient.dll       • advapi32.dll (SCM)          ║
+║   • kernel32.dll • wevtapi.dll        • vssapi.dll                  ║
+║   • wer.dll      • setupapi.dll       • powrprof.dll                ║
+║   • winhttp.dll  • wininet.dll        • ws2_32.dll                  ║
+║                                                                      ║
+║   🌐 简体中文      •  github.com/Ludonist/Windows-System-Recovery-Tool   ║
+║   License: MIT                                                       ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝</div>
+
+<div class="success">[+] 管理员权限：已确认</div>
+<div class="info">[i] 日志文件: C:\Users\Admin\AppData\Local\SystemRestoreTool\srt_20260628_193015.log</div>
+
+<div class="menu-header">═══ 主菜单 — 系统恢复工具 v2.5 ═══</div>
+
+<div class="menu-star">  [ 1] ★ 超完整周期：还原点 + DISM + SFC + 服务 + WU + 缓存</div>
+<div class="menu-item">  [ 2]   完整周期（原生 API）：检查+扫描+还原+清理+SFC</div>
+<div class="menu-item">  [ 3]   完整周期（Microsoft.Dism NuGet）</div>
+<div class="menu-item">  [ 4]   DISM /Online /Cleanup-Image /CheckHealth        （原生 API）</div>
+<div class="menu-item">  [ 5]   DISM /Online /Cleanup-Image /ScanHealth         （原生 API）</div>
+<div class="menu-item">  [ 6]   DISM /Online /Cleanup-Image /RestoreHealth      （原生 API）</div>
+<div class="menu-item">  [ 7]   DISM /Online /Cleanup-Image /StartComponentCleanup</div>
+<div class="menu-item">  [ 8]   DISM /Online /Cleanup-Image /StartComponentCleanup /ResetBase</div>
+<div class="menu-item">  [ 9]   Sfc /ScanNow                                     （原生 sfc_os.dll）</div>
+<div class="menu-item">  [10]   Sfc /VerifyOnly                                  （原生 sfc_os.dll）</div>
+<div class="menu-item">  ...</div>
+<div class="menu-star">  [13] ★ 检查 40+ 关键文件（WFP + 签名 + 报告）</div>
+<div class="menu-star">  [14] ★ 深度检查 System32 + 驱动程序（约 5000 个文件）</div>
+<div class="menu-star">  [52] ★ 检查 Windows Update 服务器可访问性（WinHTTP）</div>
+<div class="menu-item">  [63]   自动更新（AU）设置</div>
+<div class="menu-arrow">  [64]   🌐 切换界面语言 (RU / EN / 中文)</div>
+<div class="menu-item">  [65]   打开日志文件夹</div>
+<div class="menu-item">  [66]   重启计算机（通过 Win32 API）</div>
+<div class="menu-item">  [67]   退出</div>
+
+<div class="prompt">选择操作 <span class="prompt-key">[1-67]</span>: <span style="background:#fff;color:#000;">_</span></div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════════</div>
+
+</body>
+</html>

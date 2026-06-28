@@ -334,7 +334,8 @@ Windows System Recovery Tool v2.5 — справка
                     "  Поиск доступных обновлений (через COM API)",
                     "  Настройки автоматического обновления (AU)",
                     "",
-                    // === УТИЛИТЫ ===
+                    // === ЯЗЫК / УТИЛИТЫ ===
+                    "  🌐 Сменить язык интерфейса (RU / EN / 中文)",
                     "  Открыть папку с логами",
                     "  Перезагрузить компьютер (через Win32 API)",
                     "  Выход"
@@ -521,10 +522,47 @@ Windows System Recovery Tool v2.5 — справка
                 case 62: WindowsUpdateAgentManager.SearchForUpdates();     break;
                 case 63: WindowsUpdateAgentManager.CheckAutomaticUpdates(); break;
 
-                // === УТИЛИТЫ ===
-                case 64: OpenLogsFolder();                                 break;
-                case 65: RebootSystem();                                   break;
-                case 66: return; // Выход
+                // === ЯЗЫК / УТИЛИТЫ ===
+                case 64: SwitchLanguage();                                 break;
+                case 65: OpenLogsFolder();                                 break;
+                case 66: RebootSystem();                                   break;
+                case 67: return; // Exit
+            }
+        }
+
+        // ---------------------------------------------------------------------
+        //  СМЕНА ЯЗЫКА ИНТЕРФЕЙСА
+        // ---------------------------------------------------------------------
+
+        private static void SwitchLanguage()
+        {
+            var langs = Utils.Localizer.GetAvailableLanguages();
+            ConsoleHelper.WriteHeader("🌐 Interface language / Язык интерфейса / 界面语言");
+
+            for (int i = 0; i < langs.Count; i++)
+            {
+                var (code, native, english) = langs[i];
+                string current = code == Utils.Localizer.CurrentLanguage ? " ←" : "  ";
+                Console.ForegroundColor = code == Utils.Localizer.CurrentLanguage
+                    ? ConsoleColor.Green : ConsoleColor.Gray;
+                Console.WriteLine($"  [{i + 1}] {current} {native}  ({english})");
+            }
+            Console.ResetColor();
+
+            int choice = ConsoleHelper.ReadInt("\n→ ", 1, langs.Count, 1);
+            var selected = langs[choice - 1];
+
+            if (Utils.Localizer.LoadLanguage(selected.Code))
+            {
+                Utils.Localizer.SaveLanguage(selected.Code);
+                Console.ForegroundColor = ConsoleColor.Green;
+                Console.WriteLine($"✓ {selected.Native}");
+                Console.ResetColor();
+                ConsoleHelper.WaitForKey();
+            }
+            else
+            {
+                Logger.Instance.Error($"Не удалось загрузить язык: {selected.Code}");
             }
         }
 
@@ -630,13 +668,13 @@ Windows System Recovery Tool v2.5 — справка
             Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("╔══════════════════════════════════════════════════════════════════════╗");
             Console.WriteLine("║                                                                      ║");
-            Console.WriteLine("║   WINDOWS SYSTEM RECOVERY TOOL  v2.5.0                               ║");
-            Console.WriteLine("║   Прямое восстановление системных файлов Windows 10/11               ║");
+            Console.WriteLine($"║   {Utils.Localizer.S("banner.title")}  {Utils.Localizer.S("banner.version"),-10}                                  ║");
+            Console.WriteLine($"║   {Utils.Localizer.S("banner.subtitle"),-68}║");
             Console.WriteLine("║                                                                      ║");
-            Console.WriteLine("║   ✦ 17 нативных Win32 API через P/Invoke                            ║");
-            Console.WriteLine("║   ✦ 66 операций восстановления и диагностики                        ║");
-            Console.WriteLine("║   ✦ Проверка подмены файлов через WinVerifyTrust                    ║");
-            Console.WriteLine("║   ✦ Microsoft.Dism NuGet + COM WUA API                              ║");
+            Console.WriteLine($"║   ✦ {Utils.Localizer.S("banner.features_api"),-65}║");
+            Console.WriteLine($"║   ✦ {Utils.Localizer.S("banner.features_ops"),-65}║");
+            Console.WriteLine($"║   ✦ {Utils.Localizer.S("banner.features_sig"),-65}║");
+            Console.WriteLine($"║   ✦ {Utils.Localizer.S("banner.features_dism"),-65}║");
             Console.WriteLine("║                                                                      ║");
             Console.WriteLine("║   API (https://learn.microsoft.com/windows/win32/apiindex):         ║");
             Console.WriteLine("║   • dismapi.dll  • sfc.dll/sfc_os.dll  • wintrust.dll               ║");
@@ -645,7 +683,7 @@ Windows System Recovery Tool v2.5 — справка
             Console.WriteLine("║   • wer.dll      • setupapi.dll       • powrprof.dll                ║");
             Console.WriteLine("║   • winhttp.dll  • wininet.dll        • ws2_32.dll                  ║");
             Console.WriteLine("║                                                                      ║");
-            Console.WriteLine("║   Repository: github.com/Ludonist/Windows-System-Recovery-Tool      ║");
+            Console.WriteLine($"║   🌐 {Utils.Localizer.CurrentLanguageNative,-12}  •  github.com/Ludonist/Windows-System-Recovery-Tool   ║");
             Console.WriteLine("║   License: MIT                                                       ║");
             Console.WriteLine("║                                                                      ║");
             Console.WriteLine("╚══════════════════════════════════════════════════════════════════════╝");

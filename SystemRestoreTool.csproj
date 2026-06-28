@@ -40,4 +40,11 @@
     <PackageReference Include="System.Management" Version="6.0.0" />
   </ItemGroup>
 
+  <!-- Локализация: JSON-файлы встроены как ресурсы (для single-file publish) -->
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\strings.ru.json" />
+    <EmbeddedResource Include="Resources\strings.en.json" />
+    <EmbeddedResource Include="Resources\strings.zh.json" />
+  </ItemGroup>
+
 </Project>

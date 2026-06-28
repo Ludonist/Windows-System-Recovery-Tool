@@ -45,6 +45,12 @@
     <EmbeddedResource Include="Resources\strings.ru.json" />
     <EmbeddedResource Include="Resources\strings.en.json" />
     <EmbeddedResource Include="Resources\strings.zh.json" />
+    <EmbeddedResource Include="Resources\strings.de.json" />
+    <EmbeddedResource Include="Resources\strings.fr.json" />
+    <EmbeddedResource Include="Resources\strings.es.json" />
+    <EmbeddedResource Include="Resources\strings.ja.json" />
+    <EmbeddedResource Include="Resources\strings.ko.json" />
+    <EmbeddedResource Include="Resources\strings.pt.json" />
   </ItemGroup>
 
 </Project>

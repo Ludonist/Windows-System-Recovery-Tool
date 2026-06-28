@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Windows System Recovery Tool</title>
+<meta name="description" content="Professional Windows 10/11 system files recovery tool via native Win32 API. Multilingual UI.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🔧</text></svg>">
+<style>
+:root {
+  --bg: #0d1117;
+  --bg-card: #161b22;
+  --border: #30363d;
+  --text: #c9d1d9;
+  --text-muted: #8b949e;
+  --accent: #58a6ff;
+  --accent-hover: #79c0ff;
+  --green: #3fb950;
+  --yellow: #d29922;
+  --red: #f85149;
+  --purple: #bc8cff;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Noto Sans', 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+body { padding: 0; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { color: var(--accent-hover); text-decoration: underline; }
+code {
+  background: var(--bg-card);
+  padding: 2px 6px;
+  border-radius: 4px;
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  font-size: 0.9em;
+  border: 1px solid var(--border);
+}
+pre {
+  background: var(--bg-card);
+  padding: 12px 16px;
+  border-radius: 6px;
+  overflow-x: auto;
+  border: 1px solid var(--border);
+}
+pre code { background: none; border: none; padding: 0; }
+
+/* Header */
+header {
+  border-bottom: 1px solid var(--border);
+  background: linear-gradient(180deg, #161b22 0%, #0d1117 100%);
+  padding: 32px 24px;
+  text-align: center;
+}
+header h1 {
+  font-size: 2.5em;
+  margin-bottom: 8px;
+  color: #fff;
+}
+header .subtitle {
+  color: var(--text-muted);
+  font-size: 1.15em;
+  margin-bottom: 16px;
+}
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin-bottom: 16px;
+}
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85em;
+  font-weight: 600;
+}
+.badge-blue { background: #1f6feb33; color: #79c0ff; border: 1px solid #1f6feb66; }
+.badge-green { background: #23863633; color: #3fb950; border: 1px solid #23863666; }
+.badge-purple { background: #8957e533; color: #bc8cff; border: 1px solid #8957e566; }
+.badge-red { background: #da363333; color: #ff7b72; border: 1px solid #da363366; }
+
+/* Language switcher */
+.lang-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background: var(--bg-card);
+  border-bottom: 1px solid var(--border);
+}
+.lang-btn {
+  background: transparent;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 6px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9em;
+  transition: all 0.15s;
+}
+.lang-btn:hover { color: var(--text); border-color: var(--accent); }
+.lang-btn.active {
+  background: #1f6feb33;
+  color: #fff;
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+/* Main */
+main {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 32px 24px;
+}
+section {
+  margin-bottom: 48px;
+}
+h2 {
+  font-size: 1.7em;
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  color: #fff;
+}
+h3 {
+  font-size: 1.25em;
+  margin: 20px 0 10px;
+  color: #fff;
+}
+p { margin-bottom: 12px; }
+
+/* Grid for features and downloads */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  transition: border-color 0.15s;
+}
+.card:hover { border-color: var(--accent); }
+.card h3 { margin-top: 0; }
+.card .icon { font-size: 1.6em; margin-bottom: 8px; display: block; }
+
+/* Downloads table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--bg-card);
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+th, td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+}
+th {
+  background: #21262d;
+  font-weight: 600;
+  color: #fff;
+}
+tr:last-child td { border-bottom: none; }
+tr:hover td { background: #1c2128; }
+.download-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  background: #238636;
+  color: #fff !important;
+  border-radius: 6px;
+  font-size: 0.9em;
+  font-weight: 600;
+  text-decoration: none !important;
+}
+.download-link:hover { background: #2ea043; }
+.download-link.compact { background: #1f6feb; }
+.download-link.compact:hover { background: #388bfd; }
+
+/* Screenshots */
+.screenshots {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.screenshot {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+}
+.screenshot img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.screenshot .caption {
+  padding: 8px 12px;
+  font-size: 0.85em;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border);
+}
+
+/* Code block */
+.cmd-block {
+  background: #010409;
+  color: #c9d1d9;
+  padding: 16px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  font-family: 'SFMono-Regular', Consolas, monospace;
+  margin: 12px 0;
+  overflow-x: auto;
+}
+.cmd-block .prompt { color: #3fb950; }
+.cmd-block .comment { color: #8b949e; }
+
+/* Footer */
+footer {
+  border-top: 1px solid var(--border);
+  padding: 24px;
+  text-align: center;
+  color: var(--text-muted);
+  font-size: 0.9em;
+}
+footer a { color: var(--accent); }
+
+/* i18n content - hide all by default, JS shows the right one */
+.lang-content { display: none; }
+.lang-content.active { display: block; }
+
+/* Stats row */
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 12px;
+  margin: 20px 0;
+}
+.stat {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  text-align: center;
+}
+.stat .number {
+  font-size: 2em;
+  font-weight: 700;
+  color: var(--accent);
+}
+.stat .label {
+  color: var(--text-muted);
+  font-size: 0.85em;
+  margin-top: 4px;
+}
+
+@media (max-width: 768px) {
+  header h1 { font-size: 1.8em; }
+  .grid { grid-template-columns: 1fr; }
+  main { padding: 16px; }
+}
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🔧 <span data-i18n="title">Windows System Recovery Tool</span></h1>
+  <p class="subtitle" data-i18n="subtitle">Professional Windows 10/11 system files recovery tool via native Win32 API</p>
+  <div class="badges">
+    <span class="badge badge-blue">Windows 10/11</span>
+    <span class="badge badge-green">x86 · x64 · ARM64</span>
+    <span class="badge badge-purple">.NET 6</span>
+    <span class="badge badge-red">v2.5.1</span>
+    <span class="badge badge-blue">MIT</span>
+    <span class="badge badge-green">9 languages</span>
+  </div>
+</header>
+
+<nav class="lang-switcher" id="langSwitcher">
+  <button class="lang-btn" data-lang="ru">🇷🇺 Русский</button>
+  <button class="lang-btn" data-lang="en">🇬🇧 English</button>
+  <button class="lang-btn" data-lang="zh">🇨🇳 简体中文</button>
+  <button class="lang-btn" data-lang="de">🇩🇪 Deutsch</button>
+  <button class="lang-btn" data-lang="fr">🇫🇷 Français</button>
+  <button class="lang-btn" data-lang="es">🇪🇸 Español</button>
+  <button class="lang-btn" data-lang="ja">🇯🇵 日本語</button>
+  <button class="lang-btn" data-lang="ko">🇰🇷 한국어</button>
+  <button class="lang-btn" data-lang="pt">🇵🇹 Português</button>
+</nav>
+
+<main>
+
+<!-- Stats -->
+<div class="stats">
+  <div class="stat"><div class="number">17</div><div class="label" data-i18n="stat_apis">Win32 APIs</div></div>
+  <div class="stat"><div class="number">67</div><div class="label" data-i18n="stat_operations">Operations</div></div>
+  <div class="stat"><div class="number">14</div><div class="label" data-i18n="stat_modules">Modules</div></div>
+  <div class="stat"><div class="number">9</div><div class="label" data-i18n="stat_languages">Languages</div></div>
+  <div class="stat"><div class="number">~7200</div><div class="label" data-i18n="stat_loc">Lines of C#</div></div>
+</div>
+
+<!-- About -->
+<section>
+  <h2 data-i18n="about_title">📖 About</h2>
+  <div class="lang-content" data-lang-content="ru">
+    <p><strong>Windows System Recovery Tool</strong> — консольная программа для Windows 10/11, которая восстанавливает и проверяет целостность системных файлов через <strong>прямые вызовы Windows API</strong> (<code>dismapi.dll</code>, <code>sfc.dll</code>, <code>wintrust.dll</code> и др.), а не через внешние команды <code>cmd.exe</code> / <code>dism.exe</code> / <code>sfc.exe</code>.</p>
+  </div>
+  <div class="lang-content" data-lang-content="en">
+    <p><strong>Windows System Recovery Tool</strong> is a console application for Windows 10/11 that recovers and verifies the integrity of system files through <strong>direct Windows API calls</strong> (<code>dismapi.dll</code>, <code>sfc.dll</code>, <code>wintrust.dll</code>, etc.) — not through external commands <code>cmd.exe</code> / <code>dism.exe</code> / <code>sfc.exe</code>.</p>
+  </div>
+  <div class="lang-content" data-lang-content="zh">
+    <p><strong>Windows System Recovery Tool</strong> 是一款 Windows 10/11 控制台程序，通过<strong>直接调用 Windows API</strong>（<code>dismapi.dll</code>、<code>sfc.dll</code>、<code>wintrust.dll</code> 等）恢复和验证系统文件完整性 — 而不是通过外部命令 <code>cmd.exe</code> / <code>dism.exe</code> / <code>sfc.exe</code>。</p>
+  </div>
+  <div class="lang-content" data-lang-content="de">
+    <p><strong>Windows System Recovery Tool</strong> ist eine Konsolenanwendung für Windows 10/11, die die Integrität von Systemdateien durch <strong>direkte Windows-API-Aufrufe</strong> (<code>dismapi.dll</code>, <code>sfc.dll</code>, <code>wintrust.dll</code> usw.) wiederherstellt und überprüft — nicht durch externe Befehle wie <code>cmd.exe</code> / <code>dism.exe</code> / <code>sfc.exe</code>.</p>
+  </div>
+  <div class="lang-content" data-lang-content="fr">
+    <p><strong>Windows System Recovery Tool</strong> est une application console pour Windows 10/11 qui récupère et vérifie l'intégrité des fichiers système via des <strong>appels directs aux API Windows</strong> (<code>dismapi.dll</code>, <code>sfc.dll</code>, <code>wintrust.dll</code>, etc.) — et non via des commandes externes <code>cmd.exe</code> / <code>dism.exe</code> / <code>sfc.exe</code>.</p>
+  </div>
+  <div class="lang-content" data-lang-content="es">
+    <p><strong>Windows System Recovery Tool</strong> es una aplicación de consola para Windows 10/11 que recupera y verifica la integridad de los archivos del sistema a través de <strong>llamadas directas a la API de Windows</strong> (<code>dismapi.dll</code>, <code>sfc.dll</code>, <code>wintrust.dll</code>, etc.) — no a través de comandos externos <code>cmd.exe</code> / <code>dism.exe</code> / <code>sfc.exe</code>.</p>
+  </div>
+  <div class="lang-content" data-lang-content="ja">
+    <p><strong>Windows System Recovery Tool</strong> は、Windows 10/11 向けのコンソールアプリケーションで、外部コマンド <code>cmd.exe</code> / <code>dism.exe</code> / <code>sfc.exe</code> を使わず、<strong>Windows API の直接呼び出し</strong>（<code>dismapi.dll</code>、<code>sfc.dll</code>、<code>wintrust.dll</code> など）を通じてシステムファイルの整合性を回復・検証します。</p>
+  </div>
+  <div class="lang-content" data-lang-content="ko">
+    <p><strong>Windows System Recovery Tool</strong>은 Windows 10/11용 콘솔 응용 프로그램으로, 외부 명령 <code>cmd.exe</code> / <code>dism.exe</code> / <code>sfc.exe</code>를 통하지 않고 <strong>직접 Windows API 호출</strong>(<code>dismapi.dll</code>, <code>sfc.dll</code>, <code>wintrust.dll</code> 등)을 통해 시스템 파일의 무결성을 복구하고 검증합니다.</p>
+  </div>
+  <div class="lang-content" data-lang-content="pt">
+    <p><strong>Windows System Recovery Tool</strong> é um aplicativo de console para Windows 10/11 que recupera e verifica a integridade de arquivos do sistema através de <strong>chamadas diretas à API do Windows</strong> (<code>dismapi.dll</code>, <code>sfc.dll</code>, <code>wintrust.dll</code>, etc.) — não através de comandos externos <code>cmd.exe</code> / <code>dism.exe</code> / <code>sfc.exe</code>.</p>
+  </div>
+</section>
+
+<!-- Features -->
+<section>
+  <h2 data-i18n="features_title">✨ Features</h2>
+  <div class="grid">
+    <div class="card">
+      <span class="icon">🎯</span>
+      <h3 data-i18n="feat_ops_title">67 Operations</h3>
+      <p data-i18n="feat_ops_body">Recovery and diagnostics in one menu</p>
+    </div>
+    <div class="card">
+      <span class="icon">🔌</span>
+      <h3 data-i18n="feat_api_title">17 Native APIs</h3>
+      <p data-i18n="feat_api_body">Win32 APIs via P/Invoke, no shell commands</p>
+    </div>
+    <div class="card">
+      <span class="icon">🛡️</span>
+      <h3 data-i18n="feat_sig_title">Tampering Detection</h3>
+      <p data-i18n="feat_sig_body">WinVerifyTrust + certificate publisher</p>
+    </div>
+    <div class="card">
+      <span class="icon">📊</span>
+      <h3 data-i18n="feat_hash_title">Hash Snapshots</h3>
+      <p data-i18n="feat_hash_body">SHA256/SHA1 to compare system state</p>
+    </div>
+    <div class="card">
+      <span class="icon">🧩</span>
+      <h3 data-i18n="feat_dism_title">Microsoft.Dism</h3>
+      <p data-i18n="feat_dism_body">NuGet wrapper + COM WUA API</p>
+    </div>
+    <div class="card">
+      <span class="icon">🌐</span>
+      <h3 data-i18n="feat_lang_title">9 Languages</h3>
+      <p data-i18n="feat_lang_body">RU · EN · ZH · DE · FR · ES · JA · KO · PT</p>
+    </div>
+  </div>
+</section>
+
+<!-- Downloads -->
+<section>
+  <h2 data-i18n="downloads_title">📥 Downloads</h2>
+  <p data-i18n="downloads_intro">Latest release: <a href="https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1">v2.5.1</a> — <strong>Standalone</strong> includes .NET Runtime (no installation required). <strong>Compact</strong> requires .NET 6 Runtime.</p>
+  
+  <table>
+    <thead>
+      <tr>
+        <th data-i18n="dl_arch">Architecture</th>
+        <th>Standalone (includes .NET)</th>
+        <th>Compact (requires .NET 6)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>x64</strong> (Intel/AMD)</td>
+        <td><a class="download-link" href="https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/download/v2.5.1/SystemRestoreTool-standalone-win-x64.zip">⬇ Download (~40 MB)</a></td>
+        <td><a class="download-link compact" href="https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/download/v2.5.1/SystemRestoreTool-standalone-win-x64-compact.zip">⬇ Download (~7 MB)</a></td>
+      </tr>
+      <tr>
+        <td><strong>x86</strong> (32-bit)</td>
+        <td><a class="download-link" href="https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/download/v2.5.1/SystemRestoreTool-standalone-win-x86.zip">⬇ Download (~37 MB)</a></td>
+        <td><a class="download-link compact" href="https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/download/v2.5.1/SystemRestoreTool-standalone-win-x86-compact.zip">⬇ Download (~7 MB)</a></td>
+      </tr>
+      <tr>
+        <td><strong>ARM64</strong> (Surface/Qualcomm)</td>
+        <td><a class="download-link" href="https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/download/v2.5.1/SystemRestoreTool-standalone-win-arm64.zip">⬇ Download (~33 MB)</a></td>
+        <td><a class="download-link compact" href="https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/download/v2.5.1/SystemRestoreTool-standalone-win-arm64-compact.zip">⬇ Download (~6 MB)</a></td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <h3 data-i18n="verify_title">🔐 Verify SHA256</h3>
+  <div class="cmd-block">
+<span class="prompt">C:\&gt;</span> certutil -hashfile SystemRestoreTool-standalone-win-x64.zip SHA256
+<span class="comment"># Compare with the .sha256 file from the release page</span>
+  </div>
+</section>
+
+<!-- Quick Start -->
+<section>
+  <h2 data-i18n="quickstart_title">🚀 Quick Start</h2>
+  <div class="lang-content" data-lang-content="ru">
+    <ol>
+      <li>Скачайте ZIP для вашей архитектуры (см. таблицу выше)</li>
+      <li>Распакуйте <code>SystemRestoreTool.exe</code></li>
+      <li>Правый клик → <strong>Запуск от имени администратора</strong></li>
+      <li>Используйте меню (67 пунктов, 9 языков)</li>
+    </ol>
+  </div>
+  <div class="lang-content" data-lang-content="en">
+    <ol>
+      <li>Download the ZIP for your architecture (see table above)</li>
+      <li>Extract <code>SystemRestoreTool.exe</code></li>
+      <li>Right-click → <strong>Run as administrator</strong></li>
+      <li>Use the menu (67 items, 9 languages)</li>
+    </ol>
+  </div>
+  <div class="lang-content" data-lang-content="zh">
+    <ol>
+      <li>下载适合您架构的 ZIP（见上表）</li>
+      <li>解压 <code>SystemRestoreTool.exe</code></li>
+      <li>右键 → <strong>以管理员身份运行</strong></li>
+      <li>使用菜单（67 项，9 种语言）</li>
+    </ol>
+  </div>
+  <div class="lang-content" data-lang-content="de">
+    <ol>
+      <li>Laden Sie die ZIP für Ihre Architektur herunter (siehe Tabelle oben)</li>
+      <li>Entpacken Sie <code>SystemRestoreTool.exe</code></li>
+      <li>Rechtsklick → <strong>Als Administrator ausführen</strong></li>
+      <li>Verwenden Sie das Menü (66 Elemente, 9 Sprachen)</li>
+    </ol>
+  </div>
+  <div class="lang-content" data-lang-content="fr">
+    <ol>
+      <li>Téléchargez le ZIP pour votre architecture (voir tableau ci-dessus)</li>
+      <li>Extrayez <code>SystemRestoreTool.exe</code></li>
+      <li>Clic droit → <strong>Exécuter en tant qu'administrateur</strong></li>
+      <li>Utilisez le menu (66 éléments, 9 langues)</li>
+    </ol>
+  </div>
+  <div class="lang-content" data-lang-content="es">
+    <ol>
+      <li>Descargue el ZIP para su arquitectura (ver tabla arriba)</li>
+      <li>Extraiga <code>SystemRestoreTool.exe</code></li>
+      <li>Clic derecho → <strong>Ejecutar como administrador</strong></li>
+      <li>Use el menú (66 elementos, 9 idiomas)</li>
+    </ol>
+  </div>
+  <div class="lang-content" data-lang-content="ja">
+    <ol>
+      <li>アーキテクチャに合った ZIP をダウンロード（上の表を参照）</li>
+      <li><code>SystemRestoreTool.exe</code> を解凍</li>
+      <li>右クリック → <strong>管理者として実行</strong></li>
+      <li>メニューを使用（66項目、9言語）</li>
+    </ol>
+  </div>
+  <div class="lang-content" data-lang-content="ko">
+    <ol>
+      <li>아키텍처에 맞는 ZIP 다운로드 (위 표 참조)</li>
+      <li><code>SystemRestoreTool.exe</code> 압축 해제</li>
+      <li>우클릭 → <strong>관리자 권한으로 실행</strong></li>
+      <li>메뉴 사용 (66항목, 9개 언어)</li>
+    </ol>
+  </div>
+  <div class="lang-content" data-lang-content="pt">
+    <ol>
+      <li>Baixe o ZIP para sua arquitetura (veja a tabela acima)</li>
+      <li>Extraia <code>SystemRestoreTool.exe</code></li>
+      <li>Clique direito → <strong>Executar como administrador</strong></li>
+      <li>Use o menu (66 itens, 9 idiomas)</li>
+    </ol>
+  </div>
+  
+  <h3 data-i18n="auto_modes_title">Auto modes (CLI)</h3>
+  <div class="cmd-block">
+<span class="comment"># Super-full cycle (restore point + DISM + SFC + services + WU + caches)</span>
+SystemRestoreTool.exe --super-full
+
+<span class="comment"># Full DISM + SFC cycle</span>
+SystemRestoreTool.exe --full
+
+<span class="comment"># Check 40+ critical files</span>
+SystemRestoreTool.exe --verify
+
+<span class="comment"># Deep check System32 + drivers (~5000 files)</span>
+SystemRestoreTool.exe --scan-all
+  </div>
+</section>
+
+<!-- Screenshots -->
+<section>
+  <h2 data-i18n="screenshots_title">📸 Screenshots</h2>
+  <div class="screenshots">
+    <div class="screenshot">
+      <img src="../screenshots/01-main-menu-ru.png" alt="Main Menu RU" loading="lazy">
+      <div class="caption">🇷🇺 Главное меню (Русский)</div>
+    </div>
+    <div class="screenshot">
+      <img src="../screenshots/02-main-menu-en.png" alt="Main Menu EN" loading="lazy">
+      <div class="caption">🇬🇧 Main Menu (English)</div>
+    </div>
+    <div class="screenshot">
+      <img src="../screenshots/03-main-menu-zh.png" alt="主菜单 (简体中文)" loading="lazy">
+      <div class="caption">🇨🇳 主菜单 (简体中文)</div>
+    </div>
+    <div class="screenshot">
+      <img src="../screenshots/06-main-menu-de.png" alt="Hauptmenü (Deutsch)" loading="lazy">
+      <div class="caption">🇩🇪 Hauptmenü (Deutsch)</div>
+    </div>
+    <div class="screenshot">
+      <img src="../screenshots/06-main-menu-fr.png" alt="Menu Principal (Français)" loading="lazy">
+      <div class="caption">🇫🇷 Menu Principal (Français)</div>
+    </div>
+    <div class="screenshot">
+      <img src="../screenshots/06-main-menu-es.png" alt="Menú Principal (Español)" loading="lazy">
+      <div class="caption">🇪🇸 Menú Principal (Español)</div>
+    </div>
+    <div class="screenshot">
+      <img src="../screenshots/06-main-menu-ja.png" alt="メインメニュー (日本語)" loading="lazy">
+      <div class="caption">🇯🇵 メインメニュー (日本語)</div>
+    </div>
+    <div class="screenshot">
+      <img src="../screenshots/06-main-menu-ko.png" alt="메인 메뉴 (한국어)" loading="lazy">
+      <div class="caption">🇰🇷 메인 메뉴 (한국어)</div>
+    </div>
+    <div class="screenshot">
+      <img src="../screenshots/06-main-menu-pt.png" alt="Menu Principal (Português)" loading="lazy">
+      <div class="caption">🇵🇹 Menu Principal (Português)</div>
+    </div>
+    <div class="screenshot">
+      <img src="../screenshots/04-integrity-check.png" alt="Integrity Check" loading="lazy">
+      <div class="caption">🔍 Integrity check report</div>
+    </div>
+    <div class="screenshot">
+      <img src="../screenshots/05-language-switch.png" alt="Language Switch" loading="lazy">
+      <div class="caption">🌐 Switch interface language</div>
+    </div>
+  </div>
+</section>
+
+<!-- APIs -->
+<section>
+  <h2 data-i18n="apis_title">🔌 Win32 APIs Used</h2>
+  <p data-i18n="apis_intro">All operations use <strong>direct P/Invoke calls</strong> (no shell commands):</p>
+  <div class="grid">
+    <div class="card"><code>dismapi.dll</code><br><span data-i18n="api_dism">DISM API</span></div>
+    <div class="card"><code>sfc.dll</code> + <code>sfc_os.dll</code><br><span data-i18n="api_sfc">SFC API</span></div>
+    <div class="card"><code>wintrust.dll</code><br><span data-i18n="api_wintrust">Authenticode signatures</span></div>
+    <div class="card"><code>crypt32.dll</code><br><span data-i18n="api_crypt">Certificate publisher</span></div>
+    <div class="card"><code>srclient.dll</code><br><span data-i18n="api_sr">Restore points</span></div>
+    <div class="card"><code>advapi32.dll</code><br><span data-i18n="api_adv">SCM, registry, privileges</span></div>
+    <div class="card"><code>kernel32.dll</code><br><span data-i18n="api_kern">Files, reboot, App Recovery</span></div>
+    <div class="card"><code>wevtapi.dll</code><br><span data-i18n="api_evt">Event logs</span></div>
+    <div class="card"><code>vssapi.dll</code><br><span data-i18n="api_vss">Volume Shadow Copy</span></div>
+    <div class="card"><code>wer.dll</code><br><span data-i18n="api_wer">Windows Error Reporting</span></div>
+    <div class="card"><code>setupapi.dll</code><br><span data-i18n="api_setup">Devices</span></div>
+    <div class="card"><code>powrprof.dll</code><br><span data-i18n="api_pow">Power management</span></div>
+    <div class="card"><code>winhttp.dll</code><br><span data-i18n="api_net">Network diagnostics</span></div>
+    <div class="card"><code>Microsoft.Dism NuGet</code><br><span data-i18n="api_nuget">Managed wrapper</span></div>
+    <div class="card"><code>COM WUA API</code><br><span data-i18n="api_wua">Windows Update Agent</span></div>
+  </div>
+</section>
+
+<!-- Links -->
+<section>
+  <h2 data-i18n="links_title">🔗 Links</h2>
+  <div class="grid">
+    <a class="card" href="https://github.com/Ludonist/Windows-System-Recovery-Tool" style="text-decoration:none;color:inherit;">
+      <span class="icon">📦</span>
+      <h3>GitHub Repository</h3>
+      <p>Source code, issues, discussions</p>
+    </a>
+    <a class="card" href="https://github.com/Ludonist/Windows-System-Recovery-Tool/releases" style="text-decoration:none;color:inherit;">
+      <span class="icon">🚀</span>
+      <h3>Releases</h3>
+      <p>All versions, SHA256 checksums</p>
+    </a>
+    <a class="card" href="https://github.com/Ludonist/Windows-System-Recovery-Tool/blob/main/docs/api-reference.md" style="text-decoration:none;color:inherit;">
+      <span class="icon">📚</span>
+      <h3>API Reference</h3>
+      <p>Detailed Win32 API documentation</p>
+    </a>
+    <a class="card" href="https://github.com/Ludonist/Windows-System-Recovery-Tool/blob/main/CHANGELOG.md" style="text-decoration:none;color:inherit;">
+      <span class="icon">📝</span>
+      <h3>Changelog</h3>
+      <p>Version history</p>
+    </a>
+    <a class="card" href="https://github.com/Ludonist/Windows-System-Recovery-Tool/discussions" style="text-decoration:none;color:inherit;">
+      <span class="icon">💬</span>
+      <h3>Discussions</h3>
+      <p>Q&A and community</p>
+    </a>
+    <a class="card" href="https://github.com/Ludonist/Windows-System-Recovery-Tool/issues/new" style="text-decoration:none;color:inherit;">
+      <span class="icon">🐛</span>
+      <h3>Bug Report</h3>
+      <p>Report an issue</p>
+    </a>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <p>
+    <a href="https://github.com/Ludonist/Windows-System-Recovery-Tool">Windows System Recovery Tool</a>
+    · v2.5.1 · <a href="https://github.com/Ludonist/Windows-System-Recovery-Tool/blob/main/LICENSE">MIT License</a>
+    · © 2026 <a href="https://github.com/Ludonist">Ludonist</a>
+  </p>
+  <p style="margin-top:8px;font-size:0.85em;">
+    <span data-i18n="made_with">Made with</span> ❤️ <span data-i18n="for_users">for Windows power users</span>
+  </p>
+</footer>
+
+<script>
+// Translation strings
+const TRANSLATIONS = {
+  ru: {
+    title: "🔧 System Restore Tool",
+    subtitle: "Профессиональный инструмент восстановления системных файлов Windows 10/11 через прямые вызовы Win32 API",
+    about_title: "📖 О программе",
+    features_title: "✨ Возможности",
+    feat_ops_title: "67 операций", feat_ops_body: "Восстановление и диагностика в одном меню",
+    feat_api_title: "17 нативных API", feat_api_body: "Win32 API через P/Invoke, без shell-команд",
+    feat_sig_title: "Проверка подмены", feat_sig_body: "WinVerifyTrust + издатель сертификата",
+    feat_hash_title: "Снимки хешей", feat_hash_body: "SHA256/SHA1 для сравнения состояния системы",
+    feat_dism_title: "Microsoft.Dism", feat_dism_body: "NuGet-обёртка + COM WUA API",
+    feat_lang_title: "9 языков", feat_lang_body: "RU · EN · ZH · DE · FR · ES · JA · KO · PT",
+    downloads_title: "📥 Загрузки",
+    downloads_intro: "Последний релиз: <a href=\"https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1\">v2.5.1</a> — <strong>Standalone</strong> включает .NET Runtime (не требует установки). <strong>Compact</strong> требует .NET 6 Runtime.",
+    dl_arch: "Архитектура",
+    verify_title: "🔐 Проверка SHA256",
+    quickstart_title: "🚀 Быстрый старт",
+    auto_modes_title: "Авто-режимы (CLI)",
+    screenshots_title: "📸 Скриншоты",
+    apis_title: "🔌 Используемые Win32 API",
+    apis_intro: "Все операции используют <strong>прямые P/Invoke вызовы</strong> (без shell-команд):",
+    api_dism: "DISM API", api_sfc: "SFC API", api_wintrust: "Authenticode-подписи",
+    api_crypt: "Издатель сертификата", api_sr: "Точки восстановления", api_adv: "SCM, реестр, привилегии",
+    api_kern: "Файлы, перезагрузка, App Recovery", api_evt: "Журналы событий", api_vss: "Volume Shadow Copy",
+    api_wer: "Windows Error Reporting", api_setup: "Устройства", api_pow: "Управление питанием",
+    api_net: "Диагностика сети", api_nuget: "Управляемая обёртка", api_wua: "Windows Update Agent",
+    links_title: "🔗 Ссылки",
+    stat_apis: "Win32 API", stat_operations: "Операций", stat_modules: "Модулей",
+    stat_languages: "Языков", stat_loc: "Строк C#",
+    made_with: "Сделано с", for_users: "для опытных пользователей Windows"
+  },
+  en: {
+    title: "🔧 Windows System Recovery Tool",
+    subtitle: "Professional Windows 10/11 system files recovery tool via native Win32 API",
+    about_title: "📖 About",
+    features_title: "✨ Features",
+    feat_ops_title: "67 Operations", feat_ops_body: "Recovery and diagnostics in one menu",
+    feat_api_title: "17 Native APIs", feat_api_body: "Win32 APIs via P/Invoke, no shell commands",
+    feat_sig_title: "Tampering Detection", feat_sig_body: "WinVerifyTrust + certificate publisher",
+    feat_hash_title: "Hash Snapshots", feat_hash_body: "SHA256/SHA1 to compare system state",
+    feat_dism_title: "Microsoft.Dism", feat_dism_body: "NuGet wrapper + COM WUA API",
+    feat_lang_title: "9 Languages", feat_lang_body: "RU · EN · ZH · DE · FR · ES · JA · KO · PT",
+    downloads_title: "📥 Downloads",
+    downloads_intro: "Latest release: <a href=\"https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1\">v2.5.1</a> — <strong>Standalone</strong> includes .NET Runtime (no installation required). <strong>Compact</strong> requires .NET 6 Runtime.",
+    dl_arch: "Architecture",
+    verify_title: "🔐 Verify SHA256",
+    quickstart_title: "🚀 Quick Start",
+    auto_modes_title: "Auto modes (CLI)",
+    screenshots_title: "📸 Screenshots",
+    apis_title: "🔌 Win32 APIs Used",
+    apis_intro: "All operations use <strong>direct P/Invoke calls</strong> (no shell commands):",
+    api_dism: "DISM API", api_sfc: "SFC API", api_wintrust: "Authenticode signatures",
+    api_crypt: "Certificate publisher", api_sr: "Restore points", api_adv: "SCM, registry, privileges",
+    api_kern: "Files, reboot, App Recovery", api_evt: "Event logs", api_vss: "Volume Shadow Copy",
+    api_wer: "Windows Error Reporting", api_setup: "Devices", api_pow: "Power management",
+    api_net: "Network diagnostics", api_nuget: "Managed wrapper", api_wua: "Windows Update Agent",
+    links_title: "🔗 Links",
+    stat_apis: "Win32 APIs", stat_operations: "Operations", stat_modules: "Modules",
+    stat_languages: "Languages", stat_loc: "Lines of C#",
+    made_with: "Made with", for_users: "for Windows power users"
+  },
+  zh: {
+    title: "🔧 Windows 系统恢复工具",
+    subtitle: "通过直接调用 Win32 API 恢复 Windows 10/11 系统文件的专业工具",
+    about_title: "📖 关于",
+    features_title: "✨ 功能",
+    feat_ops_title: "67 项操作", feat_ops_body: "恢复和诊断集成在一个菜单中",
+    feat_api_title: "17 个原生 API", feat_api_body: "通过 P/Invoke 调用 Win32 API，无 shell 命令",
+    feat_sig_title: "篡改检测", feat_sig_body: "WinVerifyTrust + 证书发布者",
+    feat_hash_title: "哈希快照", feat_hash_body: "SHA256/SHA1 用于比较系统状态",
+    feat_dism_title: "Microsoft.Dism", feat_dism_body: "NuGet 包装器 + COM WUA API",
+    feat_lang_title: "9 种语言", feat_lang_body: "RU · EN · ZH · DE · FR · ES · JA · KO · PT",
+    downloads_title: "📥 下载",
+    downloads_intro: "最新版本：<a href=\"https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1\">v2.5.1</a> — <strong>Standalone</strong> 包含 .NET 运行时（无需安装）。<strong>Compact</strong> 需要 .NET 6 运行时。",
+    dl_arch: "架构",
+    verify_title: "🔐 验证 SHA256",
+    quickstart_title: "🚀 快速开始",
+    auto_modes_title: "自动模式（CLI）",
+    screenshots_title: "📸 截图",
+    apis_title: "🔌 使用的 Win32 API",
+    apis_intro: "所有操作使用<strong>直接 P/Invoke 调用</strong>（无 shell 命令）：",
+    api_dism: "DISM API", api_sfc: "SFC API", api_wintrust: "Authenticode 签名",
+    api_crypt: "证书发布者", api_sr: "还原点", api_adv: "SCM、注册表、权限",
+    api_kern: "文件、重启、App Recovery", api_evt: "事件日志", api_vss: "卷影副本",
+    api_wer: "Windows 错误报告", api_setup: "设备", api_pow: "电源管理",
+    api_net: "网络诊断", api_nuget: "托管包装器", api_wua: "Windows Update Agent",
+    links_title: "🔗 链接",
+    stat_apis: "Win32 API", stat_operations: "操作", stat_modules: "模块",
+    stat_languages: "语言", stat_loc: "C# 行数",
+    made_with: "用", for_users: "为 Windows 高级用户制作"
+  },
+  de: {
+    title: "🔧 Windows System Wiederherstellungs-Tool",
+    subtitle: "Professionelles Tool zur Wiederherstellung von Windows 10/11 Systemdateien über native Win32 API",
+    about_title: "📖 Über",
+    features_title: "✨ Funktionen",
+    feat_ops_title: "66 Vorgänge", feat_ops_body: "Wiederherstellung und Diagnose in einem Menü",
+    feat_api_title: "17 native APIs", feat_api_body: "Win32 APIs über P/Invoke, keine Shell-Befehle",
+    feat_sig_title: "Manipulationserkennung", feat_sig_body: "WinVerifyTrust + Zertifikats-Herausgeber",
+    feat_hash_title: "Hash-Snapshots", feat_hash_body: "SHA256/SHA1 zum Vergleichen des Systemzustands",
+    feat_dism_title: "Microsoft.Dism", feat_dism_body: "NuGet-Wrapper + COM WUA API",
+    feat_lang_title: "9 Sprachen", feat_lang_body: "RU · EN · ZH · DE · FR · ES · JA · KO · PT",
+    downloads_title: "📥 Downloads",
+    downloads_intro: "Neueste Version: <a href=\"https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1\">v2.5.1</a> — <strong>Standalone</strong> enthält .NET Runtime (keine Installation erforderlich). <strong>Compact</strong> erfordert .NET 6 Runtime.",
+    dl_arch: "Architektur",
+    verify_title: "🔐 SHA256 überprüfen",
+    quickstart_title: "🚀 Schnellstart",
+    auto_modes_title: "Auto-Modi (CLI)",
+    screenshots_title: "📸 Screenshots",
+    apis_title: "🔌 Verwendete Win32 APIs",
+    apis_intro: "Alle Vorgänge verwenden <strong>direkte P/Invoke-Aufrufe</strong> (keine Shell-Befehle):",
+    api_dism: "DISM API", api_sfc: "SFC API", api_wintrust: "Authenticode-Signaturen",
+    api_crypt: "Zertifikats-Herausgeber", api_sr: "Wiederherstellungspunkte", api_adv: "SCM, Registry, Berechtigungen",
+    api_kern: "Dateien, Neustart, App Recovery", api_evt: "Ereignisprotokolle", api_vss: "Volume Shadow Copy",
+    api_wer: "Windows Error Reporting", api_setup: "Geräte", api_pow: "Energieverwaltung",
+    api_net: "Netzwerkdiagnose", api_nuget: "Verwalteter Wrapper", api_wua: "Windows Update Agent",
+    links_title: "🔗 Links",
+    stat_apis: "Win32 APIs", stat_operations: "Vorgänge", stat_modules: "Module",
+    stat_languages: "Sprachen", stat_loc: "C# Zeilen",
+    made_with: "Gemacht mit", for_users: "für Windows Power-User"
+  },
+  fr: {
+    title: "🔧 Outil de Récupération Système Windows",
+    subtitle: "Outil professionnel de récupération de fichiers système Windows 10/11 via l'API Win32 native",
+    about_title: "📖 À propos",
+    features_title: "✨ Fonctionnalités",
+    feat_ops_title: "66 opérations", feat_ops_body: "Récupération et diagnostic dans un menu",
+    feat_api_title: "17 API natives", feat_api_body: "API Win32 via P/Invoke, sans commandes shell",
+    feat_sig_title: "Détection de falsification", feat_sig_body: "WinVerifyTrust + éditeur du certificat",
+    feat_hash_title: "Instantanés de hachage", feat_hash_body: "SHA256/SHA1 pour comparer l'état du système",
+    feat_dism_title: "Microsoft.Dism", feat_dism_body: "Wrapper NuGet + API COM WUA",
+    feat_lang_title: "9 langues", feat_lang_body: "RU · EN · ZH · DE · FR · ES · JA · KO · PT",
+    downloads_title: "📥 Téléchargements",
+    downloads_intro: "Dernière version : <a href=\"https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1\">v2.5.1</a> — <strong>Standalone</strong> inclut .NET Runtime (aucune installation requise). <strong>Compact</strong> nécessite .NET 6 Runtime.",
+    dl_arch: "Architecture",
+    verify_title: "🔐 Vérifier SHA256",
+    quickstart_title: "🚀 Démarrage rapide",
+    auto_modes_title: "Modes auto (CLI)",
+    screenshots_title: "📸 Captures d'écran",
+    apis_title: "🔌 API Win32 utilisées",
+    apis_intro: "Toutes les opérations utilisent des <strong>appels P/Invoke directs</strong> (sans commandes shell) :",
+    api_dism: "API DISM", api_sfc: "API SFC", api_wintrust: "Signatures Authenticode",
+    api_crypt: "Éditeur du certificat", api_sr: "Points de restauration", api_adv: "SCM, registre, privilèges",
+    api_kern: "Fichiers, redémarrage, App Recovery", api_evt: "Journaux d'événements", api_vss: "Volume Shadow Copy",
+    api_wer: "Windows Error Reporting", api_setup: "Périphériques", api_pow: "Gestion de l'alimentation",
+    api_net: "Diagnostic réseau", api_nuget: "Wrapper géré", api_wua: "Windows Update Agent",
+    links_title: "🔗 Liens",
+    stat_apis: "API Win32", stat_operations: "Opérations", stat_modules: "Modules",
+    stat_languages: "Langues", stat_loc: "Lignes C#",
+    made_with: "Fait avec", for_users: "pour les utilisateurs avancés de Windows"
+  },
+  es: {
+    title: "🔧 Herramienta de Recuperación del Sistema Windows",
+    subtitle: "Herramienta profesional de recuperación de archivos del sistema Windows 10/11 vía API Win32 nativa",
+    about_title: "📖 Acerca de",
+    features_title: "✨ Características",
+    feat_ops_title: "66 operaciones", feat_ops_body: "Recuperación y diagnóstico en un menú",
+    feat_api_title: "17 API nativas", feat_api_body: "API Win32 vía P/Invoke, sin comandos shell",
+    feat_sig_title: "Detección de manipulación", feat_sig_body: "WinVerifyTrust + editor del certificado",
+    feat_hash_title: "Instantáneas de hash", feat_hash_body: "SHA256/SHA1 para comparar el estado del sistema",
+    feat_dism_title: "Microsoft.Dism", feat_dism_body: "Wrapper NuGet + API COM WUA",
+    feat_lang_title: "9 idiomas", feat_lang_body: "RU · EN · ZH · DE · FR · ES · JA · KO · PT",
+    downloads_title: "📥 Descargas",
+    downloads_intro: "Última versión: <a href=\"https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1\">v2.5.1</a> — <strong>Standalone</strong> incluye .NET Runtime (no requiere instalación). <strong>Compact</strong> requiere .NET 6 Runtime.",
+    dl_arch: "Arquitectura",
+    verify_title: "🔐 Verificar SHA256",
+    quickstart_title: "🚀 Inicio rápido",
+    auto_modes_title: "Modos auto (CLI)",
+    screenshots_title: "📸 Capturas de pantalla",
+    apis_title: "🔌 API Win32 utilizadas",
+    apis_intro: "Todas las operaciones usan <strong>llamadas P/Invoke directas</strong> (sin comandos shell):",
+    api_dism: "API DISM", api_sfc: "API SFC", api_wintrust: "Firmas Authenticode",
+    api_crypt: "Editor del certificado", api_sr: "Puntos de restauración", api_adv: "SCM, registro, privilegios",
+    api_kern: "Archivos, reinicio, App Recovery", api_evt: "Registros de eventos", api_vss: "Volume Shadow Copy",
+    api_wer: "Windows Error Reporting", api_setup: "Dispositivos", api_pow: "Gestión de energía",
+    api_net: "Diagnóstico de red", api_nuget: "Wrapper administrado", api_wua: "Windows Update Agent",
+    links_title: "🔗 Enlaces",
+    stat_apis: "API Win32", stat_operations: "Operaciones", stat_modules: "Módulos",
+    stat_languages: "Idiomas", stat_loc: "Líneas C#",
+    made_with: "Hecho con", for_users: "para usuarios avanzados de Windows"
+  },
+  ja: {
+    title: "🔧 Windows システム回復ツール",
+    subtitle: "ネイティブ Win32 API を介した Windows 10/11 システムファイルの専門回復ツール",
+    about_title: "📖 概要",
+    features_title: "✨ 特徴",
+    feat_ops_title: "66 操作", feat_ops_body: "1つのメニューで回復と診断",
+    feat_api_title: "17 ネイティブ API", feat_api_body: "P/Invoke を介した Win32 API、シェルコマンドなし",
+    feat_sig_title: "改ざん検出", feat_sig_body: "WinVerifyTrust + 証明書発行者",
+    feat_hash_title: "ハッシュスナップショット", feat_hash_body: "システム状態を比較するための SHA256/SHA1",
+    feat_dism_title: "Microsoft.Dism", feat_dism_body: "NuGet ラッパー + COM WUA API",
+    feat_lang_title: "9言語", feat_lang_body: "RU · EN · ZH · DE · FR · ES · JA · KO · PT",
+    downloads_title: "📥 ダウンロード",
+    downloads_intro: "最新リリース：<a href=\"https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1\">v2.5.1</a> — <strong>Standalone</strong> には .NET Runtime が含まれます（インストール不要）。<strong>Compact</strong> は .NET 6 Runtime が必要です。",
+    dl_arch: "アーキテクチャ",
+    verify_title: "🔐 SHA256 の検証",
+    quickstart_title: "🚀 クイックスタート",
+    auto_modes_title: "自動モード（CLI）",
+    screenshots_title: "📸 スクリーンショット",
+    apis_title: "🔌 使用される Win32 API",
+    apis_intro: "すべての操作は<strong>直接 P/Invoke 呼び出し</strong>を使用します（シェルコマンドなし）：",
+    api_dism: "DISM API", api_sfc: "SFC API", api_wintrust: "Authenticode 署名",
+    api_crypt: "証明書発行者", api_sr: "復元ポイント", api_adv: "SCM、レジストリ、権限",
+    api_kern: "ファイル、再起動、App Recovery", api_evt: "イベントログ", api_vss: "ボリュームシャドウコピー",
+    api_wer: "Windows エラー報告", api_setup: "デバイス", api_pow: "電源管理",
+    api_net: "ネットワーク診断", api_nuget: "マネージド ラッパー", api_wua: "Windows Update Agent",
+    links_title: "🔗 リンク",
+    stat_apis: "Win32 API", stat_operations: "操作", stat_modules: "モジュール",
+    stat_languages: "言語", stat_loc: "C# 行",
+    made_with: "❤️ で作成", for_users: "Windows パワーユーザー向け"
+  },
+  ko: {
+    title: "🔧 Windows 시스템 복구 도구",
+    subtitle: "네이티브 Win32 API를 통한 전문 Windows 10/11 시스템 파일 복구 도구",
+    about_title: "📖 소개",
+    features_title: "✨ 특징",
+    feat_ops_title: "66 작업", feat_ops_body: "하나의 메뉴에서 복구 및 진단",
+    feat_api_title: "17 네이티브 API", feat_api_body: "P/Invoke를 통한 Win32 API, 셸 명령 없음",
+    feat_sig_title: "변조 감지", feat_sig_body: "WinVerifyTrust + 인증서 게시자",
+    feat_hash_title: "해시 스냅샷", feat_hash_body: "시스템 상태 비교를 위한 SHA256/SHA1",
+    feat_dism_title: "Microsoft.Dism", feat_dism_body: "NuGet 래퍼 + COM WUA API",
+    feat_lang_title: "9개 언어", feat_lang_body: "RU · EN · ZH · DE · FR · ES · JA · KO · PT",
+    downloads_title: "📥 다운로드",
+    downloads_intro: "최신 릴리스: <a href=\"https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1\">v2.5.1</a> — <strong>Standalone</strong>은 .NET Runtime 포함 (설치 불필요). <strong>Compact</strong>는 .NET 6 Runtime 필요.",
+    dl_arch: "아키텍처",
+    verify_title: "🔐 SHA256 검증",
+    quickstart_title: "🚀 빠른 시작",
+    auto_modes_title: "자동 모드 (CLI)",
+    screenshots_title: "📸 스크린샷",
+    apis_title: "🔌 사용된 Win32 API",
+    apis_intro: "모든 작업은 <strong>직접 P/Invoke 호출</strong>을 사용합니다 (셸 명령 없음):",
+    api_dism: "DISM API", api_sfc: "SFC API", api_wintrust: "Authenticode 서명",
+    api_crypt: "인증서 게시자", api_sr: "복원 지점", api_adv: "SCM, 레지스트리, 권한",
+    api_kern: "파일, 재부팅, App Recovery", api_evt: "이벤트 로그", api_vss: "볼륨 섀도 복사본",
+    api_wer: "Windows 오류 보고", api_setup: "장치", api_pow: "전원 관리",
+    api_net: "네트워크 진단", api_nuget: "관리 래퍼", api_wua: "Windows Update Agent",
+    links_title: "🔗 링크",
+    stat_apis: "Win32 API", stat_operations: "작업", stat_modules: "모듈",
+    stat_languages: "언어", stat_loc: "C# 줄",
+    made_with: "❤️ 로 제작", for_users: "Windows 파워 유저를 위해"
+  },
+  pt: {
+    title: "🔧 Ferramenta de Recuperação do Sistema Windows",
+    subtitle: "Ferramenta profissional de recuperação de arquivos do sistema Windows 10/11 via API Win32 nativa",
+    about_title: "📖 Sobre",
+    features_title: "✨ Recursos",
+    feat_ops_title: "66 operações", feat_ops_body: "Recuperação e diagnóstico em um menu",
+    feat_api_title: "17 APIs nativas", feat_api_body: "APIs Win32 via P/Invoke, sem comandos shell",
+    feat_sig_title: "Detecção de adulteração", feat_sig_body: "WinVerifyTrust + editor do certificado",
+    feat_hash_title: "Snapshots de hash", feat_hash_body: "SHA256/SHA1 para comparar o estado do sistema",
+    feat_dism_title: "Microsoft.Dism", feat_dism_body: "Wrapper NuGet + API COM WUA",
+    feat_lang_title: "9 idiomas", feat_lang_body: "RU · EN · ZH · DE · FR · ES · JA · KO · PT",
+    downloads_title: "📥 Downloads",
+    downloads_intro: "Versão mais recente: <a href=\"https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1\">v2.5.1</a> — <strong>Standalone</strong> inclui .NET Runtime (sem instalação necessária). <strong>Compact</strong> requer .NET 6 Runtime.",
+    dl_arch: "Arquitetura",
+    verify_title: "🔐 Verificar SHA256",
+    quickstart_title: "🚀 Início rápido",
+    auto_modes_title: "Modos auto (CLI)",
+    screenshots_title: "📸 Capturas de tela",
+    apis_title: "🔌 APIs Win32 usadas",
+    apis_intro: "Todas as operações usam <strong>chamadas P/Invoke diretas</strong> (sem comandos shell):",
+    api_dism: "API DISM", api_sfc: "API SFC", api_wintrust: "Assinaturas Authenticode",
+    api_crypt: "Editor do certificado", api_sr: "Pontos de restauração", api_adv: "SCM, registro, privilégios",
+    api_kern: "Arquivos, reinicialização, App Recovery", api_evt: "Logs de eventos", api_vss: "Volume Shadow Copy",
+    api_wer: "Windows Error Reporting", api_setup: "Dispositivos", api_pow: "Gerenciamento de energia",
+    api_net: "Diagnóstico de rede", api_nuget: "Wrapper gerenciado", api_wua: "Windows Update Agent",
+    links_title: "🔗 Links",
+    stat_apis: "APIs Win32", stat_operations: "Operações", stat_modules: "Módulos",
+    stat_languages: "Idiomas", stat_loc: "Linhas C#",
+    made_with: "Feito com", for_users: "para usuários avançados do Windows"
+  }
+};
+
+// Get stored language or auto-detect from browser
+function detectLanguage() {
+  const stored = localStorage.getItem('srt-lang');
+  if (stored && TRANSLATIONS[stored]) return stored;
+  
+  const browserLang = (navigator.language || navigator.userLanguage || 'en').toLowerCase();
+  // Check exact match first
+  if (TRANSLATIONS[browserLang]) return browserLang;
+  // Check prefix (e.g. 'en-US' -> 'en')
+  const prefix = browserLang.split('-')[0];
+  if (TRANSLATIONS[prefix]) return prefix;
+  // Chinese variants
+  if (browserLang.startsWith('zh')) return 'zh';
+  // Default
+  return 'en';
+}
+
+function applyLanguage(lang) {
+  if (!TRANSLATIONS[lang]) lang = 'en';
+  
+  // Update text strings
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (TRANSLATIONS[lang][key] !== undefined) {
+      el.innerHTML = TRANSLATIONS[lang][key];
+    }
+  });
+  
+  // Update language content blocks
+  document.querySelectorAll('.lang-content').forEach(el => {
+    if (el.getAttribute('data-lang-content') === lang) {
+      el.classList.add('active');
+    } else {
+      el.classList.remove('active');
+    }
+  });
+  
+  // Update active button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    if (btn.getAttribute('data-lang') === lang) {
+      btn.classList.add('active');
+    } else {
+      btn.classList.remove('active');
+    }
+  });
+  
+  // Update html lang attribute
+  document.documentElement.lang = lang;
+  
+  // Save choice
+  localStorage.setItem('srt-lang', lang);
+}
+
+// Set up language switcher
+document.querySelectorAll('.lang-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    applyLanguage(btn.getAttribute('data-lang'));
+  });
+});
+
+// Initial language: auto-detect
+applyLanguage(detectLanguage());
+</script>
+
+</body>
+</html>

@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>WINDOWS 시스템 복구 도구</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Malgun Gothic', 'Microsoft YaHei', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 16px 20px;
+    width: 900px;
+  }
+  .banner { color: #00dddd; white-space: pre; margin-bottom: 12px; }
+  .info { color: #00aaaa; }
+  .success { color: #00ff00; }
+  .warn { color: #ffff00; }
+  .menu-header {
+    color: #ff00ff;
+    text-align: center;
+    border: 1px solid #ff00ff;
+    padding: 6px 0;
+    margin: 14px 0 10px;
+  }
+  .menu-item { color: #c0c0c0; padding: 1px 0; }
+  .menu-star { color: #ffff00; }
+  .menu-arrow { color: #00dddd; }
+  .prompt { color: #ffffff; margin-top: 8px; }
+  .footer { color: #555; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<div class="banner">╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║   WINDOWS 시스템 복구 도구  v2.5.1                                      ║
+║   Windows 10/11 시스템 파일 직접 복구                                          ║
+║                                                                      ║
+║   ✦ P/Invoke를 통한 17개 네이티브 Win32 API                                  ║
+║   ✦ 66개 복구 및 진단 작업                                                   ║
+║   ✦ WinVerifyTrust를 통한 파일 변조 감지                                      ║
+║   ✦ Microsoft.Dism NuGet + COM WUA API                               ║
+║                                                                      ║
+║   API (https://learn.microsoft.com/windows/win32/apiindex):         ║
+║   • dismapi.dll  • sfc.dll/sfc_os.dll  • wintrust.dll               ║
+║   • crypt32.dll  • srclient.dll       • advapi32.dll (SCM)          ║
+║   • kernel32.dll • wevtapi.dll        • vssapi.dll                  ║
+║   • wer.dll      • setupapi.dll       • powrprof.dll                ║
+║   • winhttp.dll  • wininet.dll        • ws2_32.dll                  ║
+║                                                                      ║
+║   🌐 한국어           •  github.com/Ludonist/Windows-System-Recovery-Tool   ║
+║   License: MIT                                                       ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝</div>
+
+<div class="success">[+] 관리자 권한: 확인됨</div>
+<div class="info">[i] 로그 파일: C:\Users\Admin\AppData\Local\SystemRestoreTool\srt_20260628_193015.log</div>
+
+<div class="menu-header">═══ 메인 메뉴 — System Restore Tool v2.5 ═══</div>
+
+<div class="menu-star">  [ 1] ★ 슈퍼 전체 주기: 복원 지점 + DISM + SFC + 서비스 + WU + 캐시</div>
+<div class="menu-item">  [ 2]     전체 주기(네이티브 API): Check+Scan+Restore+Cleanup+SFC</div>
+<div class="menu-item">  [ 4]   DISM /Online /Cleanup-Image /CheckHealth        (네이티브 API)</div>
+<div class="menu-item">  [ 5]   DISM /Online /Cleanup-Image /ScanHealth         (네이티브 API)</div>
+<div class="menu-item">  [ 9]   Sfc /ScanNow                                     (네이티브 sfc_os.dll)</div>
+<div class="menu-item">  ...</div>
+<div class="menu-star">  [13] ★ ★ 40개 이상 중요 파일 확인(WFP + 서명 + 보고서)</div>
+<div class="menu-star">  [14] ★ ★ 심층 확인 System32 + 드라이버(약 5000개 파일)</div>
+<div class="menu-star">  [52] ★ ★ Windows Update 서버 접근성 확인(WinHTTP)</div>
+<div class="menu-arrow">  [64]   🌐 인터페이스 언어 전환</div>
+<div class="menu-item">  [67]   종료</div>
+
+<div class="prompt">작업 선택 <span style="background:#fff;color:#000;">_</span></div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════════</div>
+
+</body>
+</html>

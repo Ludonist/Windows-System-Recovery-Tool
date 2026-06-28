@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<meta charset="UTF-8">
+<title>FERRAMENTA DE RECUPERAÇÃO DO SISTEMA WINDOWS</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Consolas', 'Cascadia Code', monospace;
+    font-size: 14px;
+    line-height: 1.5;
+    padding: 16px 20px;
+    width: 900px;
+  }
+  .banner { color: #00dddd; white-space: pre; margin-bottom: 12px; }
+  .info { color: #00aaaa; }
+  .success { color: #00ff00; }
+  .warn { color: #ffff00; }
+  .menu-header {
+    color: #ff00ff;
+    text-align: center;
+    border: 1px solid #ff00ff;
+    padding: 6px 0;
+    margin: 14px 0 10px;
+  }
+  .menu-item { color: #c0c0c0; padding: 1px 0; }
+  .menu-star { color: #ffff00; }
+  .menu-arrow { color: #00dddd; }
+  .prompt { color: #ffffff; margin-top: 8px; }
+  .footer { color: #555; margin-top: 10px; }
+</style>
+</head>
+<body>
+
+<div class="banner">╔══════════════════════════════════════════════════════════════════════╗
+║                                                                      ║
+║   FERRAMENTA DE RECUPERAÇÃO DO SISTEMA WINDOWS  v2.5.1                                      ║
+║   Recuperação direta de arquivos do sistema Windows 10/11             ║
+║                                                                      ║
+║   ✦ 17 APIs Win32 nativas via P/Invoke                               ║
+║   ✦ 66 operações de recuperação e diagnóstico                        ║
+║   ✦ Detecção de adulteração de arquivos via WinVerifyTrust           ║
+║   ✦ Microsoft.Dism NuGet + API COM WUA                               ║
+║                                                                      ║
+║   API (https://learn.microsoft.com/windows/win32/apiindex):         ║
+║   • dismapi.dll  • sfc.dll/sfc_os.dll  • wintrust.dll               ║
+║   • crypt32.dll  • srclient.dll       • advapi32.dll (SCM)          ║
+║   • kernel32.dll • wevtapi.dll        • vssapi.dll                  ║
+║   • wer.dll      • setupapi.dll       • powrprof.dll                ║
+║   • winhttp.dll  • wininet.dll        • ws2_32.dll                  ║
+║                                                                      ║
+║   🌐 Português     •  github.com/Ludonist/Windows-System-Recovery-Tool   ║
+║   License: MIT                                                       ║
+║                                                                      ║
+╚══════════════════════════════════════════════════════════════════════╝</div>
+
+<div class="success">[+] Privilégios de administrador: CONFIRMADOS</div>
+<div class="info">[i] Arquivo de log: C:\Users\Admin\AppData\Local\SystemRestoreTool\srt_20260628_193015.log</div>
+
+<div class="menu-header">═══ MENU PRINCIPAL — System Restore Tool v2.5 ═══</div>
+
+<div class="menu-star">  [ 1] ★ CICLO SUPER COMPLETO: ponto de restauração + DISM + SFC + serviços + WU + caches</div>
+<div class="menu-item">  [ 2]     CICLO COMPLETO (API nativa): Check+Scan+Restore+Cleanup+SFC</div>
+<div class="menu-item">  [ 4]   DISM /Online /Cleanup-Image /CheckHealth        (API nativa)</div>
+<div class="menu-item">  [ 5]   DISM /Online /Cleanup-Image /ScanHealth         (API nativa)</div>
+<div class="menu-item">  [ 9]   Sfc /ScanNow                                     (sfc_os.dll nativo)</div>
+<div class="menu-item">  ...</div>
+<div class="menu-star">  [13] ★ ★ VERIFICAR 40+ ARQUIVOS CRÍTICOS (WFP + assinatura + relatório)</div>
+<div class="menu-star">  [14] ★ ★ VERIFICAÇÃO PROFUNDA System32 + drivers (~5000 arquivos)</div>
+<div class="menu-star">  [52] ★ ★ Verificar acessibilidade dos servidores do Windows Update (WinHTTP)</div>
+<div class="menu-arrow">  [64]   🌐 Mudar idioma da interface</div>
+<div class="menu-item">  [67]   Sair</div>
+
+<div class="prompt">Selecionar ação <span style="background:#fff;color:#000;">_</span></div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════════</div>
+
+</body>
+</html>

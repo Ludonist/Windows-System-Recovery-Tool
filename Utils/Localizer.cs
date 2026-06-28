@@ -19,14 +19,20 @@ namespace SystemRestoreTool.Utils
         public const string DEFAULT_LANGUAGE = "ru";
 
         /// <summary>Поддерживаемые языки.</summary>
-        public static readonly string[] SupportedLanguages = { "ru", "en", "zh" };
+        public static readonly string[] SupportedLanguages = { "ru", "en", "zh", "de", "fr", "es", "ja", "ko", "pt" };
 
         /// <summary>Человекочитаемые названия языков.</summary>
         public static readonly Dictionary<string, (string Native, string English)> LanguageNames = new()
         {
             { "ru", ("Русский",       "Russian"              ) },
             { "en", ("English",        "English"              ) },
-            { "zh", ("简体中文",        "Chinese (Simplified)" ) }
+            { "zh", ("简体中文",        "Chinese (Simplified)" ) },
+            { "de", ("Deutsch",        "German"               ) },
+            { "fr", ("Français",       "French"               ) },
+            { "es", ("Español",        "Spanish"              ) },
+            { "ja", ("日本語",          "Japanese"             ) },
+            { "ko", ("한국어",          "Korean"               ) },
+            { "pt", ("Português",      "Portuguese"           ) }
         };
 
         private static Dictionary<string, JsonElement> _strings;

@@ -10,6 +10,7 @@ body:
       value: |
         Спасибо за отчёт об ошибке! Пожалуйста, заполните форму ниже.
         Thank you for taking the time to report a bug!
+        感谢您花时间报告错误！请填写以下表格。
 
   - type: input
     id: version

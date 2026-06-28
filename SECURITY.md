@@ -1,4 +1,8 @@
-# Security Policy
+# Security Policy / Политика безопасности / 安全策略
+
+🌐 [🇷🇺 Русский](SECURITY.md) · [🇬🇧 English](SECURITY.en.md) · [🇨🇳 简体中文](SECURITY.zh.md)
+
+---
 
 ## Поддерживаемые версии
 

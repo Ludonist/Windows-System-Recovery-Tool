@@ -1,4 +1,8 @@
-# Contributing to System Restore Tool
+# Contributing / Участие / 贡献
+
+🌐 [🇷🇺 Русский](CONTRIBUTING.md) · [🇬🇧 English](CONTRIBUTING.en.md) · [🇨🇳 简体中文](CONTRIBUTING.zh.md)
+
+---
 
 Спасибо, что хотите внести вклад! 🎉
 

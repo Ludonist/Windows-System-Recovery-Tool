@@ -1,4 +1,7 @@
-# Changelog
+# Changelog / История изменений / 更新日志
+
+> 🌐 **Note:** This changelog is in Russian. For English, see [Releases](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases) pages. For Chinese, see [Releases](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases) pages.
+> 注：此更新日志为俄语。英语和中文版本请参见 [Releases](https://github.com/Ludonist/Windows-System-Recovery-Tool/releases) 页面。
 
 Все заметные изменения этого проекта документируются в этом файле.
 

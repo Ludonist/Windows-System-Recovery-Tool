@@ -2,6 +2,11 @@
 
 <div align="center">
 
+🌐 **Available languages / Доступные языки / 可用语言:**
+[🇷🇺 Русский](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 简体中文](README.zh.md)
+
+---
+
 ![Platform](https://img.shields.io/badge/platform-Windows%2010%20%7C%2011-blue)
 ![Architecture](https://img.shields.io/badge/arch-x86%20%7C%20x64%20%7C%20ARM64-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)

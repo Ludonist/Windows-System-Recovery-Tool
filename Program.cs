@@ -53,7 +53,7 @@ namespace SystemRestoreTool
             // Обработка --version
             if (args.Length > 0 && (args[0] == "--version" || args[0] == "-v"))
             {
-                Console.WriteLine("Windows System Recovery Tool v2.5.1");
+                Console.WriteLine("Windows System Recovery Tool v2.6.0");
                 Console.WriteLine("  Built with .NET 6, C# 10");
                 Console.WriteLine("  Repository: https://github.com/Ludonist/Windows-System-Recovery-Tool");
                 Console.WriteLine("  License: MIT");
@@ -334,8 +334,16 @@ Windows System Recovery Tool v2.5 — справка
                     "  Поиск доступных обновлений (через COM API)",
                     "  Настройки автоматического обновления (AU)",
                     "",
+                    // === FRST-STYLE SCAN (новое) ===
+                    "  ★★★ FRST-Style полный скан (20 секций, отчёт в файл)",
+                    "  ★★★ Расширенные проверки безопасности (40+ чек-пунктов)",
+                    "  Показать файл hosts",
+                    "  Проверить hosts на подозрительные редиректы",
+                    "  Восстановить hosts по умолчанию (Microsoft)",
+                    "  Список автозагрузки (Run keys + Startup + Winlogon)",
+                    "",
                     // === ЯЗЫК / УТИЛИТЫ ===
-                    "  🌐 Сменить язык интерфейса (RU / EN / 中文)",
+                    "  🌐 Сменить язык интерфейса (RU / EN / 中文 / DE / FR / ES / JA / KO / PT)",
                     "  Открыть папку с логами",
                     "  Перезагрузить компьютер (через Win32 API)",
                     "  Выход"
@@ -522,11 +530,19 @@ Windows System Recovery Tool v2.5 — справка
                 case 62: WindowsUpdateAgentManager.SearchForUpdates();     break;
                 case 63: WindowsUpdateAgentManager.CheckAutomaticUpdates(); break;
 
+                // === FRST-STYLE SCAN (новое в v2.6) ===
+                case 64: FrstScanner.RunFullScan();                break;
+                case 65: AdvancedChecksManager.RunAllAdvancedChecks(); break;
+                case 66: HostsFileManager.ShowHosts();             break;
+                case 67: HostsFileManager.CheckSuspiciousEntries(); break;
+                case 68: HostsFileManager.RestoreDefaultHosts();   break;
+                case 69: StartupManager.ListAll();                 break;
+
                 // === ЯЗЫК / УТИЛИТЫ ===
-                case 64: SwitchLanguage();                                 break;
-                case 65: OpenLogsFolder();                                 break;
-                case 66: RebootSystem();                                   break;
-                case 67: return; // Exit
+                case 70: SwitchLanguage();                                 break;
+                case 71: OpenLogsFolder();                                 break;
+                case 72: RebootSystem();                                   break;
+                case 73: return; // Exit
             }
         }
 

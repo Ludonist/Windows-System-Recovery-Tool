@@ -8,7 +8,7 @@
 
   "banner": {
     "title": "WINDOWS 시스템 복구 도구",
-    "version": "v2.5.1",
+    "version": "v2.6.0",
     "subtitle": "Windows 10/11 시스템 파일 직접 복구",
     "features_api": "P/Invoke를 통한 17개 네이티브 Win32 API",
     "features_ops": "66개 복구 및 진단 작업",

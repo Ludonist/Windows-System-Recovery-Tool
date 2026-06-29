@@ -8,7 +8,7 @@
 
   "banner": {
     "title": "WINDOWS システム回復ツール",
-    "version": "v2.5.1",
+    "version": "v2.6.0",
     "subtitle": "Windows 10/11 システムファイルの直接回復",
     "features_api": "P/Invoke を介した 17 個のネイティブ Win32 API",
     "features_ops": "66 の回復・診断操作",

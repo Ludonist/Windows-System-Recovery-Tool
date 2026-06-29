@@ -18,7 +18,7 @@
     <EnableWindowsTargeting>true</EnableWindowsTargeting>
     <ApplicationManifest>app.manifest</ApplicationManifest>
 
-    <Version>2.5.1</Version>
+    <Version>2.6.0</Version>
     <Company>Ludonist</Company>
     <Product>Windows System Recovery Tool</Product>
     <Description>Прямое восстановление системных файлов Windows 10/11 через Win32 API: DISM, SFC, WinTrust, SetupAPI, PowrProf и др.</Description>

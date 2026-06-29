@@ -8,7 +8,7 @@
 
   "banner": {
     "title": "WINDOWS SYSTEM WIEDERHERSTELLUNGS-TOOL",
-    "version": "v2.5.1",
+    "version": "v2.6.0",
     "subtitle": "Direkte Wiederherstellung von Windows 10/11 Systemdateien",
     "features_api": "17 native Win32 APIs über P/Invoke",
     "features_ops": "66 Wiederherstellungs- und Diagnosevorgänge",

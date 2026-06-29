@@ -14,7 +14,7 @@
 ![Architecture](https://img.shields.io/badge/arch-x86%20%7C%20x64%20%7C%20ARM64-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![.NET](https://img.shields.io/badge/.NET-6.0-purple)
-![Version](https://img.shields.io/badge/version-2.5.1-brightgreen)
+![Version](https://img.shields.io/badge/version-2.6.0-brightgreen)
 ![Language](https://img.shields.io/badge/lang-C%23%2010-success)
 ![Languages](https://img.shields.io/badge/UI%20languages-9-red)
 
@@ -191,7 +191,7 @@ certutil -hashfile SystemRestoreTool-standalone-win-x64.zip SHA256
 
 ### Интерактивный режим
 
-Запустите `SystemRestoreTool.exe` от имени администратора. Откроется меню из 66 пунктов:
+Запустите `SystemRestoreTool.exe` от имени администратора. Откроется меню из 73 пункта:
 
 ```
 ╔══════════════════════════════════════════════════════════════════════╗

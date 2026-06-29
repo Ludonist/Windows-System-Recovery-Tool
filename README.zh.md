@@ -11,7 +11,7 @@
 ![Architecture](https://img.shields.io/badge/arch-x86%20%7C%20x64%20%7C%20ARM64-orange)
 ![License](https://img.shields.io/badge/license-MIT-green)
 ![.NET](https://img.shields.io/badge/.NET-6.0-purple)
-![Version](https://img.shields.io/badge/version-2.5.1-brightgreen)
+![Version](https://img.shields.io/badge/version-2.6.0-brightgreen)
 ![Language](https://img.shields.io/badge/lang-C%23%2010-success)
 ![Languages](https://img.shields.io/badge/UI%20languages-RU%20%7C%20EN%20%7C%20中文-red)
 

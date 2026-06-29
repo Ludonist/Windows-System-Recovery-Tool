@@ -8,10 +8,10 @@
 
   "banner": {
     "title": "OUTIL DE RÉCUPÉRATION SYSTÈME WINDOWS",
-    "version": "v2.5.1",
+    "version": "v2.6.0",
     "subtitle": "Récupération directe des fichiers système Windows 10/11",
     "features_api": "17 API Win32 natives via P/Invoke",
-    "features_ops": "66 opérations de récupération et de diagnostic",
+    "features_ops": "73 opérations de récupération et de diagnostic",
     "features_sig": "Détection de falsification de fichiers via WinVerifyTrust",
     "features_dism": "Microsoft.Dism NuGet + API COM WUA",
     "repository": "Dépôt",

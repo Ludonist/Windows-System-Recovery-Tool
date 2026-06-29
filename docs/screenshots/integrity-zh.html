@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>系统文件完整性报告</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Microsoft YaHei', 'PingFang SC', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 16px 20px;
+    width: 950px;
+  }
+  .header { color: #ff00ff; text-align: center; border: 1px solid #ff00ff; padding: 6px 0; margin: 0 0 12px; }
+  .info { color: #00aaaa; }
+  .success { color: #00ff00; }
+  .warn { color: #ffff00; }
+  .error { color: #ff0000; }
+  .progress-section { margin-top: 16px; }
+  .progress-label { color: #00dddd; margin-bottom: 4px; }
+  .progress-bar { display: inline-block; background: #1a1a1a; border: 1px solid #555; width: 400px; height: 18px; vertical-align: middle; padding: 1px; }
+  .progress-fill { display: block; background: linear-gradient(90deg, #00aa00, #00ff00); height: 100%; }
+  .progress-text { color: #00ff00; margin-left: 8px; }
+  .footer { color: #555; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">═══ 系统文件完整性报告 ═══</div>
+
+<div class="info">[i]                        检查的文件：  40</div>
+<div class="info">[i]                       WFP 保护：  38</div>
+<div class="info">[i]                     无 WFP 保护：  2</div>
+<div class="success">[+]             有效的 Microsoft 签名：  37</div>
+<div class="warn">[!]                        第三方签名：  0</div>
+<div class="warn">[!]                          无签名：  0</div>
+<div class="error">[X]                         签名错误：  0</div>
+<div class="error">[X]                           缺失：  1</div>
+<div class="info">[i]                       检查持续时间：  18.5 秒</div>
+
+<div class="progress-section">
+  <div class="progress-label">>>> 恢复 (RestoreHealth)</div>
+  <span class="progress-bar"><span class="progress-fill" style="width: 68%"></span></span>
+  <span class="progress-text">68% (68/100)</span>
+</div>
+
+<div class="progress-section">
+  <div class="progress-label">>>> 检查 (CheckHealth)</div>
+  <span class="progress-bar"><span class="progress-fill" style="width: 95%"></span></span>
+  <span class="progress-text">95% (95/100)</span>
+</div>
+
+<div class="progress-section">
+  <div class="progress-label">>>> 检查 (ScanHealth)</div>
+  <span class="progress-bar"><span class="progress-fill" style="width: 100%"></span></span>
+  <span class="progress-text">100% (100/100) ✓</span>
+</div>
+
+<div class="success" style="margin-top:16px;">[+] 所有关键文件完整 — 未检测到篡改。</div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════════
+  🇨🇳 简体中文 — Windows System Recovery Tool v2.6.0
+═══════════════════════════════════════════════════════════════════════════</div>
+
+</body>
+</html>

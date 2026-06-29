@@ -116,25 +116,29 @@
 
 ## 📸 스크린샷
 
-### 메인 메뉴 (러시아어)
+### 메인 메뉴
 
-![Main Menu RU](docs/screenshots/01-main-menu-ru.png)
+![메인 메뉴](docs/screenshots/06-main-menu-ko.png)
 
-### 메인 메뉴 (영어)
+### 시스템 파일 무결성 확인 (진행률 표시줄 포함)
 
-![Main Menu EN](docs/screenshots/02-main-menu-en.png)
-
-### 主菜单 (简体中文)
-
-![Main Menu ZH](docs/screenshots/03-main-menu-zh.png)
-
-### 시스템 파일 무결성 검사
-
-![Integrity Check](docs/screenshots/04-integrity-check.png)
+![무결성 확인](docs/screenshots/integrity-ko.png)
 
 ### 인터페이스 언어 전환
 
-![Language Switch](docs/screenshots/05-language-switch.png)
+![언어 전환](docs/screenshots/lang-switch-ko.png)
+
+### FRST 전체 시스템 스캔
+
+![FRST 스캔](docs/screenshots/frst-ko.png)
+
+### 고급 보안 검사 (40개 이상)
+
+![고급 검사](docs/screenshots/checks-ko.png)
+
+### MiniDump 관리자 — 프로세스 분석
+
+![MiniDump](docs/screenshots/minidump-ko.png)
 
 ---
 

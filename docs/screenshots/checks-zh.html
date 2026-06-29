@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>高级安全检查</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Microsoft YaHei', 'PingFang SC', monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    padding: 14px 18px;
+    width: 950px;
+  }
+  .header { color: #ff00ff; font-weight: bold; margin-bottom: 8px; }
+  .check-pass { color: #00ff00; }
+  .check-warn { color: #ffff00; }
+  .check-fail { color: #ff0000; }
+  .section-title { color: #00dddd; margin-top: 10px; font-weight: bold; }
+  .footer { color: #555; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">>>> 高级安全检查</div>
+
+<div class="section-title">[CHECK] UAC</div>
+<div class="check-pass">  ✓ UAC — OK</div>
+
+<div class="section-title">[CHECK] SmartScreen</div>
+<div class="check-pass">  ✓ SmartScreen — OK</div>
+
+<div class="section-title">[CHECK] Windows Defender</div>
+<div class="check-pass">  ✓ Windows Defender — OK</div>
+
+<div class="section-title">[CHECK] Firewall</div>
+<div class="check-pass">  ✓ Firewall — OK</div>
+
+<div class="section-title">[CHECK] Signatures (System32)</div>
+<div class="check-pass">  ✓ 312 files, MS: 287, 3rd: 25, BAD: 0 — OK</div>
+
+<div class="section-title">[CHECK] Winlogon Userinit/Shell</div>
+<div class="check-pass">  ✓ Standard values — OK</div>
+
+<div class="section-title">[CHECK] AppInit_DLLs</div>
+<div class="check-pass">  ✓ Empty — OK</div>
+
+<div class="section-title">[CHECK] IFEO Debugger</div>
+<div class="check-pass">  ✓ No hijacks — OK</div>
+
+<div class="section-title">[CHECK] Critical services</div>
+<div class="check-pass">  ✓ All running — OK</div>
+
+<div class="section-title">[CHECK] Pending reboot</div>
+<div class="check-warn">  ⚠ Reboot required!</div>
+
+<div class="section-title">[CHECK] Disk space</div>
+<div class="check-pass">  ✓ C:\ 245.7/953.0 GB — OK</div>
+
+<div class="section-title">[CHECK] TPM</div>
+<div class="check-pass">  ✓ TPM 2.0 enabled — OK</div>
+
+<div class="section-title">[CHECK] Secure Boot</div>
+<div class="check-pass">  ✓ Enabled — OK</div>
+
+<div class="header" style="margin-top: 16px;">=== 检查摘要 ===</div>
+<div class="check-pass">✓ 通过: 38</div>
+<div class="check-warn">⚠ 警告: 3</div>
+<div class="check-fail">✗ 失败: 1</div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════
+  🇨🇳 简体中文 — Windows System Recovery Tool v2.6.0</div>
+
+</body>
+</html>

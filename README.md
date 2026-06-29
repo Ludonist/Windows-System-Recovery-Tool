@@ -115,34 +115,29 @@
 
 ## 📸 Скриншоты
 
-### Главное меню (9 языков)
+### Главное меню
 
-<table>
-<tr>
-<td><img src="docs/screenshots/01-main-menu-ru.png" alt="RU" width="400"><br>🇷🇺 Русский</td>
-<td><img src="docs/screenshots/02-main-menu-en.png" alt="EN" width="400"><br>🇬🇧 English</td>
-</tr>
-<tr>
-<td><img src="docs/screenshots/03-main-menu-zh.png" alt="ZH" width="400"><br>🇨🇳 简体中文</td>
-<td><img src="docs/screenshots/06-main-menu-de.png" alt="DE" width="400"><br>🇩🇪 Deutsch</td>
-</tr>
-<tr>
-<td><img src="docs/screenshots/06-main-menu-fr.png" alt="FR" width="400"><br>🇫🇷 Français</td>
-<td><img src="docs/screenshots/06-main-menu-es.png" alt="ES" width="400"><br>🇪🇸 Español</td>
-</tr>
-<tr>
-<td><img src="docs/screenshots/06-main-menu-ja.png" alt="JA" width="400"><br>🇯🇵 日本語</td>
-<td><img src="docs/screenshots/06-main-menu-ko.png" alt="KO" width="400"><br>🇰🇷 한국어</td>
-</tr>
-<tr>
-<td><img src="docs/screenshots/06-main-menu-pt.png" alt="PT" width="400"><br>🇵🇹 Português</td>
-<td><img src="docs/screenshots/04-integrity-check.png" alt="Check" width="400"><br>🔍 Проверка целостности</td>
-</tr>
-</table>
+![Главное меню](docs/screenshots/01-main-menu-ru.png)
+
+### Проверка целостности системных файлов (с прогресс-барами)
+
+![Проверка целостности](docs/screenshots/integrity-ru.png)
 
 ### Смена языка интерфейса
 
-![Language Switch](docs/screenshots/05-language-switch.png)
+![Смена языка](docs/screenshots/lang-switch-ru.png)
+
+### FRST-Style полный скан системы
+
+![FRST-скан](docs/screenshots/frst-ru.png)
+
+### Расширенные проверки безопасности (40+ чеков)
+
+![Расширенные проверки](docs/screenshots/checks-ru.png)
+
+### MiniDump Manager — анализ процессов
+
+![MiniDump](docs/screenshots/minidump-ru.png)
 
 ---
 

@@ -116,25 +116,29 @@
 
 ## 📸 截图
 
-### 主菜单（Русский）
+### 主菜单
 
-![Main Menu RU](docs/screenshots/01-main-menu-ru.png)
+![主菜单](docs/screenshots/03-main-menu-zh.png)
 
-### 主菜单（English）
+### 系统文件完整性检查（带进度条）
 
-![Main Menu EN](docs/screenshots/02-main-menu-en.png)
-
-### 主菜单（简体中文）
-
-![Main Menu ZH](docs/screenshots/03-main-menu-zh.png)
-
-### 系统文件完整性检查
-
-![Integrity Check](docs/screenshots/04-integrity-check.png)
+![完整性检查](docs/screenshots/integrity-zh.png)
 
 ### 切换界面语言
 
-![Language Switch](docs/screenshots/05-language-switch.png)
+![语言切换](docs/screenshots/lang-switch-zh.png)
+
+### FRST 风格完整系统扫描
+
+![FRST 扫描](docs/screenshots/frst-zh.png)
+
+### 高级安全检查（40+项）
+
+![高级检查](docs/screenshots/checks-zh.png)
+
+### MiniDump 管理器 — 进程分析
+
+![MiniDump](docs/screenshots/minidump-zh.png)
 
 ---
 

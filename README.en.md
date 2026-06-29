@@ -116,25 +116,29 @@
 
 ## 📸 Screenshots
 
-### Main Menu (Russian)
+### Main Menu
 
-![Main Menu RU](docs/screenshots/01-main-menu-ru.png)
+![Main Menu](docs/screenshots/02-main-menu-en.png)
 
-### Main Menu (English)
+### System file integrity check (with progress bars)
 
-![Main Menu EN](docs/screenshots/02-main-menu-en.png)
-
-### 主菜单 (简体中文)
-
-![Main Menu ZH](docs/screenshots/03-main-menu-zh.png)
-
-### System files integrity check
-
-![Integrity Check](docs/screenshots/04-integrity-check.png)
+![Integrity Check](docs/screenshots/integrity-en.png)
 
 ### Switch interface language
 
-![Language Switch](docs/screenshots/05-language-switch.png)
+![Language Switch](docs/screenshots/lang-switch-en.png)
+
+### FRST-Style full system scan
+
+![FRST Scan](docs/screenshots/frst-en.png)
+
+### Advanced security checks (40+ checks)
+
+![Advanced Checks](docs/screenshots/checks-en.png)
+
+### MiniDump Manager — process analysis
+
+![MiniDump](docs/screenshots/minidump-en.png)
 
 ---
 

@@ -116,25 +116,29 @@
 
 ## 📸 Screenshots
 
-### Hauptmenü (Russisch)
+### Hauptmenü
 
-![Main Menu RU](docs/screenshots/01-main-menu-ru.png)
+![Hauptmenü](docs/screenshots/06-main-menu-de.png)
 
-### Hauptmenü (Englisch)
+### Systemdatei-Integritätsprüfung (mit Fortschrittsbalken)
 
-![Main Menu EN](docs/screenshots/02-main-menu-en.png)
-
-### Hauptmenü (简体中文)
-
-![Main Menu ZH](docs/screenshots/03-main-menu-zh.png)
-
-### Integritätsprüfung der Systemdateien
-
-![Integrity Check](docs/screenshots/04-integrity-check.png)
+![Integritätsprüfung](docs/screenshots/integrity-de.png)
 
 ### Oberflächensprache wechseln
 
-![Language Switch](docs/screenshots/05-language-switch.png)
+![Sprachwechsel](docs/screenshots/lang-switch-de.png)
+
+### FRST-Vollsystem-Scan
+
+![FRST-Scan](docs/screenshots/frst-de.png)
+
+### Erweiterte Sicherheitsprüfungen (40+)
+
+![Erweiterte Prüfungen](docs/screenshots/checks-de.png)
+
+### MiniDump-Manager — Prozessanalyse
+
+![MiniDump](docs/screenshots/minidump-de.png)
 
 ---
 

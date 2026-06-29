@@ -116,25 +116,29 @@
 
 ## 📸 Capturas de pantalla
 
-### Menú principal (Ruso)
+### Menú Principal
 
-![Main Menu RU](docs/screenshots/01-main-menu-ru.png)
+![Menú Principal](docs/screenshots/06-main-menu-es.png)
 
-### Menú principal (Inglés)
+### Verificación de integridad de archivos del sistema (con barras de progreso)
 
-![Main Menu EN](docs/screenshots/02-main-menu-en.png)
-
-### 主菜单 (简体中文)
-
-![Main Menu ZH](docs/screenshots/03-main-menu-zh.png)
-
-### Verificación de integridad de archivos del sistema
-
-![Integrity Check](docs/screenshots/04-integrity-check.png)
+![Verificación de integridad](docs/screenshots/integrity-es.png)
 
 ### Cambiar idioma de la interfaz
 
-![Language Switch](docs/screenshots/05-language-switch.png)
+![Cambio de idioma](docs/screenshots/lang-switch-es.png)
+
+### Análisis completo del sistema FRST
+
+![Análisis FRST](docs/screenshots/frst-es.png)
+
+### Verificaciones de seguridad avanzadas (40+)
+
+![Verificaciones avanzadas](docs/screenshots/checks-es.png)
+
+### Gestor MiniDump — análisis de procesos
+
+![MiniDump](docs/screenshots/minidump-es.png)
 
 ---
 

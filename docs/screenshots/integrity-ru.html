@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ОТЧЁТ О ЦЕЛОСТНОСТИ СИСТЕМНЫХ ФАЙЛОВ</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Consolas', 'Cascadia Code', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 16px 20px;
+    width: 950px;
+  }
+  .header { color: #ff00ff; text-align: center; border: 1px solid #ff00ff; padding: 6px 0; margin: 0 0 12px; }
+  .info { color: #00aaaa; }
+  .success { color: #00ff00; }
+  .warn { color: #ffff00; }
+  .error { color: #ff0000; }
+  .progress-section { margin-top: 16px; }
+  .progress-label { color: #00dddd; margin-bottom: 4px; }
+  .progress-bar { display: inline-block; background: #1a1a1a; border: 1px solid #555; width: 400px; height: 18px; vertical-align: middle; padding: 1px; }
+  .progress-fill { display: block; background: linear-gradient(90deg, #00aa00, #00ff00); height: 100%; }
+  .progress-text { color: #00ff00; margin-left: 8px; }
+  .footer { color: #555; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">═══ ОТЧЁТ О ЦЕЛОСТНОСТИ СИСТЕМНЫХ ФАЙЛОВ ═══</div>
+
+<div class="info">[i]             Проверено файлов:  40</div>
+<div class="info">[i]              Под защитой WFP:  38</div>
+<div class="info">[i]               Без защиты WFP:  2</div>
+<div class="success">[+]   Валидная подпись Microsoft:  37</div>
+<div class="warn">[!]   Подписаны третьей стороной:  0</div>
+<div class="warn">[!]                  Без подписи:  0</div>
+<div class="error">[X]            С плохой подписью:  0</div>
+<div class="error">[X]                  Отсутствуют:  1</div>
+<div class="info">[i]               Время проверки:  18.5 сек</div>
+
+<div class="progress-section">
+  <div class="progress-label">>>> Восстановление (RestoreHealth)</div>
+  <span class="progress-bar"><span class="progress-fill" style="width: 68%"></span></span>
+  <span class="progress-text">68% (68/100)</span>
+</div>
+
+<div class="progress-section">
+  <div class="progress-label">>>> Проверка (CheckHealth)</div>
+  <span class="progress-bar"><span class="progress-fill" style="width: 95%"></span></span>
+  <span class="progress-text">95% (95/100)</span>
+</div>
+
+<div class="progress-section">
+  <div class="progress-label">>>> Проверка (ScanHealth)</div>
+  <span class="progress-bar"><span class="progress-fill" style="width: 100%"></span></span>
+  <span class="progress-text">100% (100/100) ✓</span>
+</div>
+
+<div class="success" style="margin-top:16px;">[+] Все критические файлы в порядке — подмен не обнаружено.</div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════════
+  🇷🇺 Русский — Windows System Recovery Tool v2.6.0
+═══════════════════════════════════════════════════════════════════════════</div>
+
+</body>
+</html>

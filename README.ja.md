@@ -116,25 +116,29 @@
 
 ## 📸 スクリーンショット
 
-### メインメニュー（ロシア語）
+### メインメニュー
 
-![Main Menu RU](docs/screenshots/01-main-menu-ru.png)
+![メインメニュー](docs/screenshots/06-main-menu-ja.png)
 
-### メインメニュー（英語）
+### システムファイル整合性チェック（プログレスバー付き）
 
-![Main Menu EN](docs/screenshots/02-main-menu-en.png)
-
-### 主菜单 (简体中文)
-
-![Main Menu ZH](docs/screenshots/03-main-menu-zh.png)
-
-### システムファイルの整合性チェック
-
-![Integrity Check](docs/screenshots/04-integrity-check.png)
+![整合性チェック](docs/screenshots/integrity-ja.png)
 
 ### インターフェース言語の切り替え
 
-![Language Switch](docs/screenshots/05-language-switch.png)
+![言語切り替え](docs/screenshots/lang-switch-ja.png)
+
+### FRST完全システムスキャン
+
+![FRSTスキャン](docs/screenshots/frst-ja.png)
+
+### 高度なセキュリティチェック（40以上）
+
+![高度なチェック](docs/screenshots/checks-ja.png)
+
+### MiniDumpマネージャー — プロセス分析
+
+![MiniDump](docs/screenshots/minidump-ja.png)
 
 ---
 

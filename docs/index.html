@@ -525,63 +525,9 @@ SystemRestoreTool.exe --scan-all
 <!-- Screenshots -->
 <section>
   <h2 data-i18n="screenshots_title">📸 Screenshots</h2>
-  <div class="screenshots">
-    <div class="screenshot">
-      <img src="screenshots/01-main-menu-ru.png" alt="Main Menu RU" loading="lazy">
-      <div class="caption">🇷🇺 Главное меню (Русский)</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/02-main-menu-en.png" alt="Main Menu EN" loading="lazy">
-      <div class="caption">🇬🇧 Main Menu (English)</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/03-main-menu-zh.png" alt="主菜单 (简体中文)" loading="lazy">
-      <div class="caption">🇨🇳 主菜单 (简体中文)</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/06-main-menu-de.png" alt="Hauptmenü (Deutsch)" loading="lazy">
-      <div class="caption">🇩🇪 Hauptmenü (Deutsch)</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/06-main-menu-fr.png" alt="Menu Principal (Français)" loading="lazy">
-      <div class="caption">🇫🇷 Menu Principal (Français)</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/06-main-menu-es.png" alt="Menú Principal (Español)" loading="lazy">
-      <div class="caption">🇪🇸 Menú Principal (Español)</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/06-main-menu-ja.png" alt="メインメニュー (日本語)" loading="lazy">
-      <div class="caption">🇯🇵 メインメニュー (日本語)</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/06-main-menu-ko.png" alt="메인 메뉴 (한국어)" loading="lazy">
-      <div class="caption">🇰🇷 메인 메뉴 (한국어)</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/06-main-menu-pt.png" alt="Menu Principal (Português)" loading="lazy">
-      <div class="caption">🇵🇹 Menu Principal (Português)</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/04-integrity-check.png" alt="Integrity Check" loading="lazy">
-      <div class="caption">🔍 Integrity check report</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/05-language-switch.png" alt="Language Switch" loading="lazy">
-      <div class="caption">🌐 Switch interface language</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/07-frst-scan-report.png" alt="FRST-Style Scan Report" loading="lazy">
-      <div class="caption">🔍 FRST-Style full scan report (20 sections)</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/08-advanced-checks.png" alt="Advanced Security Checks" loading="lazy">
-      <div class="caption">🛡️ Advanced security checks (40+ checks)</div>
-    </div>
-    <div class="screenshot">
-      <img src="screenshots/09-minidump.png" alt="MiniDump Manager" loading="lazy">
-      <div class="caption">💾 MiniDump Manager — process analysis</div>
-    </div>
+  <p style="color: var(--text-muted); margin-bottom: 16px;" data-i18n="screenshots_note">Screenshots are shown in the currently selected language. Switch language above to see localized screenshots.</p>
+  <div class="screenshots" id="screenshotsContainer">
+    <!-- Filled dynamically by JavaScript based on selected language -->
   </div>
 </section>
 
@@ -678,7 +624,7 @@ const TRANSLATIONS = {
     verify_title: "🔐 Проверка SHA256",
     quickstart_title: "🚀 Быстрый старт",
     auto_modes_title: "Авто-режимы (CLI)",
-    screenshots_title: "📸 Скриншоты",
+    screenshots_title: "📸 Скриншоты", screenshots_note: "As capturas de tela são mostradas no idioma atualmente selecionado. Mude o idioma acima para ver capturas localizadas.", screenshots_note: "스크린샷은 현재 선택된 언어로 표시됩니다. 현지화된 스크린샷을 보려면 위에서 언어를 전환하세요.", screenshots_note: "スクリーンショットは現在選択されている言語で表示されます。ローカライズされたスクリーンショットを見るには上の言語を切り替えてください。", screenshots_note: "Las capturas de pantalla se muestran en el idioma seleccionado actualmente. Cambie el idioma arriba para ver capturas localizadas.", screenshots_note: "Les captures d'écran sont affichées dans la langue actuellement sélectionnée. Changez de langue ci-dessus pour voir les captures localisées.", screenshots_note: "Screenshots werden in der aktuell ausgewählten Sprache angezeigt. Sprache oben wechseln, um lokalisierte Screenshots zu sehen.", screenshots_note: "截图以当前选择的语言显示。切换上方语言以查看本地化截图。", screenshots_note: "Screenshots are shown in the currently selected language. Switch language above to see localized screenshots.", screenshots_note: "Скриншоты показаны на текущем выбранном языке. Переключите язык выше, чтобы увидеть локализованные скриншоты.",
     apis_title: "🔌 Используемые Win32 API",
     apis_intro: "Все операции используют <strong>прямые P/Invoke вызовы</strong> (без shell-команд):",
     api_dism: "DISM API", api_sfc: "SFC API", api_wintrust: "Authenticode-подписи",
@@ -982,8 +928,124 @@ function applyLanguage(lang) {
   // Update html lang attribute
   document.documentElement.lang = lang;
   
+  // Update screenshots to match selected language
+  updateScreenshots(lang);
+  
   // Save choice
   localStorage.setItem('srt-lang', lang);
+}
+
+// Localized screenshot captions per language
+const SCREENSHOT_CAPTIONS = {
+  ru: {
+    main_menu: 'Главное меню',
+    integrity: 'Проверка целостности (с прогресс-барами)',
+    lang_switch: 'Смена языка интерфейса',
+    frst: 'FRST-Style полный скан системы',
+    checks: 'Расширенные проверки безопасности (40+)',
+    minidump: 'MiniDump Manager — анализ процессов',
+  },
+  en: {
+    main_menu: 'Main Menu',
+    integrity: 'Integrity check (with progress bars)',
+    lang_switch: 'Switch interface language',
+    frst: 'FRST-Style full system scan',
+    checks: 'Advanced security checks (40+)',
+    minidump: 'MiniDump Manager — process analysis',
+  },
+  zh: {
+    main_menu: '主菜单',
+    integrity: '完整性检查（带进度条）',
+    lang_switch: '切换界面语言',
+    frst: 'FRST 风格完整系统扫描',
+    checks: '高级安全检查（40+）',
+    minidump: 'MiniDump 管理器 — 进程分析',
+  },
+  de: {
+    main_menu: 'Hauptmenü',
+    integrity: 'Integritätsprüfung (mit Fortschrittsbalken)',
+    lang_switch: 'Oberflächensprache wechseln',
+    frst: 'FRST-Vollsystem-Scan',
+    checks: 'Erweiterte Sicherheitsprüfungen (40+)',
+    minidump: 'MiniDump-Manager — Prozessanalyse',
+  },
+  fr: {
+    main_menu: 'Menu Principal',
+    integrity: 'Vérification d\'intégrité (avec barres de progression)',
+    lang_switch: 'Changer la langue de l\'interface',
+    frst: 'Analyse complète du système FRST',
+    checks: 'Vérifications de sécurité avancées (40+)',
+    minidump: 'Gestionnaire MiniDump — analyse des processus',
+  },
+  es: {
+    main_menu: 'Menú Principal',
+    integrity: 'Verificación de integridad (con barras de progreso)',
+    lang_switch: 'Cambiar idioma de la interfaz',
+    frst: 'Análisis completo del sistema FRST',
+    checks: 'Verificaciones de seguridad avanzadas (40+)',
+    minidump: 'Gestor MiniDump — análisis de procesos',
+  },
+  ja: {
+    main_menu: 'メインメニュー',
+    integrity: '整合性チェック（プログレスバー付き）',
+    lang_switch: 'インターフェース言語の切り替え',
+    frst: 'FRST完全システムスキャン',
+    checks: '高度なセキュリティチェック（40以上）',
+    minidump: 'MiniDumpマネージャー — プロセス分析',
+  },
+  ko: {
+    main_menu: '메인 메뉴',
+    integrity: '무결성 확인 (진행률 표시줄 포함)',
+    lang_switch: '인터페이스 언어 전환',
+    frst: 'FRST 전체 시스템 스캔',
+    checks: '고급 보안 검사 (40개 이상)',
+    minidump: 'MiniDump 관리자 — 프로세스 분석',
+  },
+  pt: {
+    main_menu: 'Menu Principal',
+    integrity: 'Verificação de integridade (com barras de progresso)',
+    lang_switch: 'Mudar idioma da interface',
+    frst: 'Verificação completa do sistema FRST',
+    checks: 'Verificações de segurança avançadas (40+)',
+    minidump: 'Gerenciador MiniDump — análise de processos',
+  },
+};
+
+// Map language code to the main menu screenshot filename prefix
+const MAIN_MENU_FILE = {
+  ru: '01-main-menu-ru',
+  en: '02-main-menu-en',
+  zh: '03-main-menu-zh',
+  de: '06-main-menu-de',
+  fr: '06-main-menu-fr',
+  es: '06-main-menu-es',
+  ja: '06-main-menu-ja',
+  ko: '06-main-menu-ko',
+  pt: '06-main-menu-pt',
+};
+
+function updateScreenshots(lang) {
+  const container = document.getElementById('screenshotsContainer');
+  if (!container) return;
+  
+  const captions = SCREENSHOT_CAPTIONS[lang] || SCREENSHOT_CAPTIONS.en;
+  const mainMenuFile = MAIN_MENU_FILE[lang] || MAIN_MENU_FILE.en;
+  
+  const screenshots = [
+    { file: mainMenuFile,         caption: captions.main_menu },
+    { file: `integrity-${lang}`,  caption: captions.integrity },
+    { file: `lang-switch-${lang}`,caption: captions.lang_switch },
+    { file: `frst-${lang}`,       caption: captions.frst },
+    { file: `checks-${lang}`,     caption: captions.checks },
+    { file: `minidump-${lang}`,   caption: captions.minidump },
+  ];
+  
+  container.innerHTML = screenshots.map(s => `
+    <div class="screenshot">
+      <img src="screenshots/${s.file}.png" alt="${s.caption}" loading="lazy">
+      <div class="caption">${s.caption}</div>
+    </div>
+  `).join('');
 }
 
 // Set up language switcher

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>CRÉATION DE MINIDUMP</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Consolas', 'Cascadia Code', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 14px 18px;
+    width: 950px;
+  }
+  .header { color: #ff00ff; font-weight: bold; margin-bottom: 8px; }
+  .info { color: #00aaaa; }
+  .success { color: #00ff00; }
+  .section-title { color: #00dddd; margin-top: 10px; font-weight: bold; }
+  .footer { color: #555; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">>>> CRÉATION DE MINIDUMP</div>
+
+<div class="info">Sélectionner le processus: <span style="background:#fff;color:#000;">4 (chrome.exe, 456 MB)</span></div>
+
+<div class="section-title">Type de dump:</div>
+<div>  1) MiniDumpNormal (~KB)
+  2) MiniDumpWithDataSegs (~MB)
+  3) MiniDumpWithFullMemory (~GB!)
+  ...
+Type de dump: <span style="background:#fff;color:#000;">1</span></div>
+
+<div class="success">  ✓ Dump создан: dump_1234_chrome_20260629_003045.dmp</div>
+
+<div class="section-title">>>> Analyse du fichier dump: dump_1234_chrome_20260629_003045.dmp</div>
+<div class="info">Размер: 1.24 MB</div>
+<div class="success">Сигнатура: MDMP (валидный)</div>
+<div class="info">Version: 0xA793
+Streams: 12
+Timestamp: 2026-06-29 00:30:45</div>
+
+<div class="section-title">--- Système ---</div>
+<div class="info">  Architecture: x64 (Intel/AMD)
+  Number of processors: 8
+  OS version: 10.0.22631</div>
+
+<div class="section-title">--- Modules ---</div>
+<div class="info">Загружено модулей: 156</div>
+<div>  chrome.exe                       base=0x00007FF6C2A00000 size=    3072KB
+  ntdll.dll                        base=0x00007FFCC5C50000 size=    2048KB
+  kernel32.dll                     base=0x00007FFCC59D0000 size=     768KB
+  KERNELBASE.dll                   base=0x00007FFCC5770000 size=     640KB
+  ucrtbase.dll                     base=0x00007FFCC5680000 size=    1024KB
+  ...
+  ... и ещё 136 модулей</div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════
+  🇫🇷 Français — Windows System Recovery Tool v2.6.0</div>
+
+</body>
+</html>

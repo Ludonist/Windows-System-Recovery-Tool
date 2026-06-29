@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>REPORTE DE INTEGRIDAD DE ARCHIVOS DEL SISTEMA</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Consolas', 'Cascadia Code', monospace;
+    font-size: 14px;
+    line-height: 1.6;
+    padding: 16px 20px;
+    width: 950px;
+  }
+  .header { color: #ff00ff; text-align: center; border: 1px solid #ff00ff; padding: 6px 0; margin: 0 0 12px; }
+  .info { color: #00aaaa; }
+  .success { color: #00ff00; }
+  .warn { color: #ffff00; }
+  .error { color: #ff0000; }
+  .progress-section { margin-top: 16px; }
+  .progress-label { color: #00dddd; margin-bottom: 4px; }
+  .progress-bar { display: inline-block; background: #1a1a1a; border: 1px solid #555; width: 400px; height: 18px; vertical-align: middle; padding: 1px; }
+  .progress-fill { display: block; background: linear-gradient(90deg, #00aa00, #00ff00); height: 100%; }
+  .progress-text { color: #00ff00; margin-left: 8px; }
+  .footer { color: #555; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">═══ REPORTE DE INTEGRIDAD DE ARCHIVOS DEL SISTEMA ═══</div>
+
+<div class="info">[i]         Archivos verificados:  40</div>
+<div class="info">[i]               Protegidos WFP:  38</div>
+<div class="info">[i]           Sin protección WFP:  2</div>
+<div class="success">[+]       Firma Microsoft válida:  37</div>
+<div class="warn">[!]        Firmados por terceros:  0</div>
+<div class="warn">[!]                    Sin firma:  0</div>
+<div class="error">[X]            Con firma errónea:  0</div>
+<div class="error">[X]                    Faltantes:  1</div>
+<div class="info">[i]     Duración de verificación:  18.5 seg</div>
+
+<div class="progress-section">
+  <div class="progress-label">>>> Restauración (RestoreHealth)</div>
+  <span class="progress-bar"><span class="progress-fill" style="width: 68%"></span></span>
+  <span class="progress-text">68% (68/100)</span>
+</div>
+
+<div class="progress-section">
+  <div class="progress-label">>>> Verificación (CheckHealth)</div>
+  <span class="progress-bar"><span class="progress-fill" style="width: 95%"></span></span>
+  <span class="progress-text">95% (95/100)</span>
+</div>
+
+<div class="progress-section">
+  <div class="progress-label">>>> Verificación (ScanHealth)</div>
+  <span class="progress-bar"><span class="progress-fill" style="width: 100%"></span></span>
+  <span class="progress-text">100% (100/100) ✓</span>
+</div>
+
+<div class="success" style="margin-top:16px;">[+] Todos los archivos críticos están intactos — no se detectó manipulación.</div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════════
+  🇪🇸 Español — Windows System Recovery Tool v2.6.0
+═══════════════════════════════════════════════════════════════════════════</div>
+
+</body>
+</html>

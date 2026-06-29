@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>FRST 스캔 보고서</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Malgun Gothic', 'Microsoft YaHei', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 14px 18px;
+    width: 950px;
+  }
+  .header { color: #ff00ff; white-space: pre; margin-bottom: 8px; font-weight: bold; }
+  .info { color: #00aaaa; }
+  .success { color: #00ff00; }
+  .warn { color: #ffff00; }
+  .section-title { color: #00dddd; margin-top: 12px; font-weight: bold; }
+  .footer { color: #555; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">═══════════════════════════════════════════════════════════════════════
+  FRST 스캔 보고서 — 2026-06-29 00:30:15
+  Machine: DESKTOP-ABC123  User: Admin
+═══════════════════════════════════════════════════════════════════════</div>
+
+<div class="section-title">═══ 1. 실행 중인 프로세스 ═══</div>
+<div class="info">  PID       Name                           Path                                                       Publisher                 MD5</div>
+<div>  4         System                          (kernel)                                                   Microsoft                 —
+  612       svchost.exe                     C:\Windows\System32\svchost.exe                           Microsoft Windows         a1b2c3d4e5f6...
+  744       explorer.exe                    C:\Windows\explorer.exe                                   Microsoft Windows         f7e6d5c4b3a2...
+  1234      chrome.exe                      C:\Program Files\Google\Chrome\chrome.exe                 Google LLC                9a8b7c6d5e4f...
+  1860      MsMpEng.exe                     C:\ProgramData\Microsoft\Windows Defender\MsMpEng.exe     Microsoft Windows         1a2b3c4d5e6f...
+  ...
+  실행: 187</div>
+
+<div class="section-title">═══ 2. 서비스 및 드라이버 ═══</div>
+<div>  EventLog                      Windows Event Log              Running      Auto
+  WinDefend                     Microsoft Defender Antivirus   Running      Auto
+  wuauserv                      Windows Update                 Stopped      Manual
+  Spooler                       Print Spooler                  Running      Auto
+  ...
+  서비스: 287</div>
+
+<div class="section-title">═══ 6. HOSTS 파일 ═══</div>
+<div class="info">Файл: C:\Windows\System32\drivers\etc\hosts
+Размер: 824 байт, изменён: 2024-12-15 10:23:45
+
+--- Содержимое ---
+  127.0.0.1       localhost
+  ::1             localhost
+
+Всего записей: 2</div>
+<div class="success">✓ 의심스러운 리디렉션이 감지되지 않았습니다</div>
+
+<div class="section-title">═══ 10. 바로가기 ═══</div>
+<div class="info">Проверено ярлыков: 47
+Сломанных: 3
+Подозрительных (цель в Temp): 0
+  ⚠ BROKEN: C:\Users\Admin\Desktop\OldApp.lnk
+  ⚠ TARGET MISSING: ...\Uninstall.lnk → D:\OldPath\unins000.exe</div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════
+  스캔 완료 — 47.3 sec
+  Report: FRST_Report_20260629_003015.txt
+═══════════════════════════════════════════════════════════════════════
+  🇰🇷 한국어 — Windows System Recovery Tool v2.6.0</div>
+
+</body>
+</html>

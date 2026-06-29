@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>FRST-Style Scan Report</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Consolas', 'Cascadia Code', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 14px 18px;
+    width: 950px;
+  }
+  .header { color: #ff00ff; white-space: pre; margin-bottom: 8px; font-weight: bold; }
+  .info { color: #00aaaa; }
+  .success { color: #00ff00; }
+  .warn { color: #ffff00; }
+  .error { color: #ff0000; }
+  .section-title { color: #00dddd; margin-top: 12px; font-weight: bold; }
+  .table-header { color: #ffffff; }
+  .footer { color: #555; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">═══════════════════════════════════════════════════════════════════════
+  FRST-Style Scan Report — 2026-06-29 00:30:15
+  Machine: DESKTOP-ABC123  User: Admin
+  OS: Microsoft Windows NT 10.0.22631.0
+═══════════════════════════════════════════════════════════════════════</div>
+
+<div class="section-title">═══ 1. RUNNING PROCESSES (с подписями и MD5) ═══</div>
+
+<div class="table-header">  PID       Name                           Path                                                       Publisher                 MD5</div>
+<div>  4         System                          (kernel)                                                   Microsoft                 —
+  612       svchost.exe                     C:\Windows\System32\svchost.exe                           Microsoft Windows         a1b2c3d4e5f6...
+  744       explorer.exe                    C:\Windows\explorer.exe                                   Microsoft Windows         f7e6d5c4b3a2...
+  1234      chrome.exe                      C:\Program Files\Google\Chrome\chrome.exe                 Google LLC                9a8b7c6d5e4f...
+  1860      MsMpEng.exe                     C:\ProgramData\Microsoft\Windows Defender\MsMpEng.exe     Microsoft Windows         1a2b3c4d5e6f...
+  2096      SearchIndexer.exe               C:\Windows\System32\SearchIndexer.exe                     Microsoft Windows         b1c2d3e4f5a6...
+  3420      winlogon.exe                    C:\Windows\System32\winlogon.exe                          Microsoft Windows         c1d2e3f4a5b6...
+  ...
+Всего процессов: 187</div>
+
+<div class="section-title">═══ 2. SERVICES &amp; DRIVERS (включая остановленные) ═══</div>
+
+<div class="table-header">  Name                         Display                        State        StartMode  Path</div>
+<div>  EventLog                      Windows Event Log              Running      Auto       C:\Windows\System32\svchost.exe -k LocalServiceNetworkRestricted
+  WinDefend                     Microsoft Defender Antivirus   Running      Auto       C:\ProgramData\Microsoft\Windows Defender\MsMpEng.exe
+  wuauserv                      Windows Update                 Stopped      Manual     C:\Windows\System32\svchost.exe -k netsvcs
+  Spooler                       Print Spooler                  Running      Auto       C:\Windows\System32\spoolsv.exe
+  ...
+Всего служб: 287
+
+--- ДРАЙВЕРЫ (kernel/system) ---
+  ACPI                          C:\Windows\System32\drivers\ACPI.sys           ACPI Driver
+  tcpip                         C:\Windows\System32\drivers\tcpip.sys           TCP/IP Protocol Driver
+  volmgr                        C:\Windows\System32\drivers\volmgr.sys          Volume Manager Driver
+  ...
+Всего драйверов (running): 156</div>
+
+<div class="section-title">═══ 4. WINLOGON / AppInit_DLLs / Image File Execution Options ═══</div>
+
+<div>--- HKLM\...\Winlogon ---
+  Shell = explorer.exe
+  Userinit = C:\Windows\System32\userinit.exe,
+  AppInit_DLLs = (empty)
+
+--- Image File Execution Options (Debugger hijack check) ---
+  ✓ Нет записей Debugger (хорошо)</div>
+
+<div class="section-title">═══ 6. HOSTS FILE ═══</div>
+
+<div>Файл: C:\Windows\System32\drivers\etc\hosts
+Размер: 824 байт, изменён: 2024-12-15 10:23:45
+
+--- Содержимое (без комментариев и пустых строк) ---
+  127.0.0.1       localhost
+  ::1             localhost
+
+Всего записей: 2
+✓ Подозрительных редиректов не обнаружено</div>
+
+<div class="section-title">═══ 10. SHORTCUTS (.lnk) — проверка целей ═══</div>
+
+<div>Проверено ярлыков: 47
+Сломанных: 3
+Подозрительных (цель в Temp): 0
+  ⚠ BROKEN: C:\Users\Admin\Desktop\OldApp.lnk
+  ⚠ TARGET MISSING: C:\ProgramData\...\Uninstall.lnk → D:\OldPath\unins000.exe
+  ⚠ BROKEN: C:\Users\...\Startup\Updater.lnk</div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════
+  SCAN COMPLETE — 47.3 sec
+  Report saved: C:\Users\Admin\AppData\Local\SystemRestoreTool\FRST_Report_20260629_003015.txt
+═══════════════════════════════════════════════════════════════════════</div>
+
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Security Checks</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Consolas', 'Cascadia Code', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 14px 18px;
+    width: 950px;
+  }
+  .header { color: #ff00ff; white-space: pre; margin-bottom: 8px; font-weight: bold; }
+  .check-pass { color: #00ff00; }
+  .check-warn { color: #ffff00; }
+  .check-fail { color: #ff0000; }
+  .section-title { color: #00dddd; margin-top: 12px; font-weight: bold; }
+  .footer { color: #555; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">>>> РАСШИРЕННЫЕ ПРОВЕРКИ БЕЗОПАСНОСТИ И ЦЕЛОСТНОСТИ</div>
+
+<div class="section-title">[CHECK] UAC включен</div>
+<div>  UAC: включён
+  ConsentPromptBehaviorAdmin = 5 (спрашивать)
+  ✓ UAC включен — OK</div>
+
+<div class="section-title">[CHECK] SmartScreen активен</div>
+<div>  SmartScreenEnabled = RequireAdmin
+  ✓ SmartScreen активен — OK</div>
+
+<div class="section-title">[CHECK] Windows Defender работающий</div>
+<div>  DisableRealtimeMonitoring = 0
+  ✓ Windows Defender работающий — OK</div>
+
+<div class="section-title">[CHECK] Брандмауэр активен</div>
+<div>  Domain: True, Private: True, Public: True
+  ✓ Брандмауэр активен — OK</div>
+
+<div class="section-title">[CHECK] Подписи всех EXE в C:\Windows\</div>
+<div>  Проверено: 47, MS: 46, 3rd: 1, BAD: 0
+  ✓ Подписи всех EXE в C:\Windows\ — OK</div>
+
+<div class="section-title">[CHECK] Подписи всех SYS в System32\drivers</div>
+<div>  Проверено: 312, MS: 287, 3rd: 25, BAD: 0
+  ✓ Подписи всех SYS в System32\drivers — OK</div>
+
+<div class="section-title">[CHECK] Userinit / Shell стандартные</div>
+<div>  Userinit = C:\Windows\System32\userinit.exe,
+  Shell = explorer.exe
+  ✓ Userinit / Shell стандартные — OK</div>
+
+<div class="section-title">[CHECK] AppInit_DLLs пустые</div>
+<div>  [SOFTWARE\Microsoft\Windows NT\CurrentVersion\Windows] AppInit_DLLs='' LoadAppInit_DLLs=0
+  ✓ AppInit_DLLs пустые — OK</div>
+
+<div class="section-title">[CHECK] IFEO без Debugger-взломов</div>
+<div>  ✓ IFEO без Debugger-взломов
+  ✓ IFEO без Debugger-взломов — OK</div>
+
+<div class="section-title">[CHECK] Критические службы автозагрузки</div>
+<div>  EventLog                       Running
+  Schedule                       Running
+  RpcSs                          Running
+  Winmgmt                        Running
+  PlugPlay                       Running
+  Spooler                        Running
+  CryptSvc                       Running
+  ✓ Критические службы автозагрузки — OK</div>
+
+<div class="section-title">[CHECK] Listening ports</div>
+<div>  TCP listeners: 18, UDP listeners: 12
+    TCP 0.0.0.0:135
+    TCP 0.0.0.0:445
+    TCP 0.0.0.0:902
+    TCP 0.0.0.0:912
+    TCP 127.0.0.1:1900
+    ...
+  ✓ Listening ports — OK</div>
+
+<div class="section-title">[CHECK] Pending reboot</div>
+<div>  ⚠ SOFTWARE\Microsoft\Windows\CurrentVersion\Component Based Servicing\RebootPending существует
+  Требуется перезагрузка!
+  ✗ Pending reboot — Pending reboot detected</div>
+
+<div class="section-title">[CHECK] Disk space свободен</div>
+<div>  C:\ 245.7/953.0 GB free
+  D:\ 89.3/500.0 GB free
+  ✓ Disk space свободен — OK</div>
+
+<div class="section-title">[CHECK] TPM состояние</div>
+<div>  TPM: 2.0, Enabled=True
+  ✓ TPM состояние — OK</div>
+
+<div class="section-title">[CHECK] Secure Boot</div>
+<div>  SecureBoot state: 1
+  ✓ Secure Boot — OK</div>
+
+<div class="section-title">[CHECK] Last boot время</div>
+<div>  Last boot: 2026-06-28 14:23, uptime: 10d 9h
+  ✓ Last boot время — OK</div>
+
+<div class="header" style="margin-top: 16px;">=== ИТОГ РАСШИРЕННЫХ ПРОВЕРОК ===</div>
+<div class="check-pass">✓ Пройдено: 38</div>
+<div class="check-warn">⚠ Предупреждений: 3</div>
+<div class="check-fail">✗ Провалено: 1</div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════</div>
+
+</body>
+</html>

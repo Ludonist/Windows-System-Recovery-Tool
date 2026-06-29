@@ -2,8 +2,11 @@
 
 <div align="center">
 
-🌐 **Available languages / Доступные языки / 可用语言:**
-[🇷🇺 Русский](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 简体中文](README.zh.md)
+🌐 **Available languages / Доступные языки / 可用语言 / Unterstützte Sprachen / Langues disponibles / Idiomas disponibles / 利用可能な言語 / 사용 가능한 언어 / Idiomas disponíveis:**
+
+[🇷🇺 Русский](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 简体中文](README.zh.md) · [🇩🇪 Deutsch](README.de.md) · [🇫🇷 Français](README.fr.md) · [🇪🇸 Español](README.es.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇵🇹 Português](README.pt.md)
+
+🌐 **Documentation with auto-detection**: https://ludonist.github.io/Windows-System-Recovery-Tool/
 
 ---
 
@@ -13,11 +16,11 @@
 ![.NET](https://img.shields.io/badge/.NET-6.0-purple)
 ![Version](https://img.shields.io/badge/version-2.6.0-brightgreen)
 ![Language](https://img.shields.io/badge/lang-C%23%2010-success)
-![Languages](https://img.shields.io/badge/UI%20languages-RU%20%7C%20EN%20%7C%20中文-red)
+![Languages](https://img.shields.io/badge/UI%20languages-9-red)
 
 **Professional tool for recovering Windows 10/11 system files via direct Win32 API calls**
 
-🌐 **Multilingual UI**: Russian · English · 简体中文
+🌐 **Multilingual UI**: Russian · English · 简体中文 · Deutsch · Français · Español · 日本語 · 한국어 · Português
 
 [Features](#-features) ·
 [Screenshots](#-screenshots) ·
@@ -45,7 +48,7 @@
 - 🧩 **Microsoft.Dism NuGet** as an alternative managed path
 - 📋 **Detailed logging** to `%LOCALAPPDATA%\SystemRestoreTool\`
 - ⚡ **Self-contained build** — no .NET installation required
-- 🌐 **Multilingual UI**: Russian / English / 简体中文
+- 🌐 **9 Languages**: RU · EN · ZH · DE · FR · ES · JA · KO · PT
 
 ### Problems this tool solves
 
@@ -180,7 +183,7 @@ Compare with the `.sha256` files next to each archive on the [Releases v2.5.1](h
 
 ### Interactive mode
 
-Run `SystemRestoreTool.exe` as administrator. A 67-item menu will open:
+Run `SystemRestoreTool.exe` as administrator. A 73-item menu will open:
 
 ```
 ╔══════════════════════════════════════════════════════════════════════╗
@@ -231,20 +234,26 @@ All operations are written simultaneously to the console (with color) and to a f
 
 ### 🌐 Multilingual UI
 
-The program supports **3 interface languages**:
+The program supports **9 interface languages**:
 
 | Code | Native name | English name |
 |------|-------------|--------------|
 | `ru` | Русский | Russian |
 | `en` | English | English |
 | `zh` | 简体中文 | Chinese (Simplified) |
+| `de` | Deutsch | German |
+| `fr` | Français | French |
+| `es` | Español | Spanish |
+| `ja` | 日本語 | Japanese |
+| `ko` | 한국어 | Korean |
+| `pt` | Português | Portuguese |
 
 **To switch language:**
-1. In the main menu, select item **64** ("🌐 Switch interface language")
-2. Choose the desired language (1-3)
+1. In the main menu, select item **70** ("🌐 Switch interface language")
+2. Choose the desired language (1-9)
 3. The choice is **saved to the registry** (`HKCU\SOFTWARE\SystemRestoreTool\Language`) and applied on next launch
 
-Translation files: `Resources/strings.{ru,en,zh}.json`. They are embedded in the EXE as embedded resources, so nothing else needs to be copied.
+Translation files: `Resources/strings.{ru,en,zh,de,fr,es,ja,ko,pt}.json`. They are embedded in the EXE as embedded resources, so nothing else needs to be copied.
 
 **To add a new language:**
 1. Copy `Resources/strings.en.json` to `Resources/strings.xx.json` (where `xx` is the language code)
@@ -260,7 +269,7 @@ Translation files: `Resources/strings.{ru,en,zh}.json`. They are embedded in the
 Windows-System-Recovery-Tool/
 ├── SystemRestoreTool.csproj      .NET 6.0, x64/x86/ARM64, Microsoft.Dism NuGet
 ├── app.manifest                  requireAdministrator
-├── Program.cs                    Entry point, 67-item menu
+├── Program.cs                    Entry point, 73-item menu
 │
 ├── Api/                          P/Invoke layer (native Windows DLLs)
 │   ├── DismNativeApi.cs          dismapi.dll (DISM API)
@@ -281,7 +290,7 @@ Windows-System-Recovery-Tool/
 │   ├── DismManagedWrapper.cs     Via Microsoft.Dism NuGet
 │   ├── SignatureVerifier.cs      High-level signature verification
 │   ├── IntegrityChecker.cs       Check 40+ critical + all System32
-│   └── Modules/                  Specialized modules (14)
+│   └── Modules/                  Specialized modules (19)
 │       ├── SystemRestorePointManager.cs
 │       ├── ServicesRepairManager.cs
 │       ├── BootRecoveryManager.cs
@@ -295,7 +304,12 @@ Windows-System-Recovery-Tool/
 │       ├── PowerOptionsManager.cs
 │       ├── NetworkDiagnosticManager.cs
 │       ├── WerManager.cs
-│       └── WindowsUpdateAgentManager.cs
+│       ├── WindowsUpdateAgentManager.cs
+│       ├── MiniDumpManager.cs
+│       ├── FrstScanner.cs
+│       ├── AdvancedChecksManager.cs
+│       ├── HostsFileManager.cs
+│       └── StartupManager.cs
 │
 ├── Resources/                    🌐 Localization (embedded resources)
 │   ├── strings.ru.json           Russian (default)
@@ -309,7 +323,8 @@ Windows-System-Recovery-Tool/
 │
 ├── docs/
 │   ├── api-reference.md          Detailed Win32 API reference
-│   └── screenshots/              Program screenshots (PNG)
+│   ├── screenshots/              Program screenshots (PNG)
+│   └── site/                     GitHub Pages site
 │
 ├── .github/
 │   ├── repo-metadata.json        Topics and repo description
@@ -332,9 +347,9 @@ Windows-System-Recovery-Tool/
 - **~7200 lines of C#** code
 - **37 files** in 6 directories
 - **17 native DLLs** via P/Invoke
-- **14 recovery modules**
-- **67 menu items**
-- **3 interface languages** (RU/EN/ZH)
+- **19 recovery modules**
+- **73 menu items**
+- **9 interface languages** (RU/EN/ZH/DE/FR/ES/JA/KO/PT)
 
 ---
 
@@ -485,7 +500,7 @@ All critical files are intact — no tampering detected.
 ## 📈 Roadmap
 
 - [ ] GUI version (WPF) with graphics
-- [ ] Interface localization (Deutsch / Français / Español / 日本語)
+- [ ] Interface localization (more languages: Italian, Arabic, Hindi, Vietnamese)
 - [ ] Automatic detection of "broken" packages via CBS.log
 - [ ] Windows Server 2022/2025 support as separate profiles
 - [ ] Task scheduler (e.g., weekly integrity check)
@@ -520,6 +535,7 @@ You are free to use, modify, and distribute this code.
 - [Microsoft.Dism NuGet](https://github.com/jeffkl/ManagedDism) — managed DISM API wrapper by Jeff Kluge
 - [Microsoft Learn Win32 API List](https://learn.microsoft.com/windows/win32/apiindex/windows-api-list) — Windows API documentation
 - [pinvoke.net](https://www.pinvoke.net/) — P/Invoke signatures reference
+- [Farbar Recovery Scan Tool (FRST)](https://www.bleepingcomputer.com/download/farbar-recovery-scan-tool/) — inspiration for the FRST-style scanner module
 
 ---
 

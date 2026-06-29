@@ -2,8 +2,11 @@
 
 <div align="center">
 
-🌐 **可用语言 / Доступные языки / Available languages:**
-[🇷🇺 Русский](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 简体中文](README.zh.md)
+🌐 **可用语言 / Доступные языки / Available languages / Unterstützte Sprachen / Langues disponibles / Idiomas disponibles / 利用可能な言語 / 사용 가능한 언어 / Idiomas disponíveis:**
+
+[🇷🇺 Русский](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 简体中文](README.zh.md) · [🇩🇪 Deutsch](README.de.md) · [🇫🇷 Français](README.fr.md) · [🇪🇸 Español](README.es.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇵🇹 Português](README.pt.md)
+
+🌐 **自动检测语言的文档**: https://ludonist.github.io/Windows-System-Recovery-Tool/
 
 ---
 
@@ -13,11 +16,11 @@
 ![.NET](https://img.shields.io/badge/.NET-6.0-purple)
 ![Version](https://img.shields.io/badge/version-2.6.0-brightgreen)
 ![Language](https://img.shields.io/badge/lang-C%23%2010-success)
-![Languages](https://img.shields.io/badge/UI%20languages-RU%20%7C%20EN%20%7C%20中文-red)
+![Languages](https://img.shields.io/badge/UI%20languages-9-red)
 
 **通过直接调用 Win32 API 恢复 Windows 10/11 系统文件的专业工具**
 
-🌐 **多语言界面**：Русский · English · 简体中文
+🌐 **多语言界面**：Русский · English · 简体中文 · Deutsch · Français · Español · 日本語 · 한국어 · Português
 
 [功能](#-功能) ·
 [截图](#-截图) ·
@@ -45,7 +48,7 @@
 - 🧩 **Microsoft.Dism NuGet** 作为替代的托管路径
 - 📋 **详细日志**记录到 `%LOCALAPPDATA%\SystemRestoreTool\`
 - ⚡ **自包含构建** — 无需安装 .NET
-- 🌐 **多语言界面**：Русский · English · 简体中文
+- 🌐 **9 种语言**：RU · EN · ZH · DE · FR · ES · JA · KO · PT
 
 ### 该工具解决的问题
 
@@ -180,7 +183,7 @@ certutil -hashfile SystemRestoreTool-standalone-win-x64.zip SHA256
 
 ### 交互模式
 
-以管理员身份运行 `SystemRestoreTool.exe`。将打开一个 67 项菜单：
+以管理员身份运行 `SystemRestoreTool.exe`。将打开一个 73 项菜单：
 
 ```
 ╔══════════════════════════════════════════════════════════════════════╗
@@ -231,20 +234,26 @@ SystemRestoreTool.exe --scan-all
 
 ### 🌐 多语言界面
 
-程序支持 **3 种界面语言**：
+程序支持 **9 种界面语言**：
 
 | 代码 | 原生名称 | 英文名称 |
 |------|-------------|--------------|
 | `ru` | Русский | Russian |
 | `en` | English | English |
 | `zh` | 简体中文 | Chinese (Simplified) |
+| `de` | Deutsch | German |
+| `fr` | Français | French |
+| `es` | Español | Spanish |
+| `ja` | 日本語 | Japanese |
+| `ko` | 한국어 | Korean |
+| `pt` | Português | Portuguese |
 
 **切换语言：**
-1. 在主菜单中选择 **64**（"🌐 切换界面语言"）
-2. 选择所需语言（1-3）
+1. 在主菜单中选择 **70**（"🌐 切换界面语言"）
+2. 选择所需语言（1-9）
 3. 选择**保存到注册表**（`HKCU\SOFTWARE\SystemRestoreTool\Language`），下次启动时应用
 
-翻译文件：`Resources/strings.{ru,en,zh}.json`。它们作为嵌入资源嵌入在 EXE 中，因此无需复制其他内容。
+翻译文件：`Resources/strings.{ru,en,zh,de,fr,es,ja,ko,pt}.json`。它们作为嵌入资源嵌入在 EXE 中，因此无需复制其他内容。
 
 **添加新语言：**
 1. 将 `Resources/strings.en.json` 复制到 `Resources/strings.xx.json`（其中 `xx` 是语言代码）
@@ -260,7 +269,7 @@ SystemRestoreTool.exe --scan-all
 Windows-System-Recovery-Tool/
 ├── SystemRestoreTool.csproj      .NET 6.0, x64/x86/ARM64, Microsoft.Dism NuGet
 ├── app.manifest                  requireAdministrator
-├── Program.cs                    入口点，67 项菜单
+├── Program.cs                    入口点，73 项菜单
 │
 ├── Api/                          P/Invoke 层（原生 Windows DLL）
 │   ├── DismNativeApi.cs          dismapi.dll (DISM API)
@@ -281,7 +290,7 @@ Windows-System-Recovery-Tool/
 │   ├── DismManagedWrapper.cs     通过 Microsoft.Dism NuGet
 │   ├── SignatureVerifier.cs      高级签名验证
 │   ├── IntegrityChecker.cs       检查 40+ 个关键文件 + 所有 System32
-│   └── Modules/                  专用模块（14 个）
+│   └── Modules/                  专用模块（19 个）
 │       ├── SystemRestorePointManager.cs
 │       ├── ServicesRepairManager.cs
 │       ├── BootRecoveryManager.cs
@@ -295,7 +304,12 @@ Windows-System-Recovery-Tool/
 │       ├── PowerOptionsManager.cs
 │       ├── NetworkDiagnosticManager.cs
 │       ├── WerManager.cs
-│       └── WindowsUpdateAgentManager.cs
+│       ├── WindowsUpdateAgentManager.cs
+│       ├── MiniDumpManager.cs
+│       ├── FrstScanner.cs
+│       ├── AdvancedChecksManager.cs
+│       ├── HostsFileManager.cs
+│       └── StartupManager.cs
 │
 ├── Resources/                    🌐 本地化（嵌入资源）
 │   ├── strings.ru.json           Русский（默认）
@@ -309,7 +323,8 @@ Windows-System-Recovery-Tool/
 │
 ├── docs/
 │   ├── api-reference.md          详细的 Win32 API 参考
-│   └── screenshots/              程序截图 (PNG)
+│   ├── screenshots/              程序截图 (PNG)
+│   └── site/                     GitHub Pages 站点
 │
 ├── .github/
 │   ├── repo-metadata.json        Topics 和仓库描述
@@ -332,9 +347,9 @@ Windows-System-Recovery-Tool/
 - **约 7200 行 C#** 代码
 - **37 个文件**，分布在 6 个目录中
 - **17 个原生 DLL** 通过 P/Invoke
-- **14 个恢复模块**
-- **67 个菜单项**
-- **3 种界面语言** (RU/EN/ZH)
+- **19 个恢复模块**
+- **73 个菜单项**
+- **9 种界面语言** (RU/EN/ZH/DE/FR/ES/JA/KO/PT)
 
 ---
 
@@ -485,7 +500,7 @@ dotnet publish -c Release -r win-arm64 -p:PublishReadyToRun=false ...
 ## 📈 路线图
 
 - [ ] GUI 版本（WPF），带图形界面
-- [ ] 界面本地化（Deutsch / Français / Español / 日本語）
+- [ ] 界面本地化（更多语言：意大利语、阿拉伯语、印地语、越南语）
 - [ ] 通过 CBS.log 自动检测"损坏的"包
 - [ ] 支持 Windows Server 2022/2025 作为单独的配置文件
 - [ ] 任务计划程序（例如，每周完整性检查）
@@ -520,6 +535,7 @@ MIT 许可证 — 参见 [LICENSE](LICENSE)。
 - [Microsoft.Dism NuGet](https://github.com/jeffkl/ManagedDism) — Jeff Kluge 的托管 DISM API 包装器
 - [Microsoft Learn Win32 API List](https://learn.microsoft.com/windows/win32/apiindex/windows-api-list) — Windows API 文档
 - [pinvoke.net](https://www.pinvoke.net/) — P/Invoke 签名参考
+- [Farbar Recovery Scan Tool (FRST)](https://www.bleepingcomputer.com/download/farbar-recovery-scan-tool/) — FRST 风格扫描模块的灵感来源
 
 ---
 

@@ -14,7 +14,115 @@
 - GUI-версия (WPF) с графикой вместо консоли
 - Поддержка Windows Server 2022/2025 как отдельных профилей
 - Автоматическое распознавание "битых" пакетов через CBS.log
-- Локализация интерфейса (Deutsch, Français, Español, 日本語)
+- Локализация интерфейса (Italiano, العربية, हिन्दी, Tiếng Việt)
+- YARA-rules сканер для поиска malware-паттернов
+- AutoRuns-style детальный отчёт автозагрузки
+- Анализ MiniDump с извлечением строк (strings-like)
+
+## [2.6.0] — 2026-06-29
+
+### Добавлено
+- **🔍 FRST-Style Scanner** (`FrstScanner.cs`, ~1200 строк) — вдохновлён Farbar Recovery Scan Tool:
+  - 20 секций полного скана системы
+  - Процессы с подписями и MD5
+  - Службы и драйверы (включая stopped)
+  - Автозагрузка (Run keys + Startup folder)
+  - Winlogon / AppInit_DLLs / Image File Execution Options
+  - Запланированные задачи (рекурсивно через Schedule.Service COM)
+  - Файл hosts + проверка подозрительных редиректов
+  - TCP/UDP подключения
+  - Установленные программы
+  - Браузерные расширения (Chrome/Edge/Firefox/IE)
+  - Ярлыки .lnk с проверкой целей
+  - Правила брандмауэра (через COM HNetCfg.FwPolicy2)
+  - Прокси-настройки
+  - Подозрительные файлы в Temp/AppData
+  - DNS-кэш
+  - WMI-запросы (OS, CPU, BIOS, disk, network, video, sound)
+  - Реестр Run keys deep (Policies\Explorer\Run)
+  - Homepage/Search providers браузеров
+  - Mounted devices + USBSTOR history
+  - System Restore points
+  - Установленные обновления (hotfixes)
+  - Результат: `FRST_Report_{timestamp}.txt`
+
+- **🛡️ AdvancedChecksManager** (~700 строк, 40+ проверок):
+  - UAC, SmartScreen, Windows Defender, real-time protection
+  - Antivirus update status, firewall state
+  - Подписи всех EXE/SYS/DLL в System32, SysWOW64, drivers
+  - Winlogon Userinit/Shell, AppInit_DLLs, IFEO Debugger hijacks
+  - Run keys count, Policies\Explorer\Run, hosts redirects
+  - SafeBoot keys, critical services running, services without path
+  - Services with bad paths (Temp/AppData), disabled critical services
+  - Winsock LSP, listening ports, pending TCP, DNS/DHCP state
+  - Startup folder clean, no executables in Temp, no scripts in Startup
+  - Chrome/Edge/Firefox extensions count, IE BHOs
+  - pending.xml, COMPONENTS hive, CBS.log errors, Prefetch
+  - Pagefile/hiberfile presence, PowerShell ExecutionPolicy
+  - Pending reboot, disk space, WU pending, HVCI/VBS, TPM, SecureBoot
+  - Last boot time, NTP sync
+
+- **🔧 HostsFileManager**:
+  - ShowHosts (numbered lines)
+  - CheckSuspiciousEntries (30+ known Microsoft/Google/etc domains)
+  - RestoreDefaultHosts (Microsoft's default content)
+  - BackupHosts (timestamp)
+
+- **🔧 StartupManager**:
+  - ListAll: Run keys (HKLM/HKCU x86/x64) + Startup folder + Winlogon
+  - Auto-detect suspicious: Temp paths, PowerShell -enc, mshta+http,
+    regsvr32 squiblydoo, rundll32+javascript, scripts in Startup
+
+- **💾 MiniDumpManager** (через `dbghelp.dll!MiniDumpWriteDump`):
+  - CreateDump (один процесс, 6 типов: Normal/DataSegs/FullMemory/HandleData/ThreadInfo/UnloadedModules)
+  - DumpAllProcesses (все запущенные процессы)
+  - AnalyzeDumpFile (читает заголовок MDMP, извлекает SystemInfo, ModuleList)
+  - CreateDumpInteractive (выбор процесса и типа через меню)
+
+- **🌐 6 новых языков интерфейса** (всего 9):
+  - Deutsch (Deutsch)
+  - Français (Français)
+  - Español (Español)
+  - 日本語 (Japanese)
+  - 한국어 (Korean)
+  - Português (Portuguese)
+  - Файлы `Resources/strings.{de,fr,es,ja,ko,pt}.json` (embedded resources)
+  - `Localizer.cs` обновлён для 9 языков
+  - `.csproj` обновлён для 9 embedded resources
+
+- **📸 6 новых скриншотов** для новых языков (DE/FR/ES/JA/KO/PT)
+- **📸 3 новых скриншота** функционала:
+  - `07-frst-scan-report.png` — отчёт FRST-сканера
+  - `08-advanced-checks.png` — расширенные проверки безопасности
+  - `09-minidump.png` — MiniDump Manager
+
+- **📚 Полная локализация документации (9 языков)**:
+  - 9 README файлов (RU/EN/ZH/DE/FR/ES/JA/KO/PT)
+  - 9 CHANGELOG файлов
+  - 9 SECURITY файлов
+  - 9 CONTRIBUTING файлов
+  - 9 api-reference.md файлов (в docs/)
+
+- **🌐 GitHub Pages** (`docs/index.html`):
+  - Автоопределение языка браузера через `navigator.language`
+  - 9 кнопок-флагов для переключения языка
+  - Тёмная тема в стиле GitHub
+  - Адаптивный дизайн (CSS Grid)
+  - Все строки UI переведены на 9 языков через JS TRANSLATIONS
+  - Секции: about, features, downloads, quick start, screenshots, APIs, links
+  - Добавлены карточки FRST-Style Scanner и MiniDump Manager
+
+### Изменено
+- Меню расширено с 67 до 75 пунктов (FRST scan, Advanced checks, hosts, startup, MiniDump)
+- Версия: v2.5.1 → v2.6.0
+- README badge: `UI languages - 9` (было `RU | EN | 中文`)
+- GitHub Pages: добавлены FRST и MiniDump в features grid
+- Statistics: 14 → 19 модулей, 67 → 73 операций, 3 → 9 языков
+
+### Подтверждено
+- Сборка: `dotnet build -c Release` — ✅ успешно (3 warnings, 0 errors)
+- GitHub Actions workflow: ✅ все 3 архитектуры собраны (x86/x64/ARM64)
+- Release v2.6.0 опубликован с 12 ассетами
 
 ## [2.5.1] — 2026-06-28
 
@@ -135,7 +243,8 @@
 - Базовое меню из 15 пунктов
 - Логирование в `%LOCALAPPDATA%\SystemRestoreTool\srt_*.log`
 
-[Unreleased]: https://github.com/Ludonist/Windows-System-Recovery-Tool/compare/v2.5.1...HEAD
+[Unreleased]: https://github.com/Ludonist/Windows-System-Recovery-Tool/compare/v2.6.0...HEAD
+[2.6.0]: https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.6.0
 [2.5.1]: https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.1
 [2.5.0]: https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.5.0
 [2.0.0]: https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.0.0

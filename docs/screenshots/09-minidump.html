@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>MiniDump Manager</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: #0c0c0c;
+    color: #c0c0c0;
+    font-family: 'Consolas', 'Cascadia Code', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    padding: 14px 18px;
+    width: 950px;
+  }
+  .header { color: #ff00ff; white-space: pre; margin-bottom: 8px; font-weight: bold; }
+  .info { color: #00aaaa; }
+  .success { color: #00ff00; }
+  .warn { color: #ffff00; }
+  .error { color: #ff0000; }
+  .table-header { color: #ffffff; }
+  .section-title { color: #00dddd; margin-top: 12px; font-weight: bold; }
+  .footer { color: #555; margin-top: 20px; }
+</style>
+</head>
+<body>
+
+<div class="header">>>> Создание minidump для выбранного процесса</div>
+
+<div class="info">Всего процессов: 187</div>
+
+<div class="table-header">  #     PID       Name                           Memory
+  -----------------------------------------------------------------------</div>
+<div>  1     4         System                          0 MB
+  2     612       svchost.exe                    18 MB
+  3     744       explorer.exe                   87 MB
+  4     1234      chrome.exe                     456 MB
+  5     1860      MsMpEng.exe                    234 MB
+  6     2096      SearchIndexer.exe              89 MB
+  7     3420      winlogon.exe                   12 MB
+  ...
+  187   9876      OneDrive.exe                   76 MB</div>
+
+<div class="info" style="margin-top:12px;">Введите номер процесса: <span style="background:#fff;color:#000;">4</span></div>
+
+<div class="section-title">Тип дампа:</div>
+<div>  1) MiniDumpNormal (минимальный, ~KB)
+  2) MiniDumpWithDataSegs (с данными, ~MB)
+  3) MiniDumpWithFullMemory (полный, ~GB!)
+  4) MiniDumpWithHandleData (с хендлами)
+  5) MiniDumpWithThreadInfo (с инфо о потоках)
+  6) MiniDumpWithUnloadedModules (с выгруженными DLL)</div>
+<div class="info" style="margin-top:8px;">Тип (1-6): <span style="background:#fff;color:#000;">1</span></div>
+
+<div class="section-title" style="margin-top:12px;">>>> Создание dump для PID 1234 → ...dump_1234_chrome_20260629_003045.dmp</div>
+<div class="info">Тип дампа: MiniDumpNormal</div>
+<div class="success">  Dump создан: ...dump_1234_chrome_20260629_003045.dmp</div>
+
+<div class="section-title">>>> Анализ dump-файла: ...dump_1234_chrome_20260629_003045.dmp</div>
+<div class="info">Размер: 1.24 MB
+Создан: 2026-06-29 00:30:45</div>
+
+<div class="success">Сигнатура: MDMP (валидный)</div>
+<div class="info">Version: 0xA793
+Streams: 12
+Stream directory RVA: 0x00000020
+Checksum: 0x00000000
+Timestamp: 2026-06-29 00:30:45
+Flags: 0x0000000000000000</div>
+
+<div class="section-title">Потоки в дампе (12):</div>
+<div>  • ThreadList                    size=       256  rva=0x000000B0
+  • ModuleList                    size=     24576  rva=0x00000150
+  • MemoryList                    size=      1024  rva=0x00006150
+  • ExceptionStream               size=       168  rva=0x00006550
+  • SystemInfoStream              size=        56  rva=0x00006600
+  • HandleDataStream              size=       512  rva=0x00006640
+  • MiscInfoStream                size=        48  rva=0x00006840
+  • MemoryInfoListStream          size=       128  rva=0x00006870
+  • ThreadInfoListStream          size=       256  rva=0x000068F0</div>
+
+<div class="section-title">--- SystemInfo ---</div>
+<div class="info">  Architecture: x64 (Intel/AMD)
+  Processor level: 6, rev: 0x9E
+  Number of processors: 8
+  Product type: Workstation
+  OS version: 10.0.22631</div>
+
+<div class="section-title">--- Modules ---</div>
+<div class="info">Загружено модулей: 156</div>
+<div>  chrome.exe                       base=0x00007FF6C2A00000 size=    3072KB
+  ntdll.dll                        base=0x00007FFCC5C50000 size=    2048KB
+  kernel32.dll                     base=0x00007FFCC59D0000 size=     768KB
+  KERNELBASE.dll                   base=0x00007FFCC5770000 size=     640KB
+  ucrtbase.dll                     base=0x00007FFCC5680000 size=    1024KB
+  advapi32.dll                     base=0x00007FFCC5600000 size=     704KB
+  msvcp_win.dll                    base=0x00007FFCC5580000 size=     512KB
+  sechost.dll                      base=0x00007FFCC5520000 size=     640KB
+  rpcrt4.dll                       base=0x00007FFCC5460000 size=    1280KB
+  ...
+  ... и ещё 136 модулей</div>
+
+<div class="footer">═══════════════════════════════════════════════════════════════════════</div>
+
+</body>
+</html>

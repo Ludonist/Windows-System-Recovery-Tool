@@ -307,7 +307,7 @@ footer a { color: var(--accent); }
 <div class="stats">
   <div class="stat"><div class="number">17</div><div class="label" data-i18n="stat_apis">Win32 APIs</div></div>
   <div class="stat"><div class="number">67</div><div class="label" data-i18n="stat_operations">Operations</div></div>
-  <div class="stat"><div class="number">14</div><div class="label" data-i18n="stat_modules">Modules</div></div>
+  <div class="stat"><div class="number">19</div><div class="label" data-i18n="stat_modules">Modules</div></div>
   <div class="stat"><div class="number">9</div><div class="label" data-i18n="stat_languages">Languages</div></div>
   <div class="stat"><div class="number">~7200</div><div class="label" data-i18n="stat_loc">Lines of C#</div></div>
 </div>
@@ -377,6 +377,16 @@ footer a { color: var(--accent); }
       <span class="icon">🌐</span>
       <h3 data-i18n="feat_lang_title">9 Languages</h3>
       <p data-i18n="feat_lang_body">RU · EN · ZH · DE · FR · ES · JA · KO · PT</p>
+    </div>
+    <div class="card">
+      <span class="icon">🔍</span>
+      <h3 data-i18n="feat_frst_title">FRST-Style Scanner</h3>
+      <p data-i18n="feat_frst_body">20-section full system scan + 40+ security checks</p>
+    </div>
+    <div class="card">
+      <span class="icon">💾</span>
+      <h3 data-i18n="feat_dump_title">MiniDump Manager</h3>
+      <p data-i18n="feat_dump_body">Process dumps + analysis via dbghelp.dll</p>
     </div>
   </div>
 </section>
@@ -560,6 +570,18 @@ SystemRestoreTool.exe --scan-all
       <img src="screenshots/05-language-switch.png" alt="Language Switch" loading="lazy">
       <div class="caption">🌐 Switch interface language</div>
     </div>
+    <div class="screenshot">
+      <img src="screenshots/07-frst-scan-report.png" alt="FRST-Style Scan Report" loading="lazy">
+      <div class="caption">🔍 FRST-Style full scan report (20 sections)</div>
+    </div>
+    <div class="screenshot">
+      <img src="screenshots/08-advanced-checks.png" alt="Advanced Security Checks" loading="lazy">
+      <div class="caption">🛡️ Advanced security checks (40+ checks)</div>
+    </div>
+    <div class="screenshot">
+      <img src="screenshots/09-minidump.png" alt="MiniDump Manager" loading="lazy">
+      <div class="caption">💾 MiniDump Manager — process analysis</div>
+    </div>
   </div>
 </section>
 
@@ -649,7 +671,7 @@ const TRANSLATIONS = {
     feat_sig_title: "Проверка подмены", feat_sig_body: "WinVerifyTrust + издатель сертификата",
     feat_hash_title: "Снимки хешей", feat_hash_body: "SHA256/SHA1 для сравнения состояния системы",
     feat_dism_title: "Microsoft.Dism", feat_dism_body: "NuGet-обёртка + COM WUA API",
-    feat_lang_title: "9 языков", feat_lang_body: "RU · EN · ZH · DE · FR · ES · JA · KO · PT",
+    feat_lang_title: "9 языков", feat_lang_body: "RU · EN · ZH · DE · FR · ES · JA · KO · PT", feat_frst_title: "Scanner FRST", feat_frst_body: "Verificação completa do sistema em 20 seções + 40+ verificações de segurança", feat_dump_title: "Gerenciador MiniDump", feat_dump_body: "Despejos de processo + análise via dbghelp.dll", feat_frst_title: "FRST 스캐너", feat_frst_body: "20섹션 전체 시스템 스캔 + 40개 이상 보안 검사", feat_dump_title: "MiniDump 관리자", feat_dump_body: "프로세스 덤프 + dbghelp.dll을 통한 분석", feat_frst_title: "FRSTスキャナー", feat_frst_body: "20セクションのフルシステムスキャン + 40以上のセキュリティチェック", feat_dump_title: "MiniDumpマネージャー", feat_dump_body: "プロセスダンプ + dbghelp.dll経由の分析", feat_frst_title: "Escáner FRST", feat_frst_body: "Análisis completo del sistema en 20 secciones + 40+ verificaciones de seguridad", feat_dump_title: "Gestor MiniDump", feat_dump_body: "Volcados de procesos + análisis vía dbghelp.dll", feat_frst_title: "Scanner FRST", feat_frst_body: "Analyse complète du système en 20 sections + 40+ vérifications de sécurité", feat_dump_title: "Gestionnaire MiniDump", feat_dump_body: "Dumps de processus + analyse via dbghelp.dll", feat_frst_title: "FRST-Scanner", feat_frst_body: "20-Sektionen Vollsystem-Scan + 40+ Sicherheitsprüfungen", feat_dump_title: "MiniDump-Manager", feat_dump_body: "Prozess-Dumps + Analyse über dbghelp.dll", feat_frst_title: "FRST 风格扫描器", feat_frst_body: "20 节完整系统扫描 + 40+ 安全检查", feat_dump_title: "MiniDump 管理器", feat_dump_body: "进程转储 + 通过 dbghelp.dll 分析", feat_frst_title: "FRST-Style Scanner", feat_frst_body: "20-section full system scan + 40+ security checks", feat_dump_title: "MiniDump Manager", feat_dump_body: "Process dumps + analysis via dbghelp.dll", feat_frst_title: "FRST-сканер", feat_frst_body: "Полный скан системы (20 секций) + 40+ проверок безопасности", feat_dump_title: "MiniDump менеджер", feat_dump_body: "Дампы процессов + анализ через dbghelp.dll",
     downloads_title: "📥 Загрузки",
     downloads_intro: "Последний релиз: <a href=\"https://github.com/Ludonist/Windows-System-Recovery-Tool/releases/tag/v2.6.0\">v2.6.0</a> — <strong>Standalone</strong> включает .NET Runtime (не требует установки). <strong>Compact</strong> требует .NET 6 Runtime.",
     dl_arch: "Архитектура",
@@ -734,7 +756,7 @@ const TRANSLATIONS = {
     subtitle: "Professionelles Tool zur Wiederherstellung von Windows 10/11 Systemdateien über native Win32 API",
     about_title: "📖 Über",
     features_title: "✨ Funktionen",
-    feat_ops_title: "66 Vorgänge", feat_ops_body: "Wiederherstellung und Diagnose in einem Menü",
+    feat_ops_title: "73 Vorgänge", feat_ops_body: "Wiederherstellung und Diagnose in einem Menü",
     feat_api_title: "17 native APIs", feat_api_body: "Win32 APIs über P/Invoke, keine Shell-Befehle",
     feat_sig_title: "Manipulationserkennung", feat_sig_body: "WinVerifyTrust + Zertifikats-Herausgeber",
     feat_hash_title: "Hash-Snapshots", feat_hash_body: "SHA256/SHA1 zum Vergleichen des Systemzustands",
@@ -764,7 +786,7 @@ const TRANSLATIONS = {
     subtitle: "Outil professionnel de récupération de fichiers système Windows 10/11 via l'API Win32 native",
     about_title: "📖 À propos",
     features_title: "✨ Fonctionnalités",
-    feat_ops_title: "66 opérations", feat_ops_body: "Récupération et diagnostic dans un menu",
+    feat_ops_title: "73 opérations", feat_ops_body: "Récupération et diagnostic dans un menu",
     feat_api_title: "17 API natives", feat_api_body: "API Win32 via P/Invoke, sans commandes shell",
     feat_sig_title: "Détection de falsification", feat_sig_body: "WinVerifyTrust + éditeur du certificat",
     feat_hash_title: "Instantanés de hachage", feat_hash_body: "SHA256/SHA1 pour comparer l'état du système",
@@ -794,7 +816,7 @@ const TRANSLATIONS = {
     subtitle: "Herramienta profesional de recuperación de archivos del sistema Windows 10/11 vía API Win32 nativa",
     about_title: "📖 Acerca de",
     features_title: "✨ Características",
-    feat_ops_title: "66 operaciones", feat_ops_body: "Recuperación y diagnóstico en un menú",
+    feat_ops_title: "73 operaciones", feat_ops_body: "Recuperación y diagnóstico en un menú",
     feat_api_title: "17 API nativas", feat_api_body: "API Win32 vía P/Invoke, sin comandos shell",
     feat_sig_title: "Detección de manipulación", feat_sig_body: "WinVerifyTrust + editor del certificado",
     feat_hash_title: "Instantáneas de hash", feat_hash_body: "SHA256/SHA1 para comparar el estado del sistema",
@@ -824,7 +846,7 @@ const TRANSLATIONS = {
     subtitle: "ネイティブ Win32 API を介した Windows 10/11 システムファイルの専門回復ツール",
     about_title: "📖 概要",
     features_title: "✨ 特徴",
-    feat_ops_title: "66 操作", feat_ops_body: "1つのメニューで回復と診断",
+    feat_ops_title: "73 操作", feat_ops_body: "1つのメニューで回復と診断",
     feat_api_title: "17 ネイティブ API", feat_api_body: "P/Invoke を介した Win32 API、シェルコマンドなし",
     feat_sig_title: "改ざん検出", feat_sig_body: "WinVerifyTrust + 証明書発行者",
     feat_hash_title: "ハッシュスナップショット", feat_hash_body: "システム状態を比較するための SHA256/SHA1",
@@ -854,7 +876,7 @@ const TRANSLATIONS = {
     subtitle: "네이티브 Win32 API를 통한 전문 Windows 10/11 시스템 파일 복구 도구",
     about_title: "📖 소개",
     features_title: "✨ 특징",
-    feat_ops_title: "66 작업", feat_ops_body: "하나의 메뉴에서 복구 및 진단",
+    feat_ops_title: "73 작업", feat_ops_body: "하나의 메뉴에서 복구 및 진단",
     feat_api_title: "17 네이티브 API", feat_api_body: "P/Invoke를 통한 Win32 API, 셸 명령 없음",
     feat_sig_title: "변조 감지", feat_sig_body: "WinVerifyTrust + 인증서 게시자",
     feat_hash_title: "해시 스냅샷", feat_hash_body: "시스템 상태 비교를 위한 SHA256/SHA1",
@@ -884,7 +906,7 @@ const TRANSLATIONS = {
     subtitle: "Ferramenta profissional de recuperação de arquivos do sistema Windows 10/11 via API Win32 nativa",
     about_title: "📖 Sobre",
     features_title: "✨ Recursos",
-    feat_ops_title: "66 operações", feat_ops_body: "Recuperação e diagnóstico em um menu",
+    feat_ops_title: "73 operações", feat_ops_body: "Recuperação e diagnóstico em um menu",
     feat_api_title: "17 APIs nativas", feat_api_body: "APIs Win32 via P/Invoke, sem comandos shell",
     feat_sig_title: "Detecção de adulteração", feat_sig_body: "WinVerifyTrust + editor do certificado",
     feat_hash_title: "Snapshots de hash", feat_hash_body: "SHA256/SHA1 para comparar o estado do sistema",

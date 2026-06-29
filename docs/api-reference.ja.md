@@ -1,10 +1,10 @@
-# Win32 API Reference — используемые функции
+# Win32 API リファレンス — 使用される関数
 
 🌐 [🇷🇺 Русский](api-reference.md) · [🇬🇧 English](api-reference.en.md) · [🇨🇳 简体中文](api-reference.zh.md) · [🇩🇪 Deutsch](api-reference.de.md) · [🇫🇷 Français](api-reference.fr.md) · [🇪🇸 Español](api-reference.es.md) · [🇯🇵 日本語](api-reference.ja.md) · [🇰🇷 한국어](api-reference.ko.md) · [🇵🇹 Português](api-reference.pt.md)
 
-Подробная справка по всем нативным Win32 API, которые использует System Restore Tool. Все вызовы выполняются через P/Invoke из C#.
+System Restore Tool が使用するすべてのネイティブ Win32 API の詳細リファレンス。すべての呼び出しは C# から P/Invoke 経由で行われます。
 
-## Содержание
+## 目次
 
 - [DISM API (dismapi.dll)](#dism-api-dismapidll)
 - [SFC API (sfc.dll, sfc_os.dll)](#sfc-api-sfcdll-sfc_osdll)
@@ -29,46 +29,46 @@
 ```c
 void DismInitialize(DismLogLevel LogLevel, LPCWSTR LogFilePath, LPCWSTR ScratchDirectory);
 ```
-Инициализирует DISM API. Должна вызываться перед любыми другими DISM-функциями.
+DISM API を初期化します。他の DISM 関数より前に呼び出す必要があります。
 
 ### DismOpenSession
 ```c
 HRESULT DismOpenSession(LPCWSTR ImagePath, LPCWSTR WindowsDirectory, LPCWSTR SystemDrive, DismSession* Session);
 ```
-Открывает сессию DISM. Для Online (текущая система) все параметры = `NULL`.
+DISM セッションを開きます。Online（現在のシステム）の場合、すべてのパラメータ = `NULL`。
 
 ### DismCheckImageHealth
 ```c
 HRESULT DismCheckImageHealth(DismSession Session, LPCWSTR SourcePath, BOOL LimitAccess, DismImageHealthState* ImageHealthState, HANDLE* CancelEvent);
 ```
-Быстрая проверка целостности образа. Возвращает:
-- `DismImageHealthy` (0) — образ здоров
-- `DismImageRepairable` (1) — повреждения есть, восстанавливается
-- `DismImageNonRepairable` (2) — критические повреждения
+イメージの整合性を簡易チェックします。戻り値:
+- `DismImageHealthy` (0) — イメージは正常
+- `DismImageRepairable` (1) — 破損あり、修復可能
+- `DismImageNonRepairable` (2) — 重大な破損
 
 ### DismScanImageHealth
 ```c
 HRESULT DismScanImageHealth(DismSession Session, LPCWSTR SourcePath, BOOL LimitAccess, HANDLE* CancelEvent);
 ```
-Полное сканирование хранилища компонентов. Занимает 5-15 минут.
+コンポーネントストアのフルスキャン。5〜15分かかります。
 
 ### DismRestoreImageHealth
 ```c
 HRESULT DismRestoreImageHealth(DismSession Session, LPCWSTR SourcePath, BOOL LimitAccess, HANDLE* CancelEvent, DISM_PROGRESS_CALLBACK Progress, PVOID UserData);
 ```
-Восстановление повреждённых компонентов из Windows Update или указанного источника. Занимает 10-30 минут.
+Windows Update または指定したソースから破損コンポーネントを修復します。10〜30分かかります。
 
 ### DismStartComponentCleanup
 ```c
 HRESULT DismStartComponentCleanup(DismSession Session, BOOL ResetBase, HANDLE* CancelEvent, DISM_PROGRESS_CALLBACK Progress, PVOID UserData);
 ```
-Очистка хранилища компонентов (WinSxS). При `ResetBase=true` — необратимо удаляет все предыдущие версии компонентов.
+コンポーネントストア（WinSxS）をクリーンアップします。`ResetBase=true` の場合 — すべての以前のコンポーネントバージョンを不可逆的に削除します。
 
 ### DismAnalyzeComponentStore
 ```c
 HRESULT DismAnalyzeComponentStore(DismSession Session, DismComponentStoreInfo** Info);
 ```
-Анализ размера и состояния хранилища WinSxS.
+WinSxS ストアのサイズと状態を分析します。
 
 ---
 
@@ -78,30 +78,30 @@ HRESULT DismAnalyzeComponentStore(DismSession Session, DismComponentStoreInfo** 
 ```c
 BOOL SfcIsFileProtected(HANDLE RpcHandle, LPCWSTR ProtFileName);
 ```
-Проверяет, защищён ли файл механизмом WFP (Windows File Protection).
+ファイルが WFP（Windows File Protection）機構で保護されているかを確認します。
 
 ### SfcGetNextProtectedFile
 ```c
 BOOL SfcGetNextProtectedFile(HANDLE Handle, PPROTECTED_FILE_DATA ProtFileData);
 ```
-Перечисляет все защищённые файлы. Вызывается в цикле, пока не вернёт `FALSE`.
+すべての保護されたファイルを列挙します。`FALSE` を返すまでループで呼び出します。
 
 ### SfcSynchronousScan (sfc_os.dll)
 ```c
 BOOL SfcSynchronousScan(HWND hWnd, SfcScanType ScanType, PVOID Reserved);
 ```
-**Недокументированная** функция, которую вызывает `sfc.exe /scannow`. Доступна в Windows 7–11.
+`sfc.exe /scannow` が呼び出す **非公式** 関数。Windows 7〜11 で利用可能。
 
-Типы сканирования:
-- `VerifyOnly` (0) — только проверка
-- `ScanAndRepair` (1) — проверка и восстановление
-- `ScanAtBoot` (2) — проверка при следующей загрузке
+スキャンの種類:
+- `VerifyOnly` (0) — 検証のみ
+- `ScanAndRepair` (1) — 検証と修復
+- `ScanAtBoot` (2) — 次回起動時にスキャン
 
 ### SfcFileException (sfc_os.dll)
 ```c
 BOOL SfcFileException(HANDLE RpcHandle, LPCWSTR FileName, DWORD Reserved);
 ```
-Временно отключает защиту WFP для файла. Используется установщиками.
+ファイルの WFP 保護を一時的に無効にします。インストーラーが使用します。
 
 ---
 
@@ -111,13 +111,13 @@ BOOL SfcFileException(HANDLE RpcHandle, LPCWSTR FileName, DWORD Reserved);
 ```c
 LONG WinVerifyTrust(HWND hwnd, GUID* pgActionID, LPVOID pWVTData);
 ```
-Проверка подписи Authenticode файла. Возвращает:
-- `S_OK` (0) — подпись валидна
-- `TRUST_E_NOSIGNATURE` (0x800B0100) — подпись отсутствует
-- `TRUST_E_BAD_DIGEST` (0x80096010) — подпись неверна (файл модифицирован!)
-- `CERT_E_EXPIRED` (0x800B0101) — сертификат истёк
-- `CERT_E_REVOKED` (0x800B010C) — сертификат отозван
-- `CERT_E_UNTRUSTEDROOT` (0x800B0109) — ненадёжный корень
+ファイルの Authenticode 署名を検証します。戻り値:
+- `S_OK` (0) — 署名は有効
+- `TRUST_E_NOSIGNATURE` (0x800B0100) — 署名なし
+- `TRUST_E_BAD_DIGEST` (0x80096010) — 署名が無効（ファイルが変更されています！）
+- `CERT_E_EXPIRED` (0x800B0101) — 証明書の有効期限切れ
+- `CERT_E_REVOKED` (0x800B010C) — 証明書が失効
+- `CERT_E_UNTRUSTEDROOT` (0x800B0109) — 信頼されないルート
 
 ### CryptQueryObject
 ```c
@@ -126,21 +126,21 @@ BOOL CryptQueryObject(DWORD dwObjectType, LPCVOID pvObject, DWORD dwExpectedCont
     DWORD* pdwContentType, DWORD* pdwFormatType, HCERTSTORE* phCertStore,
     HCRYPTMSG* phMsg, const void** ppvContext);
 ```
-Извлекает из файла сертификат и подпись для дальнейшего анализа.
+ファイルから証明書と署名を抽出し、さらなる分析に供します。
 
 ### CertFindCertificateInStore
 ```c
 PCCERT_CONTEXT CertFindCertificateInStore(HCERTSTORE hCertStore, DWORD dwCertEncodingType,
     DWORD dwFindFlags, DWORD dwFindType, const void* pvFindPara, PCCERT_CONTEXT pPrevCertContext);
 ```
-Перечисляет сертификаты в хранилище подписи.
+署名ストア内の証明書を列挙します。
 
 ### CertGetNameString
 ```c
 BOOL CertGetNameString(PCCERT_CONTEXT pCertContext, DWORD dwType, DWORD dwFlags,
     void* pvTypePara, LPTSTR pszNameString, DWORD cchNameString);
 ```
-Получает имя Subject (владельца) или Issuer (издателя) сертификата. Используется для проверки, что `kernel32.dll` подписан именно «Microsoft Windows».
+証明書の Subject（所有者）または Issuer（発行者）名を取得します。`kernel32.dll` が「Microsoft Windows」によって署名されていることを確認するために使用します。
 
 ---
 
@@ -150,9 +150,9 @@ BOOL CertGetNameString(PCCERT_CONTEXT pCertContext, DWORD dwType, DWORD dwFlags,
 ```c
 BOOL SRSetRestorePointW(PRESTOREPOINTINFOW RestorePtInfo, PSTATEMGRSTATUS SMgrStatus);
 ```
-Создаёт точку восстановления системы. Для полного создания нужно два вызова:
-1. `BEGIN_SYSTEM_CHANGE` — начинает создание
-2. `END_SYSTEM_CHANGE` — завершает (используя `llSequenceNumber` из первого вызова)
+システム復元ポイントを作成します。完全な作成には2回の呼び出しが必要です:
+1. `BEGIN_SYSTEM_CHANGE` — 作成を開始
+2. `END_SYSTEM_CHANGE` — 完了（最初の呼び出しの `llSequenceNumber` を使用）
 
 ---
 
@@ -162,26 +162,26 @@ BOOL SRSetRestorePointW(PRESTOREPOINTINFOW RestorePtInfo, PSTATEMGRSTATUS SMgrSt
 ```c
 SC_HANDLE OpenSCManager(LPCWSTR lpMachineName, LPCWSTR lpDatabaseName, DWORD dwDesiredAccess);
 ```
-Открывает подключение к SCM.
+SCM への接続を開きます。
 
 ### OpenService
 ```c
 SC_HANDLE OpenService(SC_HANDLE hSCManager, LPCWSTR lpServiceName, DWORD dwDesiredAccess);
 ```
-Открывает существующую службу по имени.
+名前で既存のサービスを開きます。
 
 ### StartService / ControlService
 ```c
 BOOL StartService(SC_HANDLE hService, DWORD dwNumServiceArgs, LPCWSTR* lpServiceArgVectors);
 BOOL ControlService(SC_HANDLE hService, DWORD dwControl, LPSERVICE_STATUS lpServiceStatus);
 ```
-Запуск / управление службой. `SERVICE_CONTROL_STOP` (1) — остановка.
+サービスの開始 / 制御。`SERVICE_CONTROL_STOP` (1) — 停止。
 
 ### QueryServiceStatus
 ```c
 BOOL QueryServiceStatus(SC_HANDLE hService, LPSERVICE_STATUS lpServiceStatus);
 ```
-Получает текущее состояние службы (Running / Stopped / Paused / ...).
+サービスの現在の状態（Running / Stopped / Paused / ...）を取得します。
 
 ---
 
@@ -191,27 +191,27 @@ BOOL QueryServiceStatus(SC_HANDLE hService, LPSERVICE_STATUS lpServiceStatus);
 ```c
 BOOL MoveFileEx(LPCWSTR lpExistingFileName, LPCWSTR lpNewFileName, DWORD dwFlags);
 ```
-С `MOVEFILE_DELAY_UNTIL_REBOOT` — откладывает операцию до следующей перезагрузки. Используется для замены занятых файлов.
+`MOVEFILE_DELAY_UNTIL_REBOOT` を指定すると — 操作を次回再起動まで遅らせます。ロックされたファイルの置き換えに使用します。
 
 ### ExitWindowsEx
 ```c
 BOOL ExitWindowsEx(UINT uFlags, DWORD dwReason);
 ```
-Перезагрузка / выключение / logout. Требует привилегию `SeShutdownPrivilege`.
+再起動 / シャットダウン / ログオフ。`SeShutdownPrivilege` 特権が必要です。
 
 ### RegSaveKey / RegRestoreKey
 ```c
 BOOL RegSaveKey(HKEY hKey, LPCWSTR lpFile, PSECURITY_ATTRIBUTES lpSecurityAttributes);
 LONG RegRestoreKey(HKEY hKey, LPCWSTR lpFile, DWORD dwFlags);
 ```
-Сохранение и восстановление кустов реестра в файл. Требует `SeBackupPrivilege` и `SeRestorePrivilege`.
+レジストリハイブをファイルに保存・復元します。`SeBackupPrivilege` および `SeRestorePrivilege` が必要です。
 
 ### RegisterApplicationRecoveryCallback / RegisterApplicationRestart
 ```c
 BOOL RegisterApplicationRecoveryCallback(RECOVERY_CALLBACK pRecoveyCallback, PVOID pvParameter, DWORD dwPingInterval, DWORD dwFlags);
 BOOL RegisterApplicationRestart(LPCWSTR pwzCommandline, DWORD dwFlags);
 ```
-Регистрируют приложение для автоматического восстановления/перезапуска при сбое.
+クラッシュ時の自動回復/再起動に向けてアプリケーションを登録します。
 
 ---
 
@@ -221,19 +221,19 @@ BOOL RegisterApplicationRestart(LPCWSTR pwzCommandline, DWORD dwFlags);
 ```c
 HRESULT EvtClearLog(EVT_HANDLE Session, LPCWSTR ChannelPath, LPCWSTR TargetFilePath, LPCWSTR Query);
 ```
-Очищает канал журнала событий, опционально сохраняя содержимое в `.evtx` файл.
+イベントログチャネルをクリアし、必要に応じて内容を `.evtx` ファイルに保存します。
 
 ---
 
 ## VSS API (vssapi.dll)
 
-VSS реализован как COM-интерфейс `IVssBackupComponents`. Создание снимка состояния тома:
-1. `CreateVssBackupComponents` — создаёт объект
-2. `InitializeForBackup` — инициализация
-3. `SetBackupState` — установка типа
-4. `GatherWriterMetadata` — сбор метаданных
-5. `StartSnapshotSet` / `AddToSnapshotSet` — добавление томов
-6. `PrepareForBackup` / `DoSnapshotSet` — создание снимка
+VSS は COM インターフェース `IVssBackupComponents` として実装されています。ボリュームシャドウコピーの作成:
+1. `CreateVssBackupComponents` — オブジェクトを作成
+2. `InitializeForBackup` — 初期化
+3. `SetBackupState` — タイプを設定
+4. `GatherWriterMetadata` — メタデータを収集
+5. `StartSnapshotSet` / `AddToSnapshotSet` — ボリュームを追加
+6. `PrepareForBackup` / `DoSnapshotSet` — スナップショットを作成
 
 ---
 
@@ -244,7 +244,7 @@ VSS реализован как COM-интерфейс `IVssBackupComponents`. �
 HRESULT WerReportCreate(PCWSTR pwzEventType, WER_REPORT_TYPE repType, PWER_REPORT_INFORMATION pReportInformation, HREPORT* phReportHandle);
 HRESULT WerReportSubmit(HREPORT hReportHandle, WER_CONSENT consent, DWORD dwFlags, PWER_SUBMIT_RESULT pSubmitResult);
 ```
-Создание и отправка отчёта об ошибке.
+エラーレポートを作成して送信します。
 
 ---
 
@@ -254,25 +254,25 @@ HRESULT WerReportSubmit(HREPORT hReportHandle, WER_CONSENT consent, DWORD dwFlag
 ```c
 HDEVINFO SetupDiGetClassDevs(const GUID* ClassGuid, PCWSTR Enumerator, HWND hwndParent, DWORD Flags);
 ```
-Создаёт набор информации об устройствах. С `DIGCF_PRESENT | DIGCF_ALLCLASSES` — все присутствующие устройства.
+デバイス情報セットを作成します。`DIGCF_PRESENT | DIGCF_ALLCLASSES` で — すべての存在するデバイス。
 
 ### SetupDiEnumDeviceInfo
 ```c
 BOOL SetupDiEnumDeviceInfo(HDEVINFO DeviceInfoSet, DWORD MemberIndex, PSP_DEVINFO_DATA DeviceInfoData);
 ```
-Перечисляет устройства в наборе.
+セット内のデバイスを列挙します。
 
 ### SetupDiGetDeviceRegistryProperty
 ```c
 BOOL SetupDiGetDeviceRegistryProperty(HDEVINFO DeviceInfoSet, PSP_DEVINFO_DATA DeviceInfoData, DWORD Property, DWORD* PropertyRegDataType, PBYTE PropertyBuffer, DWORD PropertyBufferSize, PDWORD RequiredSize);
 ```
-Получает свойства устройства (описание, класс, служба, и т.д.).
+デバイスのプロパティ（説明、クラス、サービスなど）を取得します。
 
 ### CM_Reenumerate_DevNode (cfgmgr32.dll)
 ```c
 DWORD CM_Reenumerate_DevNode(DEVINST dnDevInst, ULONG ulFlags);
 ```
-Запускает сканирование аппаратных изменений (Device Manager → "Scan for hardware changes").
+ハードウェア変更のスキャンを開始します（デバイス マネージャー →「ハードウェア変更のスキャン」）。
 
 ---
 
@@ -283,30 +283,30 @@ DWORD CM_Reenumerate_DevNode(DEVINST dnDevInst, ULONG ulFlags);
 DWORD PowerGetActiveScheme(HKEY UserRootPowerKey, GUID** ActivePolicyGuid);
 DWORD PowerSetActiveScheme(HKEY UserRootPowerKey, const GUID* SchemeGuid);
 ```
-Получение/установка активной схемы питания.
+アクティブな電源プランを取得/設定します。
 
-Предопределённые схемы:
-- `GUID_MAX_POWER_SAVINGS` — Энергосбережение
-- `GUID_TYPICAL_POWER_SAVINGS` — Сбалансированная
-- `GUID_MIN_POWER_SAVINGS` — Высокая производительность
+定義済みプラン:
+- `GUID_MAX_POWER_SAVINGS` — 省電力
+- `GUID_TYPICAL_POWER_SAVINGS` — バランス
+- `GUID_MIN_POWER_SAVINGS` — 高パフォーマンス
 
 ### CallNtPowerInformation
 ```c
 DWORD CallNtPowerInformation(POWER_INFORMATION_LEVEL InformationLevel, PVOID InputBuffer, ULONG InputBufferLength, PVOID OutputBuffer, ULONG OutputBufferLength);
 ```
-Получает различную информацию о питании. С `SystemBatteryState` (5) — состояние батареи.
+各種電源情報を取得します。`SystemBatteryState` (5) で — バッテリー状態。
 
 ### GetPwrCapabilities
 ```c
 BOOL GetPwrCapabilities(PSYSTEM_POWER_CAPABILITIES lpSystemPowerCapabilities);
 ```
-Возможности питания системы (S1-S5, гибернация, кнопка питания и т.д.).
+システムの電源機能（S1〜S5、休止状態、電源ボタンなど）。
 
 ### SetSuspendState
 ```c
 BOOL SetSuspendState(BOOL Hibernate, BOOL ForceCritical, BOOL DisableWakeEvent);
 ```
-Переводит систему в спящий/гибернационный режим.
+システムをスリープ/休止状態にします。
 
 ---
 
@@ -321,31 +321,31 @@ BOOL WinHttpSendRequest(...);
 BOOL WinHttpReceiveResponse(...);
 BOOL WinHttpQueryHeaders(...);
 ```
-Используется для HTTP-проверки доступности серверов Windows Update.
+Windows Update サーバーの可用性を HTTP で確認するために使用します。
 
 ### WinINet
 ```c
 BOOL InternetGetConnectedState(LPDWORD lpdwFlags, DWORD dwReserved);
 ```
-Проверка подключения к интернету.
+インターネット接続を確認します。
 
 ### Winsock (ws2_32.dll)
 ```c
 int WSAStartup(WORD wVersionRequested, LPWSADATA lpWSAData);
 int WSACleanup();
 ```
-Инициализация Winsock для низкоуровневых сетевых операций.
+低レベルのネットワーク操作のために Winsock を初期化します。
 
 ---
 
 ## Microsoft.Dism NuGet
 
-Управляемая обёртка над DISM API. Устанавливается через NuGet:
+DISM API のマネージドラッパー。NuGet でインストール:
 ```bash
 dotnet add package Microsoft.Dism
 ```
 
-Использование:
+使用方法:
 ```csharp
 DismApi.Initialize(DismLogLevel.LogErrorsWarningsInfo, logPath);
 using var session = DismApi.OpenOnlineSession();
@@ -354,13 +354,13 @@ DismApi.RestoreImageHealth(session, false, null, progress => { ... });
 DismApi.Shutdown();
 ```
 
-Версия 3.2.0 не предоставляет `ScanImageHealth` и `CleanupImage` — для них мы используем собственный P/Invoke.
+バージョン 3.2.0 は `ScanImageHealth` と `CleanupImage` を提供していません — これらには独自の P/Invoke を使用します。
 
 ---
 
 ## COM WUA API
 
-Windows Update Agent через COM (`Microsoft.Update.Session`):
+COM 経由の Windows Update Agent（`Microsoft.Update.Session`）:
 
 ```csharp
 dynamic session = Activator.CreateInstance(Type.GetTypeFromProgID("Microsoft.Update.Session"));
@@ -372,7 +372,7 @@ foreach (var update in result.Updates)
 
 ---
 
-## Ссылки
+## リンク
 
 - [Win32 API List](https://learn.microsoft.com/windows/win32/apiindex/windows-api-list)
 - [Windows apps API reference](https://learn.microsoft.com/windows/apps/api-reference/)

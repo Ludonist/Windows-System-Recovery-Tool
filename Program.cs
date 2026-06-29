@@ -342,6 +342,10 @@ Windows System Recovery Tool v2.5 — справка
                     "  Восстановить hosts по умолчанию (Microsoft)",
                     "  Список автозагрузки (Run keys + Startup + Winlogon)",
                     "",
+                    // === MINIDUMP (новое) ===
+                    "  ★ MiniDump — выбрать процесс и создать дамп (dbghelp.dll)",
+                    "  ★ MiniDump — создать дампы для всех процессов",
+                    "",
                     // === ЯЗЫК / УТИЛИТЫ ===
                     "  🌐 Сменить язык интерфейса (RU / EN / 中文 / DE / FR / ES / JA / KO / PT)",
                     "  Открыть папку с логами",
@@ -538,11 +542,15 @@ Windows System Recovery Tool v2.5 — справка
                 case 68: HostsFileManager.RestoreDefaultHosts();   break;
                 case 69: StartupManager.ListAll();                 break;
 
+                // === MINIDUMP (новое в v2.6.1) ===
+                case 70: MiniDumpManager.CreateDumpInteractive();  break;
+                case 71: MiniDumpManager.DumpAllProcesses();       break;
+
                 // === ЯЗЫК / УТИЛИТЫ ===
-                case 70: SwitchLanguage();                                 break;
-                case 71: OpenLogsFolder();                                 break;
-                case 72: RebootSystem();                                   break;
-                case 73: return; // Exit
+                case 72: SwitchLanguage();                         break;
+                case 73: OpenLogsFolder();                         break;
+                case 74: RebootSystem();                           break;
+                case 75: return; // Exit
             }
         }
 

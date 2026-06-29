@@ -2,8 +2,11 @@
 
 <div align="center">
 
-🌐 **Available languages / Доступные языки / 可用语言:**
-[🇷🇺 Русский](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 简体中文](README.zh.md)
+🌐 **Доступные языки / Available languages / 可用语言 / Unterstützte Sprachen / Langues disponibles / Idiomas disponibles / 利用可能な言語 / 사용 가능한 언어 / Idiomas disponíveis:**
+
+[🇷🇺 Русский](README.md) · [🇬🇧 English](README.en.md) · [🇨🇳 简体中文](README.zh.md) · [🇩🇪 Deutsch](README.de.md) · [🇫🇷 Français](README.fr.md) · [🇪🇸 Español](README.es.md) · [🇯🇵 日本語](README.ja.md) · [🇰🇷 한국어](README.ko.md) · [🇵🇹 Português](README.pt.md)
+
+🌐 **Документация с автоопределением языка**: https://ludonist.github.io/Windows-System-Recovery-Tool/
 
 ---
 
@@ -13,7 +16,7 @@
 ![.NET](https://img.shields.io/badge/.NET-6.0-purple)
 ![Version](https://img.shields.io/badge/version-2.5.1-brightgreen)
 ![Language](https://img.shields.io/badge/lang-C%23%2010-success)
-![Languages](https://img.shields.io/badge/UI%20languages-RU%20%7C%20EN%20%7C%20中文-red)
+![Languages](https://img.shields.io/badge/UI%20languages-9-red)
 
 **Профессиональный инструмент восстановления системных файлов Windows 10/11 через прямые вызовы Win32 API**
 
@@ -112,21 +115,30 @@
 
 ## 📸 Скриншоты
 
-### Главное меню (Русский)
+### Главное меню (9 языков)
 
-![Main Menu RU](docs/screenshots/01-main-menu-ru.png)
-
-### Main Menu (English)
-
-![Main Menu EN](docs/screenshots/02-main-menu-en.png)
-
-### 主菜单 (简体中文)
-
-![Main Menu ZH](docs/screenshots/03-main-menu-zh.png)
-
-### Проверка целостности системных файлов
-
-![Integrity Check](docs/screenshots/04-integrity-check.png)
+<table>
+<tr>
+<td><img src="docs/screenshots/01-main-menu-ru.png" alt="RU" width="400"><br>🇷🇺 Русский</td>
+<td><img src="docs/screenshots/02-main-menu-en.png" alt="EN" width="400"><br>🇬🇧 English</td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/03-main-menu-zh.png" alt="ZH" width="400"><br>🇨🇳 简体中文</td>
+<td><img src="docs/screenshots/06-main-menu-de.png" alt="DE" width="400"><br>🇩🇪 Deutsch</td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/06-main-menu-fr.png" alt="FR" width="400"><br>🇫🇷 Français</td>
+<td><img src="docs/screenshots/06-main-menu-es.png" alt="ES" width="400"><br>🇪🇸 Español</td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/06-main-menu-ja.png" alt="JA" width="400"><br>🇯🇵 日本語</td>
+<td><img src="docs/screenshots/06-main-menu-ko.png" alt="KO" width="400"><br>🇰🇷 한국어</td>
+</tr>
+<tr>
+<td><img src="docs/screenshots/06-main-menu-pt.png" alt="PT" width="400"><br>🇵🇹 Português</td>
+<td><img src="docs/screenshots/04-integrity-check.png" alt="Check" width="400"><br>🔍 Проверка целостности</td>
+</tr>
+</table>
 
 ### Смена языка интерфейса
 
